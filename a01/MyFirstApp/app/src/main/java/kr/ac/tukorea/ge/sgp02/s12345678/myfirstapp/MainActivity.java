@@ -17,19 +17,20 @@ public class MainActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.pushMeButton);
         btn.setOnClickListener(pushMeButtonListener);
         btn = findViewById(R.id.helloButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView tv = findViewById(R.id.snumTextView);
-                tv.setText("Hello");
-            }
-        });
+        btn.setOnClickListener(helloButtonListener);
     }
     View.OnClickListener pushMeButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             TextView tv = findViewById(R.id.snumTextView);
             tv.setText("PushMe");
+        }
+    };
+    View.OnClickListener helloButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView tv = findViewById(R.id.snumTextView);
+            tv.setText("Hello");
         }
     };
 }
