@@ -15,13 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btn = findViewById(R.id.pushMeButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView tv = findViewById(R.id.snumTextView);
-                tv.setText("PushMe");
-            }
-        });
+        btn.setOnClickListener(pushMeButtonListener);
         btn = findViewById(R.id.helloButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,4 +25,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    View.OnClickListener pushMeButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView tv = findViewById(R.id.snumTextView);
+            tv.setText("PushMe");
+        }
+    };
 }
