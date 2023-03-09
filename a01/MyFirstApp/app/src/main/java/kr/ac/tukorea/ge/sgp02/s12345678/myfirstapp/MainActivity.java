@@ -22,5 +22,13 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText("PushMe");
             }
         });
+        btn = findViewById(R.id.helloButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView tv = findViewById(R.id.snumTextView);
+                tv.setText("Hello");
+            }
+        });
     }
 }
