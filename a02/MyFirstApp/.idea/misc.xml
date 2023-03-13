@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/scgyong/2023/spgp/spgp_2023/a02/MyFirstApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.12" />
+        <entry key="..\:/scgyong/2023/spgp/spgp_2023/a02/MyFirstApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12" />
         <entry key="..\:/scgyong/2023/spgp/spgp_2023/a02/MyFirstApp/app/src/main/res/layout/activity_main.xml" value="0.30572916666666666" />
+        <entry key="..\:/scgyong/2023/spgp/spgp_2023/a02/MyFirstApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.12" />
       </map>
     </option>
   </component>
