@@ -32,16 +32,17 @@ public class MainActivity extends AppCompatActivity {
         setPage(page + 1);
     }
 
+    private int[] resIds = new int[] {
+            R.mipmap.cat_1,
+            R.mipmap.cat_2,
+            R.mipmap.cat_3,
+            R.mipmap.cat_4,
+            R.mipmap.cat_5,
+    };
+
     private void setPage(int page) {
         if (page < 1 || page > 5) return;
 
-        int[] resIds = new int[] {
-                R.mipmap.cat_1,
-                R.mipmap.cat_2,
-                R.mipmap.cat_3,
-                R.mipmap.cat_4,
-                R.mipmap.cat_5,
-        };
         int resId = resIds[page - 1];
         ImageView mainImageView = findViewById(R.id.mainImageView);
         mainImageView.setImageResource(resId);
