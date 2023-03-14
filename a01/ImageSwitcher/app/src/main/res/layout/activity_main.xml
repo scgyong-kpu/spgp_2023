@@ -16,8 +16,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/prev"
-            android:background="null"
+            android:src="@drawable/prev_button"
+            android:background="@null"
             android:onClick="onBtnPrev"
             />
         <TextView
@@ -34,8 +34,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/next"
-            android:background="null"
+            android:src="@drawable/next_button"
+            android:background="@null"
             android:onClick="onBtnNext"
             />
     </LinearLayout>

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/scgyong/2023/spgp/spgp_2023/a01/ImageSwitcher/app/src/main/res/drawable/next_button.xml" value="0.13" />
+        <entry key="..\:/scgyong/2023/spgp/spgp_2023/a01/ImageSwitcher/app/src/main/res/drawable/prev_button.xml" value="0.13" />
         <entry key="..\:/scgyong/2023/spgp/spgp_2023/a01/ImageSwitcher/app/src/main/res/layout/activity_main.xml" value="0.3203125" />
       </map>
     </option>
