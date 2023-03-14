@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void setPage(int page) {
-        if (page < 1 || page > 5) return;
+        if (page < 1 || page > IMG_RES_IDS.length) return;
         int resId = IMG_RES_IDS[page - 1];
 
         mainImageView.setImageResource(resId);
-        pageTextView.setText(page + " / 5");
+        pageTextView.setText(page + " / " + IMG_RES_IDS.length);
 
         this.page = page;
     }
