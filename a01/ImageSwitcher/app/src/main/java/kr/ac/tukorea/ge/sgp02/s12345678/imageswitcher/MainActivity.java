@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private int page;
     private ImageView mainImageView;
     private TextView pageTextView;
-    private Button prevButton, nextButton;
+    private ImageButton prevButton, nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
