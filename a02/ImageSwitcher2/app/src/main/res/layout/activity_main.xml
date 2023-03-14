@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         >
         <Button
+            android:id="@+id/prevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prev"
@@ -28,6 +29,7 @@
             android:textSize="24sp"
             />
         <Button
+            android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
