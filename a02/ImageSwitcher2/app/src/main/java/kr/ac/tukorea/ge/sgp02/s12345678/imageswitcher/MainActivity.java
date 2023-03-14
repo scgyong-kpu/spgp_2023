@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setPage(page + 1);
     }
 
-    private int[] resIds = new int[] {
+    private static final int[] IMG_RES_IDS = new int[] {
         R.mipmap.cat_1,
         R.mipmap.cat_2,
         R.mipmap.cat_3,
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setPage(int page) {
         if (page < 1 || page > 5) return;
-        int resId = resIds[page - 1];
+        int resId = IMG_RES_IDS[page - 1];
         ImageView iv = findViewById(R.id.mainImageView);
         iv.setImageResource(resId);
         TextView tv = findViewById(R.id.pageTextView);
