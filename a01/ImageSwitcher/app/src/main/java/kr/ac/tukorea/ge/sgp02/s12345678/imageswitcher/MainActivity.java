@@ -13,11 +13,16 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private int page;
+    private ImageView mainImageView;
+    private TextView pageTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainImageView = findViewById(R.id.mainImageView);
+        pageTextView = findViewById(R.id.pageTextView);
 
         setPage(1);
     }
@@ -44,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
         if (page < 1 || page > IMG_RES_IDS.length) return;
 
         int resId = IMG_RES_IDS[page - 1];
-        ImageView mainImageView = findViewById(R.id.mainImageView);
         mainImageView.setImageResource(resId);
-        TextView pageTextView = findViewById(R.id.pageTextView);
         pageTextView.setText(page + " / " + IMG_RES_IDS.length);
 
         this.page = page;
