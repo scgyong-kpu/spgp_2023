@@ -10,6 +10,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    private int page;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +20,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnPrev(View view) {
         Log.d(TAG, "Prev pressed");
+        setPage(page - 1);
     }
 
     public void onBtnNext(View view) {
         Log.d(TAG, "Next pressed");
+        setPage(page + 1);
+    }
+
+    private void setPage(int page) {
+        if (page < 1 || page > 5) return;
+        int[] resIds = new int[] {
+            R.mipmap.cat_1,
+            R.mipmap.cat_2,
+            R.mipmap.cat_3,
+            R.mipmap.cat_4,
+            R.mipmap.cat_5,
+        };
+        int resId = resIds[page - 1];
         ImageView iv = findViewById(R.id.mainImageView);
-        iv.setImageResource(R.mipmap.cat_2);
+        iv.setImageResource(resId);
+        this.page = page;
     }
 }
