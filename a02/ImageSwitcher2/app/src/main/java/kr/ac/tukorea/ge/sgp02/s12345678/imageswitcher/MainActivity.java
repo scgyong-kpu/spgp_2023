@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private ImageView mainImageView;
+    private TextView pageTextView;
 
     private int page;
 
@@ -16,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mainImageView = findViewById(R.id.mainImageView);
+        pageTextView = findViewById(R.id.pageTextView);
     }
 
     public void onBtnPrev(View view) {
@@ -39,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private void setPage(int page) {
         if (page < 1 || page > 5) return;
         int resId = IMG_RES_IDS[page - 1];
-        ImageView iv = findViewById(R.id.mainImageView);
-        iv.setImageResource(resId);
-        TextView tv = findViewById(R.id.pageTextView);
-        tv.SetText(page + " / 5");
+
+        mainImageView.setImageResource(resId);
+        pageTextView.setText(page + " / 5");
+
         this.page = page;
     }
 }
