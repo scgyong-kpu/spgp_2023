@@ -33,6 +33,7 @@
     </LinearLayout>
 
     <ImageView
+        android:src="@mipmap/cat_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
