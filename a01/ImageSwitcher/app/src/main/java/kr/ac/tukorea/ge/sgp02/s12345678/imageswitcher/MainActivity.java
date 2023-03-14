@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private int page;
     private ImageView mainImageView;
     private TextView pageTextView;
+    private Button prevButton, nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         mainImageView = findViewById(R.id.mainImageView);
         pageTextView = findViewById(R.id.pageTextView);
+        prevButton = findViewById(R.id.prevButton);
+        nextButton = findViewById(R.id.nextButton);
 
         setPage(1);
     }
@@ -52,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         int resId = IMG_RES_IDS[page - 1];
         mainImageView.setImageResource(resId);
         pageTextView.setText(page + " / " + IMG_RES_IDS.length);
+
+        prevButton.setEnabled(page > 1);
+        nextButton.setEnabled(page < IMG_RES_IDS.length);
 
         this.page = page;
     }
