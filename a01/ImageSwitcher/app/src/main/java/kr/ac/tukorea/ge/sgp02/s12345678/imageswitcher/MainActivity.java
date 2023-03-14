@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,5 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnNext(View view) {
         Log.d(TAG, "Next button clicked!!");
+        ImageView mainImageView = findViewById(R.id.mainImageView);
+        mainImageView.setImageResource(R.mipmap.cat_2);
     }
 }
