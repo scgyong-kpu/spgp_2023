@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         int resId = resIds[page - 1];
         ImageView iv = findViewById(R.id.mainImageView);
         iv.setImageResource(resId);
+        TextView tv = findViewById(R.id.pageTextView);
+        tv.SetText(page + " / 5");
         this.page = page;
     }
 }
