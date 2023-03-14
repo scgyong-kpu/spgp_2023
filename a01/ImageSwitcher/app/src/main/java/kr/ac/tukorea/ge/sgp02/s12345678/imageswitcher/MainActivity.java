@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.cat_3,
             R.mipmap.cat_4,
             R.mipmap.cat_5,
+            R.mipmap.cat_6,
     };
 
     private void setPage(int page) {
