@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prev"
+            android:onClick="onBtnPrev"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
+            android:onClick="onBtnNext"
             />
     </LinearLayout>
 
