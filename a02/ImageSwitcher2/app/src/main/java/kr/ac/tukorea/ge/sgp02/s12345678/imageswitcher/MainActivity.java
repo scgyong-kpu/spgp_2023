@@ -22,5 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnNext(View view) {
         Log.d(TAG, "Next pressed");
+        ImageView iv = findViewById(R.id.mainImageView);
+        iv.setImageResource(R.mipmap.cat_2);
     }
 }
