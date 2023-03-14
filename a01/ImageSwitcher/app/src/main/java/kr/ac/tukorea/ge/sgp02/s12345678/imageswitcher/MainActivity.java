@@ -8,6 +8,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnPrev(View view) {
-        Log.d("MainActivity", "Prev button clicked!!");
+        Log.d(TAG, "Prev button clicked!!");
     }
 
     public void onBtnNext(View view) {
-        Log.d("MainActivity", "Next button clicked!!");
+        Log.d(TAG, "Next button clicked!!");
     }
 }
