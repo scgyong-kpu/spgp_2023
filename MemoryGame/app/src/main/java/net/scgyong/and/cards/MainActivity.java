@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.card_5s,R.mipmap.card_jc,R.mipmap.card_qh,R.mipmap.card_kd,
     };
     private ImageButton previousButton;
+    private TextView scoreTextView;
+    private int flips = 0;
 
     private static int getIndexWithId(int id) {
         Integer index = idMap.get(id);
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        scoreTextView = findViewById(R.id.scoreTextView);
 
         for (int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
@@ -80,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
                 previousButton.setImageResource(R.mipmap.card_blue_back);
             }
         }
+        setFlips(flips + 1);
         previousButton = btn;
+    }
+
+    private void setFlips(int flips) {
+        this.flips = flips;
+        scoreTextView.setText("Flips: " + flips);
     }
 }
