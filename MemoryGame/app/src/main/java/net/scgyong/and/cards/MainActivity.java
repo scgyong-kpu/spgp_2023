@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
             idMap.put(BUTTON_IDS[i], i);
         }
     }
+
+    private ImageButton previousButton;
+
     private static int getIndexWithId(int id) {
         Integer index = idMap.get(id);
         if (index == null) {
@@ -48,5 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton btn = (ImageButton) view;
         btn.setImageResource(R.mipmap.card_blue_back);
+
+        if (previousButton != null) {
+            // 다음 코드처름 ace spade 가 아닌, 원래 그 카드로 돌려놓아야 한다
+            // 어떻게 해야 할까?
+            previousButton.setImageResource(R.mipmap.card_as);
+        }
+        previousButton = btn;
     }
 }
