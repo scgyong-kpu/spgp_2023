@@ -118,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFlips(int flips) {
         this.flips = flips;
-        scoreTextView.setText("Flips: " + flips);
+        String text = getString(R.string.score_flips_fmt, flips);
+        scoreTextView.setText(text);
     }
 
     public void onBtnRestart(View view) {
@@ -126,16 +127,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void askRetry() {
-        new AlertDialog.Builder(this).setTitle("Restart")
-                .setMessage("Do you really want to restart the game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(this).setTitle(R.string.restart_dlg_title)
+                .setMessage(R.string.restart_dlg_msg)
+                .setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d(TAG, "Restart Here");
                         startGame();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.common_no, null)
                 .create()
                 .show();
     }
