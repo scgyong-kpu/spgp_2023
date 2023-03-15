@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 
@@ -40,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCard(View view) {
         // TAG 생성과정을 보여 줄 것. TAG 와 , 사이에서 Alt+Enter 를 눌러야 한다
-        Log.d(TAG, "Card ID = " + view.getId());
+//        Log.d(TAG, "Card ID = " + view.getId());
 
         int cardIndex = getIndexWithId(view.getId());
         Log.i(TAG, "Card Index = " + cardIndex);
+
+        ImageButton btn = (ImageButton) view;
+        btn.setImageResource(R.mipmap.card_blue_back);
     }
 }
