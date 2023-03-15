@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton previousButton;
     private TextView scoreTextView;
     private int flips = 0;
+    private int openCardCount = 0;
 
     private static int getIndexWithId(int id) {
         Integer index = idMap.get(id);
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         scoreTextView = findViewById(R.id.scoreTextView);
 
+        openCardCount = BUTTON_IDS.length;
         for (int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             btn.setTag(resIds[i]);
@@ -81,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 btn.setVisibility(View.INVISIBLE);
                 previousButton.setVisibility(View.INVISIBLE);
                 previousButton = null;
+                openCardCount -= 2;
+                if (openCardCount == 0) {
+                    askRetry();
+                }
                 return;
             } else {
                 // 이전의 카드는 뒷면이 보이도록 되돌려둔다
