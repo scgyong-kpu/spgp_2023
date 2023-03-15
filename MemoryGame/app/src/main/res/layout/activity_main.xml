@@ -23,6 +23,11 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/card_3d"
             />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/card_4h"
+            />
     </LinearLayout>
 
     <LinearLayout
