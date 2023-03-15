@@ -54,10 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
         scoreTextView = findViewById(R.id.scoreTextView);
 
+        startGame();
+    }
+
+    private void startGame() {
+        setFlips(0); // 이것도 잊지말고 하자.
         openCardCount = BUTTON_IDS.length;
         for (int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             btn.setTag(resIds[i]);
+            btn.setVisibility(View.VISIBLE);
+            btn.setImageResource(R.mipmap.card_blue_back);
         }
     }
 
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d(TAG, "Restart Here");
+                        startGame();
                     }
                 })
                 .setNegativeButton("No", null)
