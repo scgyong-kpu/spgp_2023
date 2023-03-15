@@ -22,6 +22,9 @@
         <ImageButton
             android:src="@mipmap/card_4h"
             style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_5s"
+            style="@style/card_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -30,6 +33,55 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         >
-
+        <ImageButton
+            android:src="@mipmap/card_as"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_jc"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_qh"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_kd"
+            style="@style/card_button" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:src="@mipmap/card_2c"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_3d"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_4h"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_5s"
+            style="@style/card_button" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:src="@mipmap/card_as"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_jc"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_qh"
+            style="@style/card_button" />
+        <ImageButton
+            android:src="@mipmap/card_kd"
+            style="@style/card_button" />
     </LinearLayout>
 </LinearLayout>
