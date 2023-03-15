@@ -25,7 +25,12 @@ public class MainActivity extends AppCompatActivity {
             idMap.put(BUTTON_IDS[i], i);
         }
     }
-
+    private int[] resIds = new int[] {
+            R.mipmap.card_as,R.mipmap.card_2c,R.mipmap.card_3d,R.mipmap.card_4h,
+            R.mipmap.card_5s,R.mipmap.card_jc,R.mipmap.card_qh,R.mipmap.card_kd,
+            R.mipmap.card_as,R.mipmap.card_2c,R.mipmap.card_3d,R.mipmap.card_4h,
+            R.mipmap.card_5s,R.mipmap.card_jc,R.mipmap.card_qh,R.mipmap.card_kd,
+    };
     private ImageButton previousButton;
 
     private static int getIndexWithId(int id) {
@@ -40,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        for (int i = 0; i < BUTTON_IDS.length; i++) {
+            ImageButton btn = findViewById(BUTTON_IDS[i]);
+            btn.setTag(resIds[i]);
+        }
     }
 
     public void onBtnCard(View view) {
@@ -53,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
         btn.setImageResource(R.mipmap.card_blue_back);
 
         if (previousButton != null) {
-            // 다음 코드처름 ace spade 가 아닌, 원래 그 카드로 돌려놓아야 한다
-            // 어떻게 해야 할까?
-            previousButton.setImageResource(R.mipmap.card_as);
+            // 원래 그 카드로 돌려놓아야 한다
+            int resId = (Integer)previousButton.getTag();
+            previousButton.setImageResource(resId);
         }
         previousButton = btn;
     }
