@@ -101,18 +101,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void askRetry() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Restart");
-        builder.setMessage("Do you really want to restart the game?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Log.d(TAG, "Restart Here");
-            }
-        });
-        builder.setNegativeButton("No", null);
-
-        AlertDialog dlg = builder.create();
-        dlg.show();
+        new AlertDialog.Builder(this).setTitle("Restart")
+                .setMessage("Do you really want to restart the game?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d(TAG, "Restart Here");
+                    }
+                })
+                .setNegativeButton("No", null)
+                .create()
+                .show();
     }
 }
