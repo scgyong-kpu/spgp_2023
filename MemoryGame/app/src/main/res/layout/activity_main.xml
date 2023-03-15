@@ -14,15 +14,19 @@
         android:orientation="horizontal"
         >
         <ImageButton
+            android:id="@+id/card_00"
             android:src="@mipmap/card_2c"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_01"
             android:src="@mipmap/card_3d"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_02"
             android:src="@mipmap/card_4h"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_03"
             android:src="@mipmap/card_5s"
             style="@style/card_button" />
     </LinearLayout>
@@ -34,15 +38,19 @@
         android:orientation="horizontal"
         >
         <ImageButton
+            android:id="@+id/card_10"
             android:src="@mipmap/card_as"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_11"
             android:src="@mipmap/card_jc"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_12"
             android:src="@mipmap/card_qh"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_13"
             android:src="@mipmap/card_kd"
             style="@style/card_button" />
     </LinearLayout>
@@ -53,15 +61,19 @@
         android:orientation="horizontal"
         >
         <ImageButton
+            android:id="@+id/card_20"
             android:src="@mipmap/card_2c"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_21"
             android:src="@mipmap/card_3d"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_22"
             android:src="@mipmap/card_4h"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_23"
             android:src="@mipmap/card_5s"
             style="@style/card_button" />
     </LinearLayout>
@@ -72,15 +84,19 @@
         android:orientation="horizontal"
         >
         <ImageButton
+            android:id="@+id/card_30"
             android:src="@mipmap/card_as"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_31"
             android:src="@mipmap/card_jc"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_32"
             android:src="@mipmap/card_qh"
             style="@style/card_button" />
         <ImageButton
+            android:id="@+id/card_33"
             android:src="@mipmap/card_kd"
             style="@style/card_button" />
     </LinearLayout>
