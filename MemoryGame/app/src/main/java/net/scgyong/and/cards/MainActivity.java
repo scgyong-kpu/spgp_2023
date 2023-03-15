@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton btn = (ImageButton) view;
         if (btn == previousButton) {
-            // 같은 카드가 눌리면 무시한다
+            // 같은 카드가 눌리면 무시만 하지 말고 Toast 를 보여준다
+            Toast.makeText(this, "Same Card", Toast.LENGTH_SHORT).show();
             return;
         }
 
