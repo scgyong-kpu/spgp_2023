@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn = (ImageButton) view;
         if (btn == previousButton) {
             // 같은 카드가 눌리면 무시만 하지 말고 Toast 를 보여준다
-            Toast.makeText(this, "Same Card", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.same_card_toast, Toast.LENGTH_SHORT).show();
             return;
         }
 

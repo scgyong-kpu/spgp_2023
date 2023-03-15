@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cards</string>
+    <string name="same_card_toast">Same Card</string>
 </resources>
