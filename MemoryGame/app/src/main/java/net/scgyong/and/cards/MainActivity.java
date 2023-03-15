@@ -68,8 +68,17 @@ public class MainActivity extends AppCompatActivity {
         int resId = (Integer)btn.getTag(); // 이미지 리소스 아이디가 Tag 로 매달려 있다
         btn.setImageResource(resId);
 
-        if (previousButton != null) { // 이전의 카드는 뒷면이 보이도록 되돌려둔다
-            previousButton.setImageResource(R.mipmap.card_blue_back);
+        if (previousButton != null) {
+            int prevResId = (Integer)previousButton.getTag(); // 이전 카드의 tag 를 살펴본다
+            if (resId == prevResId) {
+                btn.setVisibility(View.INVISIBLE);
+                previousButton.setVisibility(View.INVISIBLE);
+                previousButton = null;
+                return;
+            } else {
+                // 이전의 카드는 뒷면이 보이도록 되돌려둔다
+                previousButton.setImageResource(R.mipmap.card_blue_back);
+            }
         }
         previousButton = btn;
     }
