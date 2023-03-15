@@ -20,12 +20,12 @@
             android:paddingLeft="10dp"
             android:text="Flips: 0"
             />
-<!--        <Button-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Restart"-->
-<!--            android:onClick="onBtnRestart"-->
-<!--            />-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:onClick="onBtnRestart"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

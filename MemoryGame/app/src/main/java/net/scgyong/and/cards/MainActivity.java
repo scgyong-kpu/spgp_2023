@@ -2,6 +2,8 @@ package net.scgyong.and.cards;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -92,5 +94,25 @@ public class MainActivity extends AppCompatActivity {
     private void setFlips(int flips) {
         this.flips = flips;
         scoreTextView.setText("Flips: " + flips);
+    }
+
+    public void onBtnRestart(View view) {
+        askRetry();
+    }
+
+    private void askRetry() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Restart");
+        builder.setMessage("Do you really want to restart the game?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d(TAG, "Restart Here");
+            }
+        });
+        builder.setNegativeButton("No", null);
+
+        AlertDialog dlg = builder.create();
+        dlg.show();
     }
 }
