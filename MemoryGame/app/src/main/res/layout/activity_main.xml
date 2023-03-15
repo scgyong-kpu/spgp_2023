@@ -19,6 +19,7 @@
             android:src="@mipmap/card_2c"
             android:layout_weight="1"
             android:scaleType="fitCenter"
+            android:background="@null"
             />
         <ImageButton
             android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
             android:src="@mipmap/card_3d"
             android:layout_weight="1"
             android:scaleType="fitCenter"
+            android:background="@null"
             />
         <ImageButton
             android:layout_width="wrap_content"
@@ -33,6 +35,7 @@
             android:src="@mipmap/card_4h"
             android:layout_weight="1"
             android:scaleType="fitCenter"
+            android:background="@null"
             />
     </LinearLayout>
 
