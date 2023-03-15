@@ -60,12 +60,16 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "Card Index = " + cardIndex);
 
         ImageButton btn = (ImageButton) view;
-        btn.setImageResource(R.mipmap.card_blue_back);
+        if (btn == previousButton) {
+            // 같은 카드가 눌리면 무시한다
+            return;
+        }
 
-        if (previousButton != null) {
-            // 원래 그 카드로 돌려놓아야 한다
-            int resId = (Integer)previousButton.getTag();
-            previousButton.setImageResource(resId);
+        int resId = (Integer)btn.getTag(); // 이미지 리소스 아이디가 Tag 로 매달려 있다
+        btn.setImageResource(resId);
+
+        if (previousButton != null) { // 이전의 카드는 뒷면이 보이도록 되돌려둔다
+            previousButton.setImageResource(R.mipmap.card_blue_back);
         }
         previousButton = btn;
     }
