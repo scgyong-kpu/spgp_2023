@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CheckBox goodProgrammerCheckbox;
     private TextView outputTextView;
+    private TextView reactionTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +23,17 @@ public class MainActivity extends AppCompatActivity {
 
         goodProgrammerCheckbox = findViewById(R.id.goodProgrammerCheckbox);
         outputTextView = findViewById(R.id.outputTextView);
+        reactionTextView = findViewById(R.id.reactionTextView);
     }
 
     public void onBtnDoIt(View view) {
         Log.d(TAG, "Do It");
         int strResId = goodProgrammerCheckbox.isChecked() ? R.string.pay_for_good : R.string.pay_for_not_good;
         outputTextView.setText(strResId);
+    }
+
+    public void onCheckboxGoodProgrammer(View view) {
+        String emoji = goodProgrammerCheckbox.isChecked() ? "🤩" : "😮‍💨";
+        reactionTextView.setText(emoji);
     }
 }
