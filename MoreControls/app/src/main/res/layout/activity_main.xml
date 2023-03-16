@@ -11,7 +11,7 @@
         android:id="@+id/outputTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Output Text"
+        android:text="@string/initial_output_text"
         android:textSize="20sp"
         android:padding="8dp"
         />
@@ -19,7 +19,7 @@
         android:id="@+id/goodProgrammerCheckbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check here if you're a good programmer"
+        android:text="@string/good_programmer_checkbox_text"
         />
 
 </LinearLayout>
