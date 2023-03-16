@@ -30,6 +30,13 @@
         android:text="@string/good_programmer_checkbox_text"
         android:onClick="onCheckboxGoodProgrammer"
         />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name here"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
