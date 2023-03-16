@@ -21,5 +21,12 @@
         android:layout_height="wrap_content"
         android:text="@string/good_programmer_checkbox_text"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/do_it_button_text"
+        android:layout_marginHorizontal="8dp"
+        android:onClick="onBtnDoIt"
+        />
 
 </LinearLayout>
