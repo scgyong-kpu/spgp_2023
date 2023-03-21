@@ -9,12 +9,14 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
  * TODO: document your custom view class.
  */
 public class GameView extends View {
+    private static final String TAG = GameView.class.getSimpleName();
     private Paint paint;
     private Rect rect;
 
@@ -50,6 +52,12 @@ public class GameView extends View {
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
         rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.d(TAG, "onSizeChanged: " + w + "," + h);
     }
 
     @Override
