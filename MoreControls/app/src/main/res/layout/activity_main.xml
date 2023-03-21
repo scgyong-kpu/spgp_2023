@@ -55,10 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:exampleString="Kakaka"
-        app:exampleColor="@color/cardview_dark_background"
-        app:exampleDimension="30sp"
-        app:exampleDrawable="@android:drawable/ic_menu_share"
         />
 
 </LinearLayout>
