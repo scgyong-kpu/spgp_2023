@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MoreControls</string>
+    <string name="initial_output_text">Output Text</string>
+    <string name="good_programmer_checkbox_text">Check here if you\'re a good programmer</string>
+    <string name="do_it_button_text">Do It !!</string>
+    <string name="pay_for_good_fmt">%s, I\'ll pay you 100,000,000 won a year</string>
+    <string name="pay_for_not_good_fmt">Good bye %s. Never see you again.</string>
+    <string name="immediate_switch_text">Apply Immediately</string>
+</resources>
