@@ -16,6 +16,7 @@ import android.view.View;
  */
 public class GameView extends View {
     private Paint paint;
+    private Rect rect;
 
     public GameView(Context context) {
         super(context);
@@ -40,14 +41,6 @@ public class GameView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
 
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
         int paddingRight = getPaddingRight();
@@ -56,7 +49,15 @@ public class GameView extends View {
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
-        Rect rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
+        rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        // TODO: consider storing these as member variables to reduce
+        // allocations per draw cycle.
         canvas.drawRect(rect, paint);
     }
 }
