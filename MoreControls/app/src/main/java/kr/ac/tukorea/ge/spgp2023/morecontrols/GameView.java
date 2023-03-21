@@ -15,7 +15,7 @@ import android.view.View;
  */
 public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
-    private Paint paint;
+    private Paint paint, facePaint;
     private Rect rect;
     private RectF ovalRect;
 
@@ -41,6 +41,9 @@ public class GameView extends View {
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
+
+        facePaint = new Paint();
+        facePaint.setColor(Color.YELLOW);
     }
 
     private void calcSize() {
@@ -74,6 +77,6 @@ public class GameView extends View {
     }
 
     private void drawSmiley(Canvas canvas) {
-        canvas.drawOval(ovalRect, paint);
+        canvas.drawOval(ovalRect, facePaint);
     }
 }
