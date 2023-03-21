@@ -15,6 +15,8 @@ import android.view.View;
  * TODO: document your custom view class.
  */
 public class GameView extends View {
+    private Paint paint;
+
     public GameView(Context context) {
         super(context);
         init(null, 0);
@@ -49,7 +51,7 @@ public class GameView extends View {
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
-        Paint paint = new Paint();
+        paint = new Paint();
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
