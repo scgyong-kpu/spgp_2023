@@ -5,4 +5,5 @@
     <string name="do_it_button_text">Do It !!</string>
     <string name="pay_for_good_fmt">%s, I\'ll pay you 100,000,000 won a year</string>
     <string name="pay_for_not_good_fmt">Good bye %s. Never see you again.</string>
+    <string name="immediate_switch_text">Apply Immediately</string>
 </resources>
