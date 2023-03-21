@@ -35,6 +35,11 @@ public class GameView extends View {
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
 
+        paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(5);
+
     }
 
     @Override
@@ -50,11 +55,6 @@ public class GameView extends View {
 
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
-
-        paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
 
         Rect rect = new Rect(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
         canvas.drawRect(rect, paint);
