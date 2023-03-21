@@ -29,25 +29,26 @@ public class MainActivity extends AppCompatActivity {
         outputTextView = findViewById(R.id.outputTextView);
         reactionTextView = findViewById(R.id.reactionTextView);
         nameEditText = findViewById(R.id.nameEditText);
-        nameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.v(TAG, "beforeTextChanged(i=" + i + ",i1=" + i1 + ",i2=" + "i2");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.v(TAG, "onTextChanged(seq=" + charSequence + ",i=" + i + ",i1=" + i1 + ",i2=" + "i2");
-                outputTextView.setText("You entered " + charSequence.length() + " chars");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.v(TAG, "afterTextChanged(" + editable.toString() + ")");
-
-            }
-        });
+        nameEditText.addTextChangedListener(textWatcher);
     }
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            Log.v(TAG, "beforeTextChanged(i=" + i + ",i1=" + i1 + ",i2=" + "i2");
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            Log.v(TAG, "onTextChanged(seq=" + charSequence + ",i=" + i + ",i1=" + i1 + ",i2=" + "i2");
+            outputTextView.setText("You entered " + charSequence.length() + " chars");
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            Log.v(TAG, "afterTextChanged(" + editable.toString() + ")");
+
+        }
+    };
 
     public void onBtnDoIt(View view) {
         Log.d(TAG, "Do It");
