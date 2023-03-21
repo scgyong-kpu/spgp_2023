@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView outputTextView;
     private TextView reactionTextView;
     private EditText nameEditText;
+    private Switch immediateSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         reactionTextView = findViewById(R.id.reactionTextView);
         nameEditText = findViewById(R.id.nameEditText);
         nameEditText.addTextChangedListener(textWatcher);
+        immediateSwitch = findViewById(R.id.immediateSwitch);
     }
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -41,17 +44,23 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             Log.v(TAG, "onTextChanged(seq=" + charSequence + ",i=" + i + ",i1=" + i1 + ",i2=" + "i2");
             outputTextView.setText("You entered " + charSequence.length() + " chars");
+            if (immediateSwitch.isChecked()) {
+                doIt();
+            }
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
             Log.v(TAG, "afterTextChanged(" + editable.toString() + ")");
-
         }
     };
 
     public void onBtnDoIt(View view) {
         Log.d(TAG, "Do It");
+        doIt(); // refactor - extract method
+    }
+
+    private void doIt() {
         int fmtResId = goodProgrammerCheckbox.isChecked() ? R.string.pay_for_good_fmt : R.string.pay_for_not_good_fmt;
         String name = nameEditText.getText().toString();
         if (name.trim().length() == 0) {
