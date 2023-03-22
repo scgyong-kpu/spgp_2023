@@ -80,11 +80,16 @@ public class GameView extends View {
         // allocations per draw cycle.
         canvas.drawRect(rect, paint);
         int hw = rect.width() / 2, hh = rect.height() / 2;
+
+        canvas.save();
         setCanvasRect(canvas, rect.left + hw/3, rect.top + hw/3, hw, hh);
         drawSmiley(canvas);
+        canvas.restore();
 
+        canvas.save();
         setCanvasRect(canvas, rect.left + hw, rect.top + hh, hw/2, hh/2);
         drawSmiley(canvas);
+        canvas.restore();
     }
 
     private void setCanvasRect(Canvas canvas, float left, float top, float width, float height) {
