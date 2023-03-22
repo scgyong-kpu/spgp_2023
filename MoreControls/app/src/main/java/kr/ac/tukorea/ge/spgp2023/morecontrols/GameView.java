@@ -77,15 +77,20 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        smileyDepth = 0;
         drawSmiley(canvas, rect.left, rect.top, rect.width(), rect.height());
     }
 
+    private int smileyDepth;
+
     private void drawSmiley(Canvas canvas, float left, float top, float width, float height) {
+        smileyDepth++;
+        Log.i(TAG, "smileyDepth=" + smileyDepth);
         canvas.save();
         canvas.translate(left, top);
         canvas.scale(width / 100f, height / 100f);
         canvas.drawOval(0, 0, 100, 100, facePaint);
-        if (canvas.getSaveCount() <= 3) {
+        if (smileyDepth <= 2) {
             drawSmiley(canvas, 23, 33, 14, 14);
             drawSmiley(canvas, 63, 33, 14, 14);
         }
@@ -93,6 +98,6 @@ public class GameView extends View {
         canvas.drawCircle(70, 40, 7, outlinePaint);
         canvas.drawArc(20, 20, 80, 80, 30, 120, false, outlinePaint);
         canvas.restore();
-        Log.i(TAG, "saveCount=" + canvas.getSaveCount());
+        smileyDepth--;
     }
 }
