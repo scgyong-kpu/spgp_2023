@@ -76,8 +76,12 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        drawSmiley(canvas, rect.left, rect.top, rect.width(), rect.height());
+    }
+
+    private void drawSmiley(Canvas canvas, float left, float top, float width, float height) {
         canvas.save();
-        setCanvasRect(canvas, rect.left, rect.top, rect.width(), rect.height());
+        setCanvasRect(canvas, left, top, width, height);
         drawSmiley(canvas);
         canvas.restore();
     }
