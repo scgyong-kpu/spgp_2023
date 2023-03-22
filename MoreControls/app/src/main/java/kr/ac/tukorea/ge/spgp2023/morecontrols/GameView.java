@@ -82,6 +82,9 @@ public class GameView extends View {
         int hw = rect.width() / 2, hh = rect.height() / 2;
         setCanvasRect(canvas, rect.left + hw/3, rect.top + hw/3, hw, hh);
         drawSmiley(canvas);
+
+        setCanvasRect(canvas, rect.left + hw, rect.top + hh, hw/2, hh/2);
+        drawSmiley(canvas);
     }
 
     private void setCanvasRect(Canvas canvas, float left, float top, float width, float height) {
