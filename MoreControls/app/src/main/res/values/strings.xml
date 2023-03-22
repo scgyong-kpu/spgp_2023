@@ -6,4 +6,5 @@
     <string name="pay_for_good_fmt">%s, I\'ll pay you 100,000,000 won a year</string>
     <string name="pay_for_not_good_fmt">Good bye %s. Never see you again.</string>
     <string name="immediate_switch_text">Apply Immediately</string>
+    <string name="new_activity_button_text">New Activity</string>
 </resources>

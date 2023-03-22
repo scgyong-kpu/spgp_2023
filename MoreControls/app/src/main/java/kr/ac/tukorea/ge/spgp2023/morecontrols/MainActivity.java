@@ -74,4 +74,7 @@ public class MainActivity extends AppCompatActivity {
         String emoji = goodProgrammerCheckbox.isChecked() ? "🤩" : "😮‍💨";
         reactionTextView.setText(emoji);
     }
+
+    public void onBtnNewActivity(View view) {
+    }
 }

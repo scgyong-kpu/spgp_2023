@@ -44,13 +44,25 @@
         android:layout_height="wrap_content"
         android:hint="Enter your name here"
         />
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/do_it_button_text"
-        android:layout_marginHorizontal="8dp"
-        android:onClick="onBtnDoIt"
-        />
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/do_it_button_text"
+            android:layout_marginHorizontal="8dp"
+            android:onClick="onBtnDoIt"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_activity_button_text"
+            android:layout_marginHorizontal="8dp"
+            android:onClick="onBtnNewActivity"
+            />
+    </LinearLayout>
     <kr.ac.tukorea.ge.spgp2023.morecontrols.GameView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
