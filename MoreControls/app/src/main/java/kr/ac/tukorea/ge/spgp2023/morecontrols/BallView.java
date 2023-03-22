@@ -1,12 +1,12 @@
 package kr.ac.tukorea.ge.spgp2023.morecontrols;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -14,6 +14,8 @@ import android.view.View;
  * TODO: document your custom view class.
  */
 public class BallView extends View {
+
+    private Bitmap ballBitmap;
 
     public BallView(Context context) {
         super(context);
@@ -28,6 +30,7 @@ public class BallView extends View {
     public BallView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+
     }
 
     private void init(AttributeSet attrs, int defStyle) {
@@ -35,6 +38,9 @@ public class BallView extends View {
         paint.setStrokeWidth(5);
         paint.setTextSize(100);
         paint.setColor(Color.BLUE);
+
+        Resources res = getResources();
+        ballBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
     }
 
     private Paint paint = new Paint();
@@ -55,5 +61,9 @@ public class BallView extends View {
 
         canvas.drawRect(paddingLeft, paddingTop, paddingLeft + contentWidth, paddingTop + contentHeight, paint);
         canvas.drawText("Hello, Custom View", paddingLeft + 100, paddingTop + 100, paint);
+
+        int cx = paddingLeft + contentWidth / 2;
+        int cy = paddingTop + contentHeight / 2;
+        canvas.drawBitmap(ballBitmap, cx, cy, null);
     }
 }
