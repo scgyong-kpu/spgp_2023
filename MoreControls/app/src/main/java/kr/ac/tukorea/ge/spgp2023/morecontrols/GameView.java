@@ -76,18 +76,8 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        canvas.drawRect(rect, paint);
-        int hw = rect.width() / 2, hh = rect.height() / 2;
-
         canvas.save();
-        setCanvasRect(canvas, rect.left + hw/3, rect.top + hw/3, hw, hh);
-        drawSmiley(canvas);
-        canvas.restore();
-
-        canvas.save();
-        setCanvasRect(canvas, rect.left + hw, rect.top + hh, hw/2, hh/2);
+        setCanvasRect(canvas, rect.left, rect.top, rect.width(), rect.height());
         drawSmiley(canvas);
         canvas.restore();
     }
