@@ -20,6 +20,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
 //    private Ball ball1, ball2;
     private ArrayList<Ball> balls = new ArrayList<>();
+    private Fighter fighter;
     private float scale;
 
     public GameView(Context context) {
@@ -39,6 +40,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Resources res = getResources();
         Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
         Ball.setBitmap(soccerBitmap);
+        Bitmap fighterBitmap = BitmapFactory.decodeResource(res, R.mipmap.plane_240);
+        Fighter.setBitmap(fighterBitmap);
 
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
@@ -46,6 +49,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
             float dy = r.nextFloat() * 0.05f + 0.03f;
             balls.add(new Ball(dx, dy));
         }
+
+        fighter = new Fighter();
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -63,6 +68,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (Ball ball : balls) {
             ball.update();
         }
+        //fighter.update();
     }
 
     @Override
@@ -80,5 +86,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (Ball ball : balls) {
             ball.draw(canvas);
         }
+        fighter.draw(canvas);
     }
 }
