@@ -11,6 +11,7 @@ import android.view.Choreographer;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * TODO: document your custom view class.
@@ -39,8 +40,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
         Ball.setBitmap(soccerBitmap);
 
-        balls.add(new Ball(0.04f, 0.06f));
-        balls.add(new Ball(0.075f, 0.056f));
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            float dx = r.nextFloat() * 0.05f + 0.03f;
+            float dy = r.nextFloat() * 0.05f + 0.03f;
+            balls.add(new Ball(dx, dy));
+        }
 
         Choreographer.getInstance().postFrameCallback(this);
     }
