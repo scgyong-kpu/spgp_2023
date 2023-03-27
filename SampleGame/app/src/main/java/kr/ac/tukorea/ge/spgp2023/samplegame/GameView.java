@@ -24,6 +24,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     private Bitmap soccerBitmap;
     private RectF soccerRect = new RectF();
+    private float ballDx, ballDy;
     private float scale;
 
     public GameView(Context context) {
@@ -46,6 +47,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         float cx = 5.0f, cy = 7.0f;
         float radius = 1.25f;
         soccerRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
+        ballDx = 0.04f;
+        ballDy = 0.06f;
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -60,8 +63,26 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        soccerRect.offset(0.01f, 0.01f);
-        Log.d(TAG, "soccerRect=" + soccerRect);
+        soccerRect.offset(ballDx, ballDy);
+        if (ballDx > 0) {
+            if (soccerRect.right > 10) {
+                ballDx = -ballDx;
+            }
+        } else {
+            if (soccerRect.left < 0) {
+                ballDx = -ballDx;
+            }
+        }
+        if (ballDy > 0) {
+            if (soccerRect.bottom > 15.0f) {
+                ballDy = -ballDy;
+            }
+        } else {
+            if (soccerRect.top < 0) {
+                ballDy = -ballDy;
+            }
+        }
+//        Log.d(TAG, "soccerRect=" + soccerRect);
     }
 
     @Override
