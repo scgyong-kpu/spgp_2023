@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.View;
 
 /**
@@ -38,7 +39,6 @@ public class GameView extends View {
         init(attrs, defStyle);
     }
 
-    private Handler handler;
     private void init(AttributeSet attrs, int defStyle) {
         Resources res = getResources();
         soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
@@ -47,21 +47,20 @@ public class GameView extends View {
         float radius = 1.25f;
         soccerRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
 
-        handler = new Handler();
         reserveFrame();
     }
 
     private void reserveFrame() {
-        handler.postDelayed(new Runnable() {
+        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
-            public void run() {
+            public void doFrame(long nanos) {
                 update();
                 invalidate();
                 if (isShown()) {
                     reserveFrame();
                 }
             }
-        }, 16);
+        });
     }
 
     private void update() {
