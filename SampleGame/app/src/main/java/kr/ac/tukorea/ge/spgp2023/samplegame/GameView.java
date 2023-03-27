@@ -15,11 +15,7 @@ import android.view.View;
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
-    private Bitmap soccerBitmap;
-    private RectF soccer1Rect = new RectF();
-    private RectF soccer2Rect = new RectF();
-    private float ball1Dx, ball1Dy;
-    private float ball2Dx, ball2Dy;
+    private Ball ball1, ball2;
     private float scale;
 
     public GameView(Context context) {
@@ -37,17 +33,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         Resources res = getResources();
-        soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
+        Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
+        Ball.setBitmap(soccerBitmap);
 
-        float cx = 5.0f, cy = 7.0f;
-        float radius = 1.25f;
-        soccer1Rect.set(cx - radius, cy - radius, cx + radius, cy + radius);
-        ball1Dx = 0.04f;
-        ball1Dy = 0.06f;
-
-        soccer2Rect.set(cx - radius, cy - radius, cx + radius, cy + radius);
-        ball2Dx = 0.075f;
-        ball2Dy = 0.056f;
+        ball1 = new Ball(0.04f, 0.06f);
+        ball2 = new Ball(0.075f, 0.056f);
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -62,45 +52,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        soccer1Rect.offset(ball1Dx, ball1Dy);
-        if (ball1Dx > 0) {
-            if (soccer1Rect.right > 10) {
-                ball1Dx = -ball1Dx;
-            }
-        } else {
-            if (soccer1Rect.left < 0) {
-                ball1Dx = -ball1Dx;
-            }
-        }
-        if (ball1Dy > 0) {
-            if (soccer1Rect.bottom > 15.0f) {
-                ball1Dy = -ball1Dy;
-            }
-        } else {
-            if (soccer1Rect.top < 0) {
-                ball1Dy = -ball1Dy;
-            }
-        }
-        soccer2Rect.offset(ball2Dx, ball2Dy);
-        if (ball2Dx > 0) {
-            if (soccer2Rect.right > 10) {
-                ball2Dx = -ball2Dx;
-            }
-        } else {
-            if (soccer2Rect.left < 0) {
-                ball2Dx = -ball2Dx;
-            }
-        }
-        if (ball2Dy > 0) {
-            if (soccer2Rect.bottom > 15.0f) {
-                ball2Dy = -ball2Dy;
-            }
-        } else {
-            if (soccer2Rect.top < 0) {
-                ball2Dy = -ball2Dy;
-            }
-        }
-//        Log.d(TAG, "soccerRect=" + soccerRect);
+        ball1.update();
+        ball2.update();
     }
 
     @Override
@@ -115,7 +68,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
 
         canvas.scale(scale, scale);
-        canvas.drawBitmap(soccerBitmap, null, soccer1Rect, null);
-        canvas.drawBitmap(soccerBitmap, null, soccer2Rect, null);
+        ball1.draw(canvas);
+        ball2.draw(canvas);
     }
 }
