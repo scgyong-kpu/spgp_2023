@@ -45,6 +45,24 @@ public class GameView extends View {
         float cx = 5.0f, cy = 7.0f;
         float radius = 1.25f;
         soccerRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
+        
+        reserveFrame();
+    }
+
+    private void reserveFrame() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                update();
+                invalidate();
+                reserveFrame();
+            }
+        });
+    }
+
+    private void update() {
+        soccerRect.offset(0.01f, 0.01f);
+        Log.d(TAG, "soccerRect=" + soccerRect);
     }
 
     @Override
