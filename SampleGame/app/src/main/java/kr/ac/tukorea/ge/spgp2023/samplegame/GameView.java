@@ -20,7 +20,7 @@ import android.view.View;
 /**
  * TODO: document your custom view class.
  */
-public class GameView extends View {
+public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
     private Bitmap soccerBitmap;
     private RectF soccerRect = new RectF();
@@ -51,16 +51,16 @@ public class GameView extends View {
     }
 
     private void reserveFrame() {
-        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
-            @Override
-            public void doFrame(long nanos) {
-                update();
-                invalidate();
-                if (isShown()) {
-                    reserveFrame();
-                }
-            }
-        });
+        Choreographer.getInstance().postFrameCallback(this);
+    }
+
+    @Override
+    public void doFrame(long nanos) {
+        update();
+        invalidate();
+        if (isShown()) {
+            reserveFrame();
+        }
     }
 
     private void update() {
