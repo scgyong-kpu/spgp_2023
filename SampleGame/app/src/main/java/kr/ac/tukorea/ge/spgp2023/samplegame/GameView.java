@@ -38,6 +38,7 @@ public class GameView extends View {
         init(attrs, defStyle);
     }
 
+    private Handler handler;
     private void init(AttributeSet attrs, int defStyle) {
         Resources res = getResources();
         soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
@@ -45,12 +46,13 @@ public class GameView extends View {
         float cx = 5.0f, cy = 7.0f;
         float radius = 1.25f;
         soccerRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
-        
+
+        handler = new Handler();
         reserveFrame();
     }
 
     private void reserveFrame() {
-        postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 update();
