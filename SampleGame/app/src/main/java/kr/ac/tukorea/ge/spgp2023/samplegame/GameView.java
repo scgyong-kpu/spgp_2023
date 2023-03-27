@@ -50,14 +50,14 @@ public class GameView extends View {
     }
 
     private void reserveFrame() {
-        post(new Runnable() {
+        postDelayed(new Runnable() {
             @Override
             public void run() {
                 update();
                 invalidate();
                 reserveFrame();
             }
-        });
+        }, 16);
     }
 
     private void update() {
