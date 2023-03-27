@@ -47,10 +47,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         float radius = 1.25f;
         soccerRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
 
-        reserveFrame();
-    }
-
-    private void reserveFrame() {
         Choreographer.getInstance().postFrameCallback(this);
     }
 
@@ -59,7 +55,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         update();
         invalidate();
         if (isShown()) {
-            reserveFrame();
+            Choreographer.getInstance().postFrameCallback(this);
         }
     }
 
