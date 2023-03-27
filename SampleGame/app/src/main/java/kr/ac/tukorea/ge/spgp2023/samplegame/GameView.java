@@ -10,12 +10,15 @@ import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.View;
 
+import java.util.ArrayList;
+
 /**
  * TODO: document your custom view class.
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
-    private Ball ball1, ball2;
+//    private Ball ball1, ball2;
+    private ArrayList<Ball> balls = new ArrayList<>();
     private float scale;
 
     public GameView(Context context) {
@@ -36,8 +39,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
         Ball.setBitmap(soccerBitmap);
 
-        ball1 = new Ball(0.04f, 0.06f);
-        ball2 = new Ball(0.075f, 0.056f);
+        balls.add(new Ball(0.04f, 0.06f));
+        balls.add(new Ball(0.075f, 0.056f));
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -52,8 +55,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        ball1.update();
-        ball2.update();
+        for (Ball ball : balls) {
+            ball.update();
+        }
     }
 
     @Override
@@ -68,7 +72,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
 
         canvas.scale(scale, scale);
-        ball1.draw(canvas);
-        ball2.draw(canvas);
+        for (Ball ball : balls) {
+            ball.draw(canvas);
+        }
     }
 }
