@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Fighter {
+public class Fighter implements IGameObject {
     private static final float RADIUS = 1.25f;
 
     private static Bitmap bitmap;
@@ -14,7 +14,7 @@ public class Fighter {
     private float angle;
     public Fighter() {
         x = 5.0f;
-        y = 13.25f;
+        y = 12.0f;
         dstRect.set(x-RADIUS, y, x+RADIUS, y+2*RADIUS);
     }
 
@@ -22,9 +22,11 @@ public class Fighter {
         Fighter.bitmap = bitmap;
     }
 
+    @Override
     public void update() {
     }
 
+    @Override
     public void draw(Canvas canvas) {
         canvas.save();
         canvas.rotate(angle, x, y);

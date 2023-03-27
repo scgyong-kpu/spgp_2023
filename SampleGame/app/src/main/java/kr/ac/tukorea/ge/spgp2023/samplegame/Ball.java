@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-public class Ball {
+public class Ball implements IGameObject {
     private static Bitmap bitmap;
     private RectF dstRect = new RectF();
     private float dx, dy;
@@ -19,6 +19,7 @@ public class Ball {
         Ball.bitmap = bitmap;
     }
 
+    @Override
     public void update() {
         dstRect.offset(dx, dy);
         if (dx > 0) {
@@ -41,6 +42,8 @@ public class Ball {
         }
     }
 
+    @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dstRect, null);
-    }}
+    }
+}
