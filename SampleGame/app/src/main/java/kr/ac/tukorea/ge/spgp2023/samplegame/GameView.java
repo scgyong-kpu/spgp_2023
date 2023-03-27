@@ -55,7 +55,9 @@ public class GameView extends View {
             public void run() {
                 update();
                 invalidate();
-                reserveFrame();
+                if (isShown()) {
+                    reserveFrame();
+                }
             }
         }, 16);
     }
