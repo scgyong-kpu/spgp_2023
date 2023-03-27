@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
@@ -20,7 +19,7 @@ import java.util.Random;
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
 //    private Ball ball1, ball2;
-    private ArrayList<Ball> balls = new ArrayList<>();
+    private ArrayList<IGameObject> objects = new ArrayList<>();
     private Fighter fighter;
     private float scale;
 
@@ -48,10 +47,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
         for (int i = 0; i < 10; i++) {
             float dx = r.nextFloat() * 0.05f + 0.03f;
             float dy = r.nextFloat() * 0.05f + 0.03f;
-            balls.add(new Ball(dx, dy));
+            objects.add(new Ball(dx, dy));
         }
 
         fighter = new Fighter();
+        objects.add(fighter);
 
         Choreographer.getInstance().postFrameCallback(this);
     }
@@ -66,8 +66,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        for (Ball ball : balls) {
-            ball.update();
+        for (IGameObject gobj : objects) {
+            gobj.update();
         }
         //fighter.update();
     }
@@ -84,10 +84,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
 
         canvas.scale(scale, scale);
-        for (Ball ball : balls) {
-            ball.draw(canvas);
+        for (IGameObject gobj : objects) {
+            gobj.draw(canvas);
         }
-        fighter.draw(canvas);
+        //fighter.draw(canvas);
     }
 
     @Override
