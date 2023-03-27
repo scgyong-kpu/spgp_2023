@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.Choreographer;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -87,5 +88,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
             ball.draw(canvas);
         }
         fighter.draw(canvas);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN) {
+            float x = (float) event.getX() / scale;
+            float y = (float) event.getY() / scale;
+            fighter.setPosition(x, y);
+        }
+        return super.onTouchEvent(event);
     }
 }
