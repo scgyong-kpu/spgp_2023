@@ -6,6 +6,9 @@ android {
     namespace 'kr.ac.tukorea.ge.spgp2023.morecontrols'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "kr.ac.tukorea.ge.spgp2023.morecontrols"
         minSdk 21
