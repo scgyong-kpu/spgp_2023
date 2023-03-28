@@ -17,7 +17,7 @@ public class Fighter implements IGameObject {
     private static float SPEED = 10.0f;
     private float angle;
     public Fighter() {
-        x = tx = 5.0f;
+        x = tx = 4.5f;
         y = ty = 12.0f;
         dx = dy = 0;
         dstRect.set(x-RADIUS, y-RADIUS, x+RADIUS, y+RADIUS);

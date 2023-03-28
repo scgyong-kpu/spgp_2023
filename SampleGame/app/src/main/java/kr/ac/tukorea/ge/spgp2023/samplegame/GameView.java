@@ -21,7 +21,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static float game_width = 9.0f;
     public static float game_height = 16.0f;
     public static int x_offset, y_offset;
-    protected Paint fpsPaint = new Paint();
+    protected Paint fpsPaint;
+    protected Paint borderPaint;
 
     public GameView(Context context) {
         super(context);
@@ -39,8 +40,15 @@ public class GameView extends View implements Choreographer.FrameCallback {
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
+
+        fpsPaint = new Paint();
         fpsPaint.setColor(Color.BLUE);
         fpsPaint.setTextSize(100f);
+
+        borderPaint = new Paint();
+        borderPaint.setColor(Color.RED);
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(0.1f);
     }
 
     private long previousNanos;
@@ -82,6 +90,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.translate(x_offset, y_offset);
         canvas.scale(scale, scale);
         BaseScene.getTopScene().draw(canvas);
+
+        canvas.drawRect(0, 0, game_width, game_height, borderPaint);
         canvas.restore();
 
         int fps = (int) (1.0f / BaseScene.frameTime);
