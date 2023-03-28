@@ -37,15 +37,11 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     @Override
     public void doFrame(long nanos) {
-        update();
+        BaseScene.getTopScene().update(nanos);
         invalidate();
         if (isShown()) {
             Choreographer.getInstance().postFrameCallback(this);
         }
-    }
-
-    private void update() {
-        BaseScene.getTopScene().update();
     }
 
     @Override
@@ -61,7 +57,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
         canvas.scale(scale, scale);
         BaseScene.getTopScene().draw(canvas);
-
     }
 
     @Override

@@ -20,7 +20,7 @@ public class BaseScene {
         return objects.size();
     }
 
-    public void update() {
+    public void update(long nanos) {
         for (IGameObject gobj : objects) {
             gobj.update();
         }
