@@ -18,10 +18,9 @@ import java.util.Random;
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
-//    private Ball ball1, ball2;
-    private ArrayList<IGameObject> objects = new ArrayList<>();
-    private Fighter fighter;
-    private float scale;
+    public static Resources res;
+    //    private Ball ball1, ball2;
+    public static float scale;
 
     public GameView(Context context) {
         super(context);
@@ -37,22 +36,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        Resources res = getResources();
-        Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
-        Ball.setBitmap(soccerBitmap);
-        Bitmap fighterBitmap = BitmapFactory.decodeResource(res, R.mipmap.plane_240);
-        Fighter.setBitmap(fighterBitmap);
-
-        Random r = new Random();
-        for (int i = 0; i < 10; i++) {
-            float dx = r.nextFloat() * 0.05f + 0.03f;
-            float dy = r.nextFloat() * 0.05f + 0.03f;
-            objects.add(new Ball(dx, dy));
-        }
-
-        fighter = new Fighter();
-        objects.add(fighter);
-
+        GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
     }
 
@@ -66,10 +50,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void update() {
-        for (IGameObject gobj : objects) {
-            gobj.update();
-        }
-        //fighter.update();
+        BaseScene.getTopScene().update();
     }
 
     @Override
@@ -84,22 +65,15 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
 
         canvas.scale(scale, scale);
-        for (IGameObject gobj : objects) {
-            gobj.draw(canvas);
-        }
-        //fighter.draw(canvas);
+        BaseScene.getTopScene().draw(canvas);
+
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                float x = (float) event.getX() / scale;
-                float y = (float) event.getY() / scale;
-                fighter.setPosition(x, y);
-                return true;
+        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
+        if (handled) {
+            return true;
         }
         return super.onTouchEvent(event);
     }
