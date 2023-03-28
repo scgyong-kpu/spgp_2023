@@ -10,7 +10,9 @@ public class BaseScene {
     public static float frameTime;
 
     public static BaseScene getTopScene() {
-        return stack.get(stack.size() - 1);
+        int top = stack.size() - 1;
+        if (top < 0) return null;
+        return stack.get(top);
     }
     public int pushScene() {
         stack.add(this);
