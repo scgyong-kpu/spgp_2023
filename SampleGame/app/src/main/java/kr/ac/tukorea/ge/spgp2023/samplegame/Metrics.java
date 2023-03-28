@@ -10,4 +10,11 @@ public class Metrics {
         game_width = width;
         game_height = height;
     }
+
+    public static float toGameX(float x) {
+        return (x - x_offset) / scale;
+    }
+    public static float toGameY(float y) {
+        return (y - y_offset) / scale;
+    }
 }

@@ -21,13 +21,12 @@ public class MainScene extends BaseScene {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float scale = Metrics.scale;
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                float x = (float) event.getX() / scale;
-                float y = (float) event.getY() / scale;
+                float x = Metrics.toGameX(event.getX());
+                float y = Metrics.toGameY(event.getY());
                 fighter.setTargetPosition(x, y);
                 return true;
         }
