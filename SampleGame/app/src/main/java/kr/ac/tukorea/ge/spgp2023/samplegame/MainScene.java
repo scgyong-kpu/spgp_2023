@@ -9,8 +9,8 @@ public class MainScene extends BaseScene {
     public MainScene() {
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
-            float dx = r.nextFloat() * 0.05f + 0.03f;
-            float dy = r.nextFloat() * 0.05f + 0.03f;
+            float dx = r.nextFloat() * 5.0f + 3.0f;
+            float dy = r.nextFloat() * 5.0f + 3.0f;
             add(new Ball(dx, dy));
         }
 
