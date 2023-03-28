@@ -1,6 +1,7 @@
 package kr.ac.tukorea.ge.spgp2023.samplegame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
@@ -16,10 +17,10 @@ public class Fighter implements IGameObject {
         x = 5.0f;
         y = 12.0f;
         dstRect.set(x-RADIUS, y, x+RADIUS, y+2*RADIUS);
-    }
 
-    public static void setBitmap(Bitmap bitmap) {
-        Fighter.bitmap = bitmap;
+        if (bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
+        }
     }
 
     @Override

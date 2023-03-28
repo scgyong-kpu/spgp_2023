@@ -9,11 +9,6 @@ import java.util.Random;
 public class MainScene extends BaseScene {
     private Fighter fighter;
     public MainScene() {
-        Bitmap soccerBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.soccer_ball_240);
-        Ball.setBitmap(soccerBitmap);
-        Bitmap fighterBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
-        Fighter.setBitmap(fighterBitmap);
-
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
             float dx = r.nextFloat() * 0.05f + 0.03f;
