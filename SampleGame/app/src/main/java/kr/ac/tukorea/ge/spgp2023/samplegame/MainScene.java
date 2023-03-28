@@ -7,6 +7,7 @@ import java.util.Random;
 public class MainScene extends BaseScene {
     private Fighter fighter;
     public MainScene() {
+        Metrics.setGameSize(10.0f, 10.0f);
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
             float dx = r.nextFloat() * 5.0f + 3.0f;
