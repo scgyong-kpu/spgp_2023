@@ -39,14 +39,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
         GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
 
-        fpsPaint = new Paint();
-        fpsPaint.setColor(Color.BLUE);
-        fpsPaint.setTextSize(100f);
+        if (BuildConfig.DEBUG) {
+            fpsPaint = new Paint();
+            fpsPaint.setColor(Color.BLUE);
+            fpsPaint.setTextSize(100f);
 
-        borderPaint = new Paint();
-        borderPaint.setColor(Color.RED);
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(0.1f);
+            borderPaint = new Paint();
+            borderPaint.setColor(Color.RED);
+            borderPaint.setStyle(Paint.Style.STROKE);
+            borderPaint.setStrokeWidth(0.1f);
+        }
     }
 
     private long previousNanos;
@@ -92,10 +94,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
             scene.draw(canvas);
         }
 
-        canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+        if (BuildConfig.DEBUG) {
+            canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+        }
         canvas.restore();
 
-        if (BaseScene.frameTime > 0) {
+        if (BuildConfig.DEBUG && BaseScene.frameTime > 0) {
             int fps = (int) (1.0f / BaseScene.frameTime);
             canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
         }
