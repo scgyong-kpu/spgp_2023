@@ -35,9 +35,14 @@ public class GameView extends View implements Choreographer.FrameCallback {
         Choreographer.getInstance().postFrameCallback(this);
     }
 
+    private long previousNanos;
     @Override
     public void doFrame(long nanos) {
-        BaseScene.getTopScene().update(nanos);
+        if (previousNanos != 0) {
+            long elapsedNanos = nanos - previousNanos;
+            BaseScene.getTopScene().update(elapsedNanos);
+        }
+        previousNanos = nanos;
         invalidate();
         if (isShown()) {
             Choreographer.getInstance().postFrameCallback(this);
