@@ -11,12 +11,16 @@ public class Fighter implements IGameObject {
     private static Bitmap bitmap;
     private RectF dstRect = new RectF();
 
-    private float x, y;
+    private float x, y; // 현재 위치
+    private float tx, ty; // touch event 를 받은 위치. 이 위치를 향해서 움직인다
+    private float dx, dy; // 1초간 움직여야 할 양: dx = SPEED*cos(r); dy = SPEED*sin(r);
+    private static float SPEED = 10.0f;
     private float angle;
     public Fighter() {
-        x = 5.0f;
-        y = 12.0f;
-        dstRect.set(x-RADIUS, y, x+RADIUS, y+2*RADIUS);
+        x = tx = 5.0f;
+        y = ty = 12.0f;
+        dx = dy = 0;
+        dstRect.set(x-RADIUS, y-RADIUS, x+RADIUS, y+RADIUS);
 
         if (bitmap == null) {
             bitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.plane_240);
@@ -25,6 +29,16 @@ public class Fighter implements IGameObject {
 
     @Override
     public void update() {
+        float time = BaseScene.frameTime;
+        x += dx * time;
+        if ((dx > 0 && x > tx) || (dx < 0 && x < tx)) {
+            x = tx; dx = 0;
+        }
+        this.y += this.dy * time;
+        if ((dy > 0 && y > ty) || (dy < 0 && y < ty)) {
+            y = ty; dy = 0;
+        }
+        dstRect.set(x-RADIUS, y-RADIUS, x+RADIUS, y+RADIUS);
     }
 
     @Override
@@ -35,13 +49,15 @@ public class Fighter implements IGameObject {
         canvas.restore();
     }
 
-    public void setPosition(float x, float y) {
-        float dx = x - this.x;
-        float dy = y - this.y;
+    public void setTargetPosition(float tx, float ty) {
+        this.tx = tx;
+        this.ty = ty;
+        float dx = tx - this.x;
+        float dy = ty - this.y;
         double radian = Math.atan2(dy, dx);
+        this.dx = (float) (SPEED * Math.cos(radian));
+        this.dy = (float) (SPEED * Math.sin(radian));
         angle = (float) Math.toDegrees(radian) + 90;
-        dstRect.set(x-RADIUS, y-RADIUS, x+RADIUS, y+RADIUS);
-        this.x = x;
-        this.y = y;
+//        dstRect.set(x-RADIUS, y-RADIUS, x+RADIUS, y+RADIUS);
     }
 }

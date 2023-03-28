@@ -27,7 +27,7 @@ public class MainScene extends BaseScene {
             case MotionEvent.ACTION_MOVE:
                 float x = (float) event.getX() / scale;
                 float y = (float) event.getY() / scale;
-                fighter.setPosition(x, y);
+                fighter.setTargetPosition(x, y);
                 return true;
         }
         return super.onTouchEvent(event);
