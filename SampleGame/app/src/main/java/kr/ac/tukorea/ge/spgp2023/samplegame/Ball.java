@@ -25,7 +25,7 @@ public class Ball implements IGameObject {
 
         dstRect.offset(dx * BaseScene.frameTime, dy * BaseScene.frameTime);
         if (dx > 0) {
-            if (dstRect.right > 10.0f) {
+            if (dstRect.right > 9.0f) {
                 dx = -dx;
             }
         } else {
@@ -34,7 +34,7 @@ public class Ball implements IGameObject {
             }
         }
         if (dy > 0) {
-            if (dstRect.bottom > 15.0) {
+            if (dstRect.bottom > 16.0) {
                 dy = -dy;
             }
         } else {

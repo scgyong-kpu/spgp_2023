@@ -18,6 +18,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public static Resources res;
     //    private Ball ball1, ball2;
     public static float scale;
+    public static float game_width = 9.0f;
+    public static float game_height = 16.0f;
+    public static int x_offset, y_offset;
     protected Paint fpsPaint = new Paint();
 
     public GameView(Context context) {
@@ -58,7 +61,17 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        scale = w / 10.0f;
+        float view_ratio = (float)w / (float)h;
+        float game_ratio = game_width / game_height;
+        if (view_ratio > game_ratio) {
+            x_offset = (int) ((w - h * game_ratio) / 2);
+            y_offset = 0;
+            scale = h / game_height;
+        } else {
+            x_offset = 0;
+            y_offset = (int)((h - w / game_ratio) / 2);
+            scale = w / game_width;
+        }
     }
 
     @Override
@@ -66,6 +79,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         super.onDraw(canvas);
 
         canvas.save();
+        canvas.translate(x_offset, y_offset);
         canvas.scale(scale, scale);
         BaseScene.getTopScene().draw(canvas);
         canvas.restore();
