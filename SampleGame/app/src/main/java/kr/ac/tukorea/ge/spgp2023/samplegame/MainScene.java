@@ -1,7 +1,5 @@
 package kr.ac.tukorea.ge.spgp2023.samplegame;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.MotionEvent;
 
 import java.util.Random;

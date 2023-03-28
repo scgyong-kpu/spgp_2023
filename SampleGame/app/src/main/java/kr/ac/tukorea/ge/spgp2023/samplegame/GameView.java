@@ -2,16 +2,11 @@ package kr.ac.tukorea.ge.spgp2023.samplegame;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * TODO: document your custom view class.
