@@ -20,7 +20,7 @@ public class MainScene extends BaseScene {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float scale = GameView.scale;
+        float scale = Metrics.scale;
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
