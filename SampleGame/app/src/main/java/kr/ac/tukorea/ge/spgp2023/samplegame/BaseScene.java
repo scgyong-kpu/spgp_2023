@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();
-    private float frameTime;
+    public static float frameTime;
 
     public static BaseScene getTopScene() {
         return stack.get(stack.size() - 1);
@@ -23,7 +23,7 @@ public class BaseScene {
     }
 
     public void update(long elapsedNanos) {
-        this.frameTime = elapsedNanos / 1_000_000_000f;
+        frameTime = elapsedNanos / 1_000_000_000f;
         for (IGameObject gobj : objects) {
             gobj.update();
         }

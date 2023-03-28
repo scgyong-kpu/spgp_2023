@@ -22,7 +22,8 @@ public class Ball implements IGameObject {
 
     @Override
     public void update() {
-        dstRect.offset(dx, dy);
+
+        dstRect.offset(dx * BaseScene.frameTime, dy * BaseScene.frameTime);
         if (dx > 0) {
             if (dstRect.right > 10.0f) {
                 dx = -dx;
