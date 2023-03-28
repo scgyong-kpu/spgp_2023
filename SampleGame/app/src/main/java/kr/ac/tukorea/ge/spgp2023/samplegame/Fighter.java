@@ -19,7 +19,7 @@ public class Fighter extends Sprite {
         super(R.mipmap.plane_240, 4.5f, 12.0f, 2*RADIUS, 2*RADIUS);
         tx = x; ty = y; dx = dy = 0;
 
-        targetBitmap = BitmapFactory.decodeResource(GameView.res, R.mipmap.target);
+        targetBitmap = BitmapPool.get(R.mipmap.target);
     }
 
     @Override

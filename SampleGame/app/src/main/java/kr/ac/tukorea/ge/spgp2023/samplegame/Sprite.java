@@ -21,7 +21,7 @@ public class Sprite implements IGameObject {
     }
 
     protected void setBitmapResource(int bitmapResId) {
-        bitmap = BitmapFactory.decodeResource(GameView.res, bitmapResId);
+        bitmap = BitmapPool.get(bitmapResId);
     }
 
     protected void fixDstRect() {
