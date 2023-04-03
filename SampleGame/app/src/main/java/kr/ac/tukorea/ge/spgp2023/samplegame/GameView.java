@@ -1,27 +1,26 @@
 package kr.ac.tukorea.ge.spgp2023.samplegame;
 
+import kr.ac.tukorea.ge.spgp2023.samplegame.Metrics;
+
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * TODO: document your custom view class.
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
-//    private Ball ball1, ball2;
-    private ArrayList<IGameObject> objects = new ArrayList<>();
-    private Fighter fighter;
-    private float scale;
+    public static Resources res;
+    //    private Ball ball1, ball2;
+    protected Paint fpsPaint;
+    protected Paint borderPaint;
 
     public GameView(Context context) {
         super(context);
@@ -37,69 +36,80 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        Resources res = getResources();
-        Bitmap soccerBitmap = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
-        Ball.setBitmap(soccerBitmap);
-        Bitmap fighterBitmap = BitmapFactory.decodeResource(res, R.mipmap.plane_240);
-        Fighter.setBitmap(fighterBitmap);
-
-        Random r = new Random();
-        for (int i = 0; i < 10; i++) {
-            float dx = r.nextFloat() * 0.05f + 0.03f;
-            float dy = r.nextFloat() * 0.05f + 0.03f;
-            objects.add(new Ball(dx, dy));
-        }
-
-        fighter = new Fighter();
-        objects.add(fighter);
-
+        GameView.res = getResources();
         Choreographer.getInstance().postFrameCallback(this);
+
+        if (BuildConfig.DEBUG) {
+            fpsPaint = new Paint();
+            fpsPaint.setColor(Color.BLUE);
+            fpsPaint.setTextSize(100f);
+
+            borderPaint = new Paint();
+            borderPaint.setColor(Color.RED);
+            borderPaint.setStyle(Paint.Style.STROKE);
+            borderPaint.setStrokeWidth(0.1f);
+        }
     }
 
+    private long previousNanos;
     @Override
     public void doFrame(long nanos) {
-        update();
+        if (previousNanos != 0) {
+            long elapsedNanos = nanos - previousNanos;
+            BaseScene.getTopScene().update(elapsedNanos);
+        }
+        previousNanos = nanos;
         invalidate();
         if (isShown()) {
             Choreographer.getInstance().postFrameCallback(this);
         }
     }
 
-    private void update() {
-        for (IGameObject gobj : objects) {
-            gobj.update();
-        }
-        //fighter.update();
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        scale = w / 10.0f;
+        float view_ratio = (float)w / (float)h;
+        float game_ratio = Metrics.game_width / Metrics.game_height;
+        if (view_ratio > game_ratio) {
+            Metrics.x_offset = (int) ((w - h * game_ratio) / 2);
+            Metrics.y_offset = 0;
+            Metrics.scale = h / Metrics.game_height;
+        } else {
+            Metrics.x_offset = 0;
+            Metrics.y_offset = (int)((h - w / game_ratio) / 2);
+            Metrics.scale = w / Metrics.game_width;
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.scale(scale, scale);
-        for (IGameObject gobj : objects) {
-            gobj.draw(canvas);
+        canvas.save();
+        canvas.translate(Metrics.x_offset, Metrics.y_offset);
+        canvas.scale(Metrics.scale, Metrics.scale);
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene != null) {
+            scene.draw(canvas);
         }
-        //fighter.draw(canvas);
+
+        if (BuildConfig.DEBUG) {
+            canvas.drawRect(0, 0, Metrics.game_width, Metrics.game_height, borderPaint);
+        }
+        canvas.restore();
+
+        if (BuildConfig.DEBUG && BaseScene.frameTime > 0) {
+            int fps = (int) (1.0f / BaseScene.frameTime);
+            canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                float x = (float) event.getX() / scale;
-                float y = (float) event.getY() / scale;
-                fighter.setPosition(x, y);
-                return true;
+        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
+        if (handled) {
+            return true;
         }
         return super.onTouchEvent(event);
     }
