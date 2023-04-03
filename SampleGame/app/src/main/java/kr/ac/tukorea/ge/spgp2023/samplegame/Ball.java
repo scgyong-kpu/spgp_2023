@@ -1,29 +1,27 @@
 package kr.ac.tukorea.ge.spgp2023.samplegame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.util.Log;
 
-public class Ball implements IGameObject {
-    private static Bitmap bitmap;
-    private RectF dstRect = new RectF();
+public class Ball extends Sprite {
     private float dx, dy;
 
     public Ball(float dx, float dy) {
+        super(R.mipmap.soccer_ball_240, 2.0f, 2.0f, 2.5f, 2.5f);
         this.dx = dx;
         this.dy = dy;
-        dstRect.set(0, 0, 2.5f, 2.5f);
-    }
 
-    public static void setBitmap(Bitmap bitmap) {
-        Ball.bitmap = bitmap;
+        fixDstRect();
     }
 
     @Override
     public void update() {
-        dstRect.offset(dx, dy);
+        dstRect.offset(dx * BaseScene.frameTime, dy * BaseScene.frameTime);
         if (dx > 0) {
-            if (dstRect.right > 10.0f) {
+            if (dstRect.right > Metrics.game_width) {
                 dx = -dx;
             }
         } else {
@@ -32,7 +30,7 @@ public class Ball implements IGameObject {
             }
         }
         if (dy > 0) {
-            if (dstRect.bottom > 15.0) {
+            if (dstRect.bottom > Metrics.game_height) {
                 dy = -dy;
             }
         } else {
@@ -40,10 +38,5 @@ public class Ball implements IGameObject {
                 dy = -dy;
             }
         }
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 }
