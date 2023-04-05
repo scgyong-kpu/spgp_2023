@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.GameView;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.game.MainScene;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,5 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         gameView = new GameView(this);
         setContentView(gameView);
+
+        new MainScene().pushScene();
     }
 }
