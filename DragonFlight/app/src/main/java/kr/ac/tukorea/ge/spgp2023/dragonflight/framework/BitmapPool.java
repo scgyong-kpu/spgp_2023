@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame.framework;
+package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

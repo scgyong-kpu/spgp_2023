@@ -1,6 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame.framework;
-
-import kr.ac.tukorea.ge.spgp2023.samplegame.BuildConfig;
+package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
+
+import kr.ac.tukorea.ge.spgp2023.dragonflight.BuildConfig;
 
 /**
  * TODO: document your custom view class.

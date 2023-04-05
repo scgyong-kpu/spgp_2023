@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame.framework;
+package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
 
 public class Metrics {
     public static float scale = 1.0f;
