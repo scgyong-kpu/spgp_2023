@@ -56,7 +56,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
     public void doFrame(long nanos) {
         if (previousNanos != 0) {
             long elapsedNanos = nanos - previousNanos;
-            BaseScene.getTopScene().update(elapsedNanos);
+            BaseScene scene = BaseScene.getTopScene();
+            if (scene != null) {
+                scene.update(elapsedNanos);
+            }
         }
         previousNanos = nanos;
         invalidate();
