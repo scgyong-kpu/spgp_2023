@@ -1,8 +1,11 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame;
+package kr.ac.tukorea.ge.spgp2023.samplegame.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.IGameObject;
 
 public class Bullet implements IGameObject {
     protected float x, y, dx, dy, ex, ey;

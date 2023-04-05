@@ -1,8 +1,11 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame;
+package kr.ac.tukorea.ge.spgp2023.samplegame.game;
 
 import android.view.MotionEvent;
 
 import java.util.Random;
+
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.Metrics;
 
 public class MainScene extends BaseScene {
     private Fighter fighter;

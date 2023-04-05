@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame;
+package kr.ac.tukorea.ge.spgp2023.samplegame.framework;
 
 import android.graphics.Canvas;
 

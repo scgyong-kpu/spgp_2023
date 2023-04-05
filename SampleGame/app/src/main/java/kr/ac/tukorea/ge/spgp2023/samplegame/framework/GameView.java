@@ -1,6 +1,6 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame;
+package kr.ac.tukorea.ge.spgp2023.samplegame.framework;
 
-import kr.ac.tukorea.ge.spgp2023.samplegame.Metrics;
+import kr.ac.tukorea.ge.spgp2023.samplegame.BuildConfig;
 
 import android.content.Context;
 import android.content.res.Resources;

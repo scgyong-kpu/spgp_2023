@@ -1,9 +1,13 @@
-package kr.ac.tukorea.ge.spgp2023.samplegame;
+package kr.ac.tukorea.ge.spgp2023.samplegame.game;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+
+import kr.ac.tukorea.ge.spgp2023.samplegame.R;
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.samplegame.framework.Sprite;
 
 public class Fighter extends Sprite {
     private static final float RADIUS = 1.25f;
