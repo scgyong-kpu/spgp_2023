@@ -59,4 +59,9 @@ public class Fighter extends Sprite {
         this.dy = (float) (SPEED * Math.sin(radian));
         angle = (float) Math.toDegrees(radian) + 90;
     }
+
+    public void fire() {
+        Bullet bullet = new Bullet(x, y, angle);
+        BaseScene.getTopScene().add(bullet);
+    }
 }

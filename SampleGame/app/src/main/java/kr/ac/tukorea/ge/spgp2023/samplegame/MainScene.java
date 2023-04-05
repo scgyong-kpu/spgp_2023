@@ -28,6 +28,9 @@ public class MainScene extends BaseScene {
                 float x = Metrics.toGameX(event.getX());
                 float y = Metrics.toGameY(event.getY());
                 fighter.setTargetPosition(x, y);
+                if (action == MotionEvent.ACTION_DOWN) {
+                    fighter.fire();
+                }
                 return true;
         }
         return super.onTouchEvent(event);
