@@ -13,8 +13,9 @@ public class Bullet implements IGameObject {
     public Bullet(float x, float y, float angle) {
         this.x = x;
         this.y = y;
-        double cos = Math.cos(angle);
-        double sin = Math.sin(angle);
+        double radian = Math.toRadians(angle);
+        double cos = Math.cos(radian);
+        double sin = Math.sin(radian);
 
         this.dx = (float) (SPEED * cos);
         this.dy = (float) (SPEED * sin);
