@@ -13,7 +13,7 @@ public class Bullet implements IGameObject {
     public Bullet(float x, float y, float angle) {
         this.x = x;
         this.y = y;
-        double radian = Math.toRadians(angle);
+        double radian = Math.toRadians(angle - 90);
         double cos = Math.cos(radian);
         double sin = Math.sin(radian);
 
