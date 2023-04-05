@@ -7,6 +7,7 @@ import android.graphics.RectF;
 
 public class Fighter extends Sprite {
     private static final float RADIUS = 1.25f;
+    private static final float FIRE_INTERVAL = 0.5f;
 
     private Bitmap targetBitmap;
     private RectF targetRect = new RectF();
@@ -15,6 +16,8 @@ public class Fighter extends Sprite {
     private float dx, dy; // 1초간 움직여야 할 양: dx = SPEED*cos(r); dy = SPEED*sin(r);
     private static float SPEED = 10.0f;
     private float angle;
+    private float accumulatedTime;
+
     public Fighter() {
         super(R.mipmap.plane_240, 4.5f, 12.0f, 2*RADIUS, 2*RADIUS);
         tx = x; ty = y; dx = dy = 0;
@@ -34,6 +37,7 @@ public class Fighter extends Sprite {
             y = ty; dy = 0;
         }
         fixDstRect();
+        checkFire();
     }
 
     @Override
@@ -60,6 +64,16 @@ public class Fighter extends Sprite {
         angle = (float) Math.toDegrees(radian) + 90;
     }
 
+    private void checkFire() {
+        accumulatedTime += BaseScene.frameTime;
+        if (accumulatedTime < FIRE_INTERVAL) {
+            return;
+        }
+
+        accumulatedTime -= FIRE_INTERVAL;
+        //accumulatedTime = 0; // ??
+        fire();
+    }
     public void fire() {
         Bullet bullet = new Bullet(x, y, angle);
         BaseScene.getTopScene().add(bullet);
