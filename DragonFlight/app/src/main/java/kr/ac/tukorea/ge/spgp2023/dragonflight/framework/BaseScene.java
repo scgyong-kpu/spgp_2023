@@ -62,7 +62,7 @@ public class BaseScene {
         }
     }
 
-    private ArrayList<IGameObject> objects = new ArrayList<>();
+    protected ArrayList<IGameObject> objects = new ArrayList<>();
 
     public boolean onTouchEvent(MotionEvent event) {
         return false;
