@@ -5,11 +5,22 @@ import android.graphics.Rect;
 
 public class AnimSprite extends Sprite {
     protected Rect srcRect = new Rect();
+    protected int frameIndex, frameCount;
+    protected int frameWidth, frameHeight;
     public AnimSprite(int bitmapResId, float cx, float cy, float width, float height) {
         super(bitmapResId, cx, cy, width, height);
-//        int w = bitmap.getWidth();
-        int srcHeight = bitmap.getHeight();
-        srcRect.set(0, 0, srcHeight, srcHeight);
+        int imageWidth = bitmap.getWidth();
+        frameHeight = bitmap.getHeight();
+        frameWidth = frameHeight;
+        frameCount = imageWidth / frameHeight;
+        srcRect.set(0, 0, frameWidth, frameHeight);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        frameIndex = (frameIndex + 1) % frameCount;
+        srcRect.set(frameIndex * frameWidth, 0, (frameIndex + 1) * frameWidth, frameHeight);
     }
 
     @Override
