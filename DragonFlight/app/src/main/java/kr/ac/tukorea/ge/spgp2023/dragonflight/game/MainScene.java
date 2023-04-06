@@ -24,8 +24,8 @@ public class MainScene extends BaseScene {
         initLayers(Layer.COUNT);
         fighter = new Fighter();
         add(Layer.player, fighter);
-        add(Layer.bg1, new Background(R.mipmap.bg_city, 0.2f));
-        add(Layer.bg2, new Background(R.mipmap.clouds, 0.4f));
+        add(Layer.bg1, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
+        add(Layer.bg2, new VertScrollBackground(R.mipmap.clouds, 0.4f));
         score = new Score();
         add(Layer.ui, score);
         add(Layer.controller, new EnemyGenerator());
