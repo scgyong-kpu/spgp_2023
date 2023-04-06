@@ -21,6 +21,8 @@ public class Fighter extends Sprite {
     private float tx;
     private Bitmap targetBitmap;
     private RectF targetRect = new RectF();
+    private static final float FIRE_INTERVAL = 0.5f;
+    private float accumulatedTime;
 
     public Fighter() {
         super(R.mipmap.fighter, FIGHTER_X, FIGHTER_Y, FIGHTER_SIZE, FIGHTER_SIZE);
@@ -33,6 +35,21 @@ public class Fighter extends Sprite {
         targetRect.set(
                 tx - TARGET_RADIUS, FIGHTER_Y - TARGET_RADIUS,
                 tx + TARGET_RADIUS, FIGHTER_Y + TARGET_RADIUS);
+    }
+
+    private void checkFire() {
+        accumulatedTime += BaseScene.frameTime;
+        if (accumulatedTime < FIRE_INTERVAL) {
+            return;
+        }
+
+        accumulatedTime -= FIRE_INTERVAL;
+        //accumulatedTime = 0; // ??
+        fire();
+    }
+    public void fire() {
+        Bullet bullet = new Bullet(x, y, 0);
+        BaseScene.getTopScene().add(bullet);
     }
 
     @Override
@@ -54,6 +71,8 @@ public class Fighter extends Sprite {
         fixDstRect();
         if (x < FIGHTER_LEFT) x = tx = FIGHTER_LEFT;
         if (x > FIGHTER_RIGHT) x = tx = FIGHTER_RIGHT;
+
+        checkFire();
     }
 
     @Override
