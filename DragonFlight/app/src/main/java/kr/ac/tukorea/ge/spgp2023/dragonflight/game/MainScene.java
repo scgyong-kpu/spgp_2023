@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
@@ -33,13 +35,15 @@ public class MainScene extends BaseScene {
     }
 
     private void checkCollision() {
-        for (IGameObject o1 : layers.get(Layer.enemy.ordinal())) {
+        ArrayList<IGameObject> enemies = this.getObjectsAt(Layer.enemy);
+        ArrayList<IGameObject> bullets = this.getObjectsAt(Layer.bullet);
+        for (IGameObject o1 : enemies) {
             if (!(o1 instanceof Enemy)) {
                 continue;
             }
             Enemy enemy = (Enemy) o1;
 //            boolean removed = false;
-            for (IGameObject o2 : layers.get(Layer.bullet.ordinal())) {
+            for (IGameObject o2 : bullets) {
                 if (!(o2 instanceof Bullet)) {
                     continue;
                 }

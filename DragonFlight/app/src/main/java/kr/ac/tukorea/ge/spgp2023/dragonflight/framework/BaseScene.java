@@ -100,6 +100,9 @@ public class BaseScene {
     }
 
     protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
+    public <E extends Enum> ArrayList<IGameObject> getObjectsAt(E layerEnum) {
+        return layers.get(layerEnum.ordinal());
+    }
 
     public boolean onTouchEvent(MotionEvent event) {
         return false;
