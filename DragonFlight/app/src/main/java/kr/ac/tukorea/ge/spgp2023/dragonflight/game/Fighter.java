@@ -52,8 +52,8 @@ public class Fighter extends Sprite {
             }
         }
         fixDstRect();
-        if (x < FIGHTER_LEFT) x = FIGHTER_LEFT;
-        if (x > FIGHTER_RIGHT) x = FIGHTER_RIGHT;
+        if (x < FIGHTER_LEFT) x = tx = FIGHTER_LEFT;
+        if (x > FIGHTER_RIGHT) x = tx = FIGHTER_RIGHT;
     }
 
     @Override
