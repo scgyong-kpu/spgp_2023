@@ -25,7 +25,7 @@ public class Bullet extends Sprite implements IBoxCollidable {
 
     public static Bullet get(float x, float y) {
         if (recycleBin.size() > 0) {
-            Log.d(TAG, "get(): Recycle Bin has " + recycleBin.size() + " bullets");
+//            Log.d(TAG, "get(): Recycle Bin has " + recycleBin.size() + " bullets");
             Bullet bullet = recycleBin.remove(0);
             bullet.x = x;
             bullet.y = y;
@@ -47,7 +47,7 @@ public class Bullet extends Sprite implements IBoxCollidable {
         if (dstRect.bottom < 0) {
             BaseScene.getTopScene().remove(this);
             recycleBin.add(this);
-            Log.d(TAG, "remove(): Recycle Bin has " + recycleBin.size() + " bullets");
+//            Log.d(TAG, "remove(): Recycle Bin has " + recycleBin.size() + " bullets");
         }
     }
 

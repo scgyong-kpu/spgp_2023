@@ -42,8 +42,8 @@ public class MainScene extends BaseScene {
                 Bullet bullet = (Bullet) o2;
                 if (CollisionHelper.collides(enemy, bullet)) {
                     Log.d(TAG, "Collision !!");
-                    remove(bullet);
-                    remove(enemy);
+                    remove(bullet); // is this recyclable?
+                    remove(enemy); // is this recyclable?
 //                    removed = true;
                     break;
                 }
