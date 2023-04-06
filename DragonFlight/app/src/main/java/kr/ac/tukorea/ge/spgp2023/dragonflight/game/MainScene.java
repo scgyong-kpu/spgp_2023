@@ -17,13 +17,13 @@ public class MainScene extends BaseScene {
         enemy, bullet, player, controller, COUNT
     }
     public MainScene() {
-        initLayers(Layer.COUNT.ordinal());
+        initLayers(Layer.COUNT);
         fighter = new Fighter();
-        add(Layer.player.ordinal(), fighter);
+        add(Layer.player, fighter);
 
 //        AnimSprite animSprite = new AnimSprite(R.mipmap.enemy_01, 4.5f, 5.0f, 1.8f, 1.8f, 10, 0);
 //        add(animSprite);
-        add(Layer.controller.ordinal(), new EnemyGenerator());
+        add(Layer.controller, new EnemyGenerator());
     }
 
     @Override
