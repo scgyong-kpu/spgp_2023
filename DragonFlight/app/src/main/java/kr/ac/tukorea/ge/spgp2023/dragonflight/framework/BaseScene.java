@@ -31,6 +31,9 @@ public class BaseScene {
         return objects.size();
     }
 
+    public int count() {
+        return objects.size();
+    }
     public void update(long elapsedNanos) {
         frameTime = elapsedNanos / 1_000_000_000f;
         for (IGameObject gobj : objects) {
