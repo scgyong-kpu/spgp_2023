@@ -17,6 +17,8 @@ public class Enemy extends Sprite implements IBoxCollidable {
     private static final float SPEED = 2.0f;
     public static final float SIZE = 1.8f;
 
+    protected RectF collisionRect = new RectF();
+
     public Enemy(int index, int level) {
         super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE);
     }
@@ -29,10 +31,12 @@ public class Enemy extends Sprite implements IBoxCollidable {
         if (dstRect.top > 16.0) {
             BaseScene.getTopScene().remove(this);
         }
+        collisionRect.set(dstRect);
+        collisionRect.inset(0.11f, 0.11f);
     }
 
     @Override
     public RectF getCollisionRect() {
-        return dstRect;
+        return collisionRect;
     }
 }
