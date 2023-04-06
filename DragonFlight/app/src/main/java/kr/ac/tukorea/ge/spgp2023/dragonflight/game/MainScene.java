@@ -17,9 +17,9 @@ public class MainScene extends BaseScene {
         fighter = new Fighter();
         add(fighter);
 
-        AnimSprite animSprite = new AnimSprite(R.mipmap.enemy_01, 4.5f, 5.0f, 1.8f, 1.8f, 10, 0);
-        add(animSprite);
-//        add(new EnemyGenerator());
+//        AnimSprite animSprite = new AnimSprite(R.mipmap.enemy_01, 4.5f, 5.0f, 1.8f, 1.8f, 10, 0);
+//        add(animSprite);
+        add(new EnemyGenerator());
     }
 
     @Override
