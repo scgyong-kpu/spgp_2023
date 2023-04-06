@@ -17,7 +17,10 @@ public class Bullet extends Sprite implements IBoxCollidable {
     protected static float SPEED = 20.0f;
     protected static Paint paint;
 
-    public Bullet(float x, float y) {
+    public static Bullet get(float x, float y) {
+        return new Bullet(x, y);
+    }
+    private Bullet(float x, float y) {
         super(R.mipmap.laser_1, x, y, BULLET_WIDTH, BULLET_HEIGHT);
         this.x = x;
         this.y = y;

@@ -22,7 +22,10 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     public static final float SIZE = 1.8f;
     protected RectF collisionRect = new RectF();
 
-    public Enemy(int index, int level) {
+    static Enemy get(int index, int level) {
+        return new Enemy(index, level);
+    }
+    private Enemy(int index, int level) {
         super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
     }
 
