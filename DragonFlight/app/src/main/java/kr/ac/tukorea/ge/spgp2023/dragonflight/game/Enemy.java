@@ -1,11 +1,14 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
+import android.graphics.RectF;
+
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 
-public class Enemy extends Sprite {
+public class Enemy extends Sprite implements IBoxCollidable {
 
     private static final int[] resIds = {
             R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01, R.mipmap.f_04_01, R.mipmap.f_05_01,
@@ -26,5 +29,10 @@ public class Enemy extends Sprite {
         if (dstRect.top > 16.0) {
             BaseScene.getTopScene().remove(this);
         }
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
     }
 }
