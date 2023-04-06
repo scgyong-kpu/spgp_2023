@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
@@ -15,7 +17,9 @@ public class MainScene extends BaseScene {
         fighter = new Fighter();
         add(fighter);
 
-        add(new EnemyGenerator());
+        AnimSprite animSprite = new AnimSprite(R.mipmap.enemy_01, 4.5f, 5.0f, 1.8f, 1.8f);
+        add(animSprite);
+//        add(new EnemyGenerator());
     }
 
     @Override
