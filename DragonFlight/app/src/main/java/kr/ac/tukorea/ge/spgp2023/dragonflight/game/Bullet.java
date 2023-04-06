@@ -25,5 +25,9 @@ public class Bullet extends Sprite {
         float frameTime = BaseScene.frameTime;
         y += -SPEED * frameTime;
         fixDstRect();
+
+        if (dstRect.bottom < 0) {
+            BaseScene.getTopScene().remove(this);
+        }
     }
 }

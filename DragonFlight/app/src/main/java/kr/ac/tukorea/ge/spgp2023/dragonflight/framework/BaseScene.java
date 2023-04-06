@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
+import kr.ac.tukorea.ge.spgp2023.dragonflight.game.Bullet;
+
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();
     public static float frameTime;
@@ -51,5 +53,14 @@ public class BaseScene {
 
     public boolean onTouchEvent(MotionEvent event) {
         return false;
+    }
+
+    public void remove(IGameObject gobj) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                objects.remove(gobj);
+            }
+        });
     }
 }
