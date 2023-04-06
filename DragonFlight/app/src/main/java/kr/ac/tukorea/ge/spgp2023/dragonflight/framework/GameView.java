@@ -22,6 +22,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected Paint fpsPaint;
     protected Paint borderPaint;
 
+    protected boolean running;
+
     public GameView(Context context) {
         super(context);
         init(null, 0);
@@ -37,6 +39,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
+
+        running = true;
         Choreographer.getInstance().postFrameCallback(this);
 
         if (BuildConfig.DEBUG) {
@@ -63,7 +67,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         previousNanos = nanos;
         invalidate();
-        if (isShown()) {
+        if (running) {
             Choreographer.getInstance().postFrameCallback(this);
         }
     }
@@ -116,5 +120,17 @@ public class GameView extends View implements Choreographer.FrameCallback {
             return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    public void pauseGame() {
+        running = false;
+    }
+
+    public void resumeGame() {
+        if (running) {
+            return;
+        }
+        running = true;
+        Choreographer.getInstance().postFrameCallback(this);
     }
 }

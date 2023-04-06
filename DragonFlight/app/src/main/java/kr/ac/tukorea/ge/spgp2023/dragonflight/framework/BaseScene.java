@@ -18,9 +18,22 @@ public class BaseScene {
         if (top < 0) return null;
         return stack.get(top);
     }
+
+    public static void popAll() {
+        while (!stack.isEmpty()) {
+            BaseScene scene = getTopScene();
+            scene.popScene();
+        }
+    }
+
     public int pushScene() {
         stack.add(this);
         return stack.size();
+    }
+
+    public void popScene() {
+        stack.remove(this);
+        // TODO: additional callback should be called
     }
 
     public int add(IGameObject gobj) {
