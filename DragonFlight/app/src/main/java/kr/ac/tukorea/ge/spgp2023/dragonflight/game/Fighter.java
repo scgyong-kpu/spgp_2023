@@ -12,25 +12,27 @@ import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 public class Fighter extends Sprite {
     private static final float FIGHTER_X = 4.5f;
     private static final float FIGHTER_Y = 14.8f;
-    private static final float FIGHTER_SIZE = 1.75f;
+    private static final float FIGHTER_WIDTH = 72 * 0.0243f; //1.75f;
+    private static final float FIGHTER_HEIGHT = 80 * 0.0243f; //1.75f;
     private static final float TARGET_RADIUS = 0.5f;
     private static final float SPEED = 10.0f;
-    private static final float FIGHTER_LEFT = FIGHTER_SIZE / 2;
-    private static final float FIGHTER_RIGHT = 9.0f - FIGHTER_SIZE / 2;
+    private static final float FIGHTER_LEFT = FIGHTER_WIDTH / 2;
+    private static final float FIGHTER_RIGHT = 9.0f - FIGHTER_WIDTH / 2;
 
     private float tx;
     private Bitmap targetBitmap;
     private RectF targetRect = new RectF();
     private Bitmap sparkBitmap;
     private RectF sparkRect = new RectF();
-    private static final float SPARK_WIDTH = 50 * 0.03f;
-    private static final float SPARK_HEIGHT = 30 * 0.03f;
+    private static final float SPARK_WIDTH = 50 * 0.0243f;
+    private static final float SPARK_HEIGHT = 30 * 0.0243f;
+    private static final float SPARK_OFFSET = 0.7f;
     private static final float FIRE_INTERVAL = 0.5f;
     private static final float SPARK_DURATION = 0.2f;
     private float accumulatedTime;
 
     public Fighter() {
-        super(R.mipmap.fighter, FIGHTER_X, FIGHTER_Y, FIGHTER_SIZE, FIGHTER_SIZE);
+        super(R.mipmap.fighter, FIGHTER_X, FIGHTER_Y, FIGHTER_WIDTH, FIGHTER_HEIGHT);
         targetBitmap = BitmapPool.get(R.mipmap.target);
         sparkBitmap = BitmapPool.get(R.mipmap.laser_0);
         tx = x;
@@ -88,8 +90,8 @@ public class Fighter extends Sprite {
             canvas.drawBitmap(targetBitmap, null, targetRect, null);
         }
         if (accumulatedTime < SPARK_DURATION) {
-            sparkRect.set(x - SPARK_WIDTH/2, y - SPARK_HEIGHT/2,
-                    x + SPARK_WIDTH/2, y + SPARK_HEIGHT/2 );
+            sparkRect.set(x - SPARK_WIDTH/2, y - SPARK_HEIGHT/2 - SPARK_OFFSET,
+                    x + SPARK_WIDTH/2, y + SPARK_HEIGHT/2 - SPARK_OFFSET);
             canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
         }
     }
