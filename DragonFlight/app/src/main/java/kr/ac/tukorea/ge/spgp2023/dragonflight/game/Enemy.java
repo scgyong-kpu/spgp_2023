@@ -21,5 +21,8 @@ public class Enemy extends Sprite {
         super.update();
         y += SPEED * BaseScene.frameTime;
         fixDstRect();
+        if (dstRect.top > 16.0) {
+            BaseScene.getTopScene().remove(this);
+        }
     }
 }
