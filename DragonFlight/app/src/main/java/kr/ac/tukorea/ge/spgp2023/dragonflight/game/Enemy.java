@@ -11,9 +11,10 @@ public class Enemy extends Sprite {
             R.mipmap.f_06_01, R.mipmap.f_07_01, R.mipmap.f_08_01, R.mipmap.f_09_01, R.mipmap.f_10_01,
     };
     private static final float SPEED = 2.0f;
+    public static final float SIZE = 1.8f;
 
     public Enemy(int index, int level) {
-        super(resIds[level], 0.9f * (2 * index + 1), 3.0f, 1.8f, 1.8f);
+        super(resIds[level], 0.9f * (2 * index + 1), -SIZE, SIZE, SIZE);
     }
 
     @Override
