@@ -1,6 +1,7 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -9,6 +10,7 @@ import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IGameObject;
 
 public class EnemyGenerator implements IGameObject {
     private static final float GEN_INTERVAL = 5.0f;
+    private static final String TAG = Enemy.class.getSimpleName();
     private float time;
     @Override
     public void update() {
@@ -20,6 +22,7 @@ public class EnemyGenerator implements IGameObject {
     }
 
     private void generate() {
+        Log.v(TAG, "Generating...");
         Random r = new Random();
         BaseScene scene = BaseScene.getTopScene();
         for (int i = 0; i < 5; i++) {

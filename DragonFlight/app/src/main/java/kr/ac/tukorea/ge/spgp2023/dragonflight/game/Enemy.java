@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 
 public class Enemy extends Sprite {
@@ -14,7 +15,7 @@ public class Enemy extends Sprite {
     public static final float SIZE = 1.8f;
 
     public Enemy(int index, int level) {
-        super(resIds[level], 0.9f * (2 * index + 1), -SIZE, SIZE, SIZE);
+        super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE);
     }
 
     @Override
