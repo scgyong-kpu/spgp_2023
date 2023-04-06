@@ -14,9 +14,9 @@ public class Enemy extends Sprite implements IBoxCollidable {
             R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01, R.mipmap.f_04_01, R.mipmap.f_05_01,
             R.mipmap.f_06_01, R.mipmap.f_07_01, R.mipmap.f_08_01, R.mipmap.f_09_01, R.mipmap.f_10_01,
     };
+    public static final int MAX_LEVEL = resIds.length - 1;
     private static final float SPEED = 2.0f;
     public static final float SIZE = 1.8f;
-
     protected RectF collisionRect = new RectF();
 
     public Enemy(int index, int level) {
