@@ -16,7 +16,7 @@ public class EnemyGenerator implements IGameObject {
 
     @Override
     public void update() {
-        time += BaseScene.frameTime * 5;
+        time += BaseScene.frameTime;
         if (time > GEN_INTERVAL) {
             generate();
             time -= GEN_INTERVAL;
