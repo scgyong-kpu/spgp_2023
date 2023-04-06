@@ -26,6 +26,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     public static final int MAX_LEVEL = resIds.length - 1;
     private static final float SPEED = 2.0f;
     public static final float SIZE = 1.8f;
+    private int level;
     protected RectF collisionRect = new RectF();
 
 //    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
@@ -35,12 +36,14 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
             enemy.y = -SIZE;
+            enemy.level = level;
             return enemy;
         }
         return new Enemy(index, level);
     }
     private Enemy(int index, int level) {
         super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
+        this.level = level;
     }
 
     @Override
@@ -62,5 +65,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     @Override
     public void onRecycle() {
+    }
+
+    public int getScore() {
+        return 10 * (level + 1);
     }
 }
