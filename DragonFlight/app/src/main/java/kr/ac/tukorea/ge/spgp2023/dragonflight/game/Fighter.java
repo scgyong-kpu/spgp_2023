@@ -21,12 +21,18 @@ public class Fighter extends Sprite {
     private float tx;
     private Bitmap targetBitmap;
     private RectF targetRect = new RectF();
+    private Bitmap sparkBitmap;
+    private RectF sparkRect = new RectF();
+    private static final float SPARK_WIDTH = 50 * 0.03f;
+    private static final float SPARK_HEIGHT = 30 * 0.03f;
     private static final float FIRE_INTERVAL = 0.5f;
+    private static final float SPARK_DURATION = 0.2f;
     private float accumulatedTime;
 
     public Fighter() {
         super(R.mipmap.fighter, FIGHTER_X, FIGHTER_Y, FIGHTER_SIZE, FIGHTER_SIZE);
         targetBitmap = BitmapPool.get(R.mipmap.target);
+        sparkBitmap = BitmapPool.get(R.mipmap.laser_0);
         tx = x;
     }
 
@@ -68,9 +74,9 @@ public class Fighter extends Sprite {
                 x = tx;
             }
         }
-        fixDstRect();
         if (x < FIGHTER_LEFT) x = tx = FIGHTER_LEFT;
         if (x > FIGHTER_RIGHT) x = tx = FIGHTER_RIGHT;
+        fixDstRect();
 
         checkFire();
     }
@@ -80,6 +86,11 @@ public class Fighter extends Sprite {
         super.draw(canvas);
         if (tx != x) {
             canvas.drawBitmap(targetBitmap, null, targetRect, null);
+        }
+        if (accumulatedTime < SPARK_DURATION) {
+            sparkRect.set(x - SPARK_WIDTH/2, y - SPARK_HEIGHT/2,
+                    x + SPARK_WIDTH/2, y + SPARK_HEIGHT/2 );
+            canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
         }
     }
 }
