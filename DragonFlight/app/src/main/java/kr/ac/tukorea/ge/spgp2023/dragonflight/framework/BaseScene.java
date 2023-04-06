@@ -41,29 +41,44 @@ public class BaseScene {
         // TODO: additional callback should be called
     }
 
-    public int add(IGameObject gobj) {
+    protected void initLayers(int layerCount) {
+        layers = new ArrayList<>();
+        for (int i = 0; i < layerCount; i++) {
+            layers.add(new ArrayList<>());
+        }
+    }
+
+    public void add(int layerIndex, IGameObject gobj) {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                ArrayList<IGameObject> objects = layers.get(layerIndex);
                 objects.add(gobj);
             }
         });
-        return objects.size();
     }
 
     public int count() {
-        return objects.size();
+        int count = 0;
+        for (ArrayList<IGameObject> objects: layers) {
+            count += objects.size();
+        }
+        return count;
     }
     public void update(long elapsedNanos) {
         frameTime = elapsedNanos / 1_000_000_000f;
-        for (IGameObject gobj : objects) {
-            gobj.update();
+        for (ArrayList<IGameObject> objects: layers) {
+            for (IGameObject gobj : objects) {
+                gobj.update();
+            }
         }
     }
 
     public void draw(Canvas canvas) {
-        for (IGameObject gobj : objects) {
-            gobj.draw(canvas);
+        for (ArrayList<IGameObject> objects: layers) {
+            for (IGameObject gobj : objects) {
+                gobj.draw(canvas);
+            }
         }
 
         if (BuildConfig.DEBUG) {
@@ -72,16 +87,18 @@ public class BaseScene {
                 bboxPaint.setStyle(Paint.Style.STROKE);
                 bboxPaint.setColor(Color.RED);
             }
-            for (IGameObject gobj : objects) {
-                if (gobj instanceof IBoxCollidable) {
-                    RectF rect = ((IBoxCollidable) gobj).getCollisionRect();
-                    canvas.drawRect(rect, bboxPaint);
+            for (ArrayList<IGameObject> objects: layers) {
+                for (IGameObject gobj : objects) {
+                    if (gobj instanceof IBoxCollidable) {
+                        RectF rect = ((IBoxCollidable) gobj).getCollisionRect();
+                        canvas.drawRect(rect, bboxPaint);
+                    }
                 }
             }
         }
     }
 
-    protected ArrayList<IGameObject> objects = new ArrayList<>();
+    protected ArrayList<ArrayList<IGameObject>> layers = new ArrayList<>();
 
     public boolean onTouchEvent(MotionEvent event) {
         return false;
@@ -91,9 +108,14 @@ public class BaseScene {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                objects.remove(gobj);
-                if (gobj instanceof IRecyclable) {
-                    RecycleBin.collect((IRecyclable) gobj);
+                for (ArrayList<IGameObject> objects: layers) {
+                    boolean removed = objects.remove(gobj);
+                    if (removed) {
+                        if (gobj instanceof IRecyclable) {
+                            RecycleBin.collect((IRecyclable) gobj);
+                        }
+                        break;
+                    }
                 }
             }
         });

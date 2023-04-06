@@ -13,13 +13,17 @@ public class MainScene extends BaseScene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Fighter fighter;
 
+    enum Layer {
+        enemy, bullet, player, controller, COUNT
+    }
     public MainScene() {
+        initLayers(Layer.COUNT.ordinal());
         fighter = new Fighter();
-        add(fighter);
+        add(Layer.player.ordinal(), fighter);
 
 //        AnimSprite animSprite = new AnimSprite(R.mipmap.enemy_01, 4.5f, 5.0f, 1.8f, 1.8f, 10, 0);
 //        add(animSprite);
-        add(new EnemyGenerator());
+        add(Layer.controller.ordinal(), new EnemyGenerator());
     }
 
     @Override
@@ -29,13 +33,13 @@ public class MainScene extends BaseScene {
     }
 
     private void checkCollision() {
-        for (IGameObject o1 : objects) {
+        for (IGameObject o1 : layers.get(Layer.enemy.ordinal())) {
             if (!(o1 instanceof Enemy)) {
                 continue;
             }
             Enemy enemy = (Enemy) o1;
 //            boolean removed = false;
-            for (IGameObject o2 : objects) {
+            for (IGameObject o2 : layers.get(Layer.bullet.ordinal())) {
                 if (!(o2 instanceof Bullet)) {
                     continue;
                 }
