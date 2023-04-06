@@ -2,8 +2,10 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class AnimSprite extends Sprite {
+    private static final String TAG = AnimSprite.class.getSimpleName();
     protected Rect srcRect = new Rect();
     protected int frameCount;
     protected float fps;

@@ -3,8 +3,10 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.util.Log;
 
 public class Sprite implements IGameObject {
+    private static final String TAG = Sprite.class.getSimpleName();
     protected Bitmap bitmap;
     protected RectF dstRect = new RectF();
     protected float x, y, width, height;
@@ -17,6 +19,8 @@ public class Sprite implements IGameObject {
             setBitmapResource(bitmapResId);
         }
         fixDstRect();
+
+        Log.v(TAG, "Created " + this.getClass().getSimpleName() + "@" + System.identityHashCode(this));
     }
 
     protected void setBitmapResource(int bitmapResId) {
