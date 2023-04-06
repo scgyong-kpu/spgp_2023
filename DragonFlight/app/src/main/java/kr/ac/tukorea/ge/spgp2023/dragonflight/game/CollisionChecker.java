@@ -32,6 +32,7 @@ public class CollisionChecker implements IGameObject {
                     Log.d(TAG, "Collision !!");
                     scene.remove(bullet); // is this recyclable?
                     scene.remove(enemy); // is this recyclable?
+                    scene.addScore(10);
 //                    removed = true;
                     break;
                 }

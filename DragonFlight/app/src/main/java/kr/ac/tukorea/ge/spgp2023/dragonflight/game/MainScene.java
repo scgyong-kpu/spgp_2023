@@ -18,17 +18,21 @@ public class MainScene extends BaseScene {
     public enum Layer {
         enemy, bullet, player, ui, controller, COUNT
     }
+
+    private Score score;
     public MainScene() {
         initLayers(Layer.COUNT);
         fighter = new Fighter();
         add(Layer.player, fighter);
-        Score score = new Score();
-        score.setScore(12345);
+        score = new Score();
         add(Layer.ui, score);
         add(Layer.controller, new EnemyGenerator());
         add(Layer.controller, new CollisionChecker());
     }
 
+    public void addScore(int amount) {
+        score.add(amount);
+    }
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {
