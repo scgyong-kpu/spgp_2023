@@ -72,6 +72,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     }
 
     public int getScore() {
-        return 100 * (level + 1);
+        return 10 * (level + 1);
     }
 }
