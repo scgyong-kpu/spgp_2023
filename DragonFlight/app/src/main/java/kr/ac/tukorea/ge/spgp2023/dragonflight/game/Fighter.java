@@ -40,8 +40,17 @@ public class Fighter extends Sprite {
         super.update();
 
         float time = BaseScene.frameTime;
-        float dx = tx >= x ? SPEED : -SPEED;
-        x += dx * time;
+        if (tx >= x) {
+            x += SPEED * time;
+            if (x > tx) {
+                x = tx;
+            }
+        } else {
+            x -= SPEED * time;
+            if (x < tx) {
+                x = tx;
+            }
+        }
         fixDstRect();
         if (x < FIGHTER_LEFT) x = FIGHTER_LEFT;
         if (x > FIGHTER_RIGHT) x = FIGHTER_RIGHT;
