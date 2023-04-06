@@ -16,6 +16,11 @@ public class RecycleBin {
             bin = new ArrayList<>();
             recycleBin.put(clazz, bin);
         }
+        if (bin.indexOf(object) >= 0) {
+            // 하나의 update() 내에서 두 개 이상의 조건에 의해 두 번 이상 삭제되는 일이 있을 수 있다
+            Log.w(TAG, "Already exists: " + object);
+            return;
+        }
         object.onRecycle(); // 객체가 재활용통에 들어가기 전에 정리해야 할 것이 있다면 여기서 한다
         bin.add(object);
         Log.d(TAG, "collect(): " + clazz.getSimpleName() + " : " + bin.size() + " objects");
