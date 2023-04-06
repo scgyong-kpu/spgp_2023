@@ -16,7 +16,7 @@ public class MainScene extends BaseScene {
     private final Fighter fighter;
 
     public enum Layer {
-        bg, enemy, bullet, player, ui, controller, COUNT
+        bg1, enemy, bullet, player, bg2, ui, controller, COUNT
     }
 
     private Score score;
@@ -24,8 +24,8 @@ public class MainScene extends BaseScene {
         initLayers(Layer.COUNT);
         fighter = new Fighter();
         add(Layer.player, fighter);
-        add(Layer.bg, new Background(R.mipmap.bg_city));
-        add(Layer.bg, new Background(R.mipmap.clouds));
+        add(Layer.bg1, new Background(R.mipmap.bg_city));
+        add(Layer.bg2, new Background(R.mipmap.clouds));
         score = new Score();
         add(Layer.ui, score);
         add(Layer.controller, new EnemyGenerator());
