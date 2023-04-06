@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IGameObject;
 
 public class CollisionChecker implements IGameObject {
