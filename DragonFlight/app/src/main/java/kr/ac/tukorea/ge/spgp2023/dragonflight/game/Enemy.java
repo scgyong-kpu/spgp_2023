@@ -9,10 +9,12 @@ import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 
-public class Enemy extends AnimSprite implements IBoxCollidable {
+public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = Enemy.class.getSimpleName();
 
     private static final int[] resIds = {
@@ -26,12 +28,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     public static final float SIZE = 1.8f;
     protected RectF collisionRect = new RectF();
 
-    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
+//    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
 
     static Enemy get(int index, int level) {
-        if (recycleBin.size() > 0) {
-            Log.d(TAG, "get(): Recycle Bin has " + recycleBin.size() + " enemies");
-            Enemy enemy = recycleBin.remove(0);
+        Enemy enemy = (Enemy) RecycleBin.get(Enemy.class);
+        if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
             enemy.y = -SIZE;
             return enemy;
@@ -49,8 +50,6 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
         fixDstRect();
         if (dstRect.top > 16.0) {
             BaseScene.getTopScene().remove(this);
-            recycleBin.add(this);
-            Log.d(TAG, "remove(): Recycle Bin has " + recycleBin.size() + " bullets");
         }
         collisionRect.set(dstRect);
         collisionRect.inset(0.11f, 0.11f);
@@ -59,5 +58,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable {
     @Override
     public RectF getCollisionRect() {
         return collisionRect;
+    }
+
+    @Override
+    public void onRecycle() {
     }
 }

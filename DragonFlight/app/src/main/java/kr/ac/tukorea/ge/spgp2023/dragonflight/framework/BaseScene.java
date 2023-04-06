@@ -92,6 +92,9 @@ public class BaseScene {
             @Override
             public void run() {
                 objects.remove(gobj);
+                if (gobj instanceof IRecyclable) {
+                    RecycleBin.collect((IRecyclable) gobj);
+                }
             }
         });
     }
