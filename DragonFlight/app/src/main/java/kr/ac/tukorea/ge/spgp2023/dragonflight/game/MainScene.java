@@ -12,9 +12,7 @@ public class MainScene extends BaseScene {
         fighter = new Fighter();
         add(fighter);
 
-        for (int i = 0; i < 5; i++) {
-            add(new Enemy(i, i));
-        }
+        add(new EnemyGenerator());
     }
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
