@@ -130,6 +130,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (running) {
             return;
         }
+        previousNanos = 0;
         running = true;
         Choreographer.getInstance().postFrameCallback(this);
     }
