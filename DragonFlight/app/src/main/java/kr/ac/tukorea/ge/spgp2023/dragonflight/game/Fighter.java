@@ -96,7 +96,11 @@ public class Fighter extends Sprite {
             canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
         }
 
+        canvas.save();
+        canvas.translate(2.0f, 5.0f);
+        canvas.scale(5.0f, 5.0f);
         gauge.draw(canvas);
+        canvas.restore();
 
     }
 }
