@@ -83,6 +83,7 @@ public class Fighter extends Sprite {
         checkFire();
     }
 
+    Gauge gauge = new Gauge();
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -94,5 +95,8 @@ public class Fighter extends Sprite {
                     x + SPARK_WIDTH/2, y + SPARK_HEIGHT/2 - SPARK_OFFSET);
             canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
         }
+
+        gauge.draw(canvas);
+
     }
 }
