@@ -2,19 +2,16 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Gauge;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = Enemy.class.getSimpleName();
