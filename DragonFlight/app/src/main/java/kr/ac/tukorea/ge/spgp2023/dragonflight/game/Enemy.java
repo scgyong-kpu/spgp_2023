@@ -28,6 +28,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 2.0f;
     public static final float SIZE = 1.8f;
     private int level;
+    protected int life, maxLife;
     protected RectF collisionRect = new RectF();
 
 //    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
@@ -41,6 +42,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
                 enemy.level = level;
                 enemy.bitmap = BitmapPool.get(resIds[level]); // 오래된 버그. 재사용시 비트맵도 바꾸어 주어야 한다
             }
+            enemy.life = enemy.maxLife = level * 10;
             return enemy;
         }
         return new Enemy(index, level);
@@ -48,6 +50,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private Enemy(int index, int level) {
         super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
         this.level = level;
+        this.life = this.maxLife = level * 10;
     }
 
     @Override
@@ -73,5 +76,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     public int getScore() {
         return 10 * (level + 1);
+    }
+
+    public boolean decreaseLife(int power) {
+        life -= power;
+        if (life <= 0) return true;
+        return false;
     }
 }

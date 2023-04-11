@@ -56,4 +56,8 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     @Override
     public void onRecycle() {
     }
+
+    public int getPower() {
+        return 10;
+    }
 }

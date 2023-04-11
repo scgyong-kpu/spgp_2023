@@ -31,8 +31,11 @@ public class CollisionChecker implements IGameObject {
                 if (CollisionHelper.collides(enemy, bullet)) {
                     Log.d(TAG, "Collision !!");
                     scene.remove(bullet); // is this recyclable?
-                    scene.remove(enemy); // is this recyclable?
-                    scene.addScore(enemy.getScore());
+                    boolean dead = enemy.decreaseLife(bullet.getPower());
+                    if (dead) {
+                        scene.remove(enemy);
+                        scene.addScore(enemy.getScore());
+                    }
 //                    removed = true;
                     break;
                 }
