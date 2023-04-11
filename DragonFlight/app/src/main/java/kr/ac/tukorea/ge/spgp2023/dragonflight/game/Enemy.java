@@ -74,9 +74,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
         canvas.save();
-        canvas.translate(dstRect.left, dstRect.bottom);
-        canvas.scale(dstRect.width(), dstRect.height());
+        float width = dstRect.width() * 0.7f;
+        canvas.translate(x - width / 2, dstRect.bottom);
+        canvas.scale(width, width);
         gauge.draw(canvas, (float)life / maxLife);
         canvas.restore();
     }
