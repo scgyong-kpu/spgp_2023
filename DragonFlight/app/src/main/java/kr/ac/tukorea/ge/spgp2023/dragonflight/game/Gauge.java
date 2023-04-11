@@ -11,13 +11,13 @@ import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.GameView;
 public class Gauge {
     private Paint fgPaint = new Paint();
     private Paint bgPaint = new Paint();
-    public Gauge() {
+    public Gauge(float width) {
         bgPaint.setStyle(Paint.Style.STROKE);
-        bgPaint.setStrokeWidth(0.2f);
+        bgPaint.setStrokeWidth(width);
         bgPaint.setColor(Color.YELLOW);
         bgPaint.setStrokeCap(Paint.Cap.ROUND);
         fgPaint.setStyle(Paint.Style.STROKE);
-        fgPaint.setStrokeWidth(0.1f);
+        fgPaint.setStrokeWidth(width / 2);
         fgPaint.setColor(Color.BLUE);
         fgPaint.setStrokeCap(Paint.Cap.ROUND);
     }
