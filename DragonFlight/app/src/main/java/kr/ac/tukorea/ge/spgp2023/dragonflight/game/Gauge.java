@@ -16,9 +16,11 @@ public class Gauge {
         bgPaint.setStyle(Paint.Style.STROKE);
         bgPaint.setStrokeWidth(0.2f);
         bgPaint.setColor(Color.YELLOW);
+        bgPaint.setStrokeCap(Paint.Cap.ROUND);
         fgPaint.setStyle(Paint.Style.STROKE);
         fgPaint.setStrokeWidth(0.1f);
         fgPaint.setColor(Color.BLUE);
+        fgPaint.setStrokeCap(Paint.Cap.ROUND);
     }
     public void draw(Canvas canvas) {
         canvas.drawLine(0, 0, 1.0f, 0.0f, bgPaint);
