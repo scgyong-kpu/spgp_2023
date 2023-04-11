@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="Dragon Flight"
             android:padding="20dp"
-            android:background="@color/main_title_bg"
+            android:background="@drawable/title_round_bg"
             android:textColor="@color/main_title_fg"
             android:textSize="50sp"
             android:textStyle="bold"
