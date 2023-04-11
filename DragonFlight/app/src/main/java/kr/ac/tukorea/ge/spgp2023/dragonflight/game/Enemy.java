@@ -42,7 +42,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
                 enemy.level = level;
                 enemy.bitmap = BitmapPool.get(resIds[level]); // 오래된 버그. 재사용시 비트맵도 바꾸어 주어야 한다
             }
-            enemy.life = enemy.maxLife = level * 10;
+            enemy.life = enemy.maxLife = (level + 1) * 10;
             return enemy;
         }
         return new Enemy(index, level);
@@ -50,7 +50,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private Enemy(int index, int level) {
         super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
         this.level = level;
-        this.life = this.maxLife = level * 10;
+        this.life = this.maxLife = (level + 1) * 10;
     }
 
     @Override
