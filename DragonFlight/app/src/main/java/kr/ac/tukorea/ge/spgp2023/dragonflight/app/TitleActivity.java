@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
+
 public class TitleActivity extends AppCompatActivity {
 
     @Override
