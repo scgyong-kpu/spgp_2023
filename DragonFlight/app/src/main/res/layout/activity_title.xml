@@ -7,6 +7,21 @@
     tools:context=".app.TitleActivity">
 
     <LinearLayout
+        android:id="@+id/treeParentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        >
+        <ImageView
+            android:id="@+id/treeImageView"
+            android:layout_width="1140dp"
+            android:layout_height="230dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/trees_w"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
