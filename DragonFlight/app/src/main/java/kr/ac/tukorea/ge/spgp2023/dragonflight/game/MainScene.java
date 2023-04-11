@@ -35,6 +35,9 @@ public class MainScene extends BaseScene {
     public void addScore(int amount) {
         score.add(amount);
     }
+    public int getScore() {
+        return score.getScore();
+    }
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         switch (action) {

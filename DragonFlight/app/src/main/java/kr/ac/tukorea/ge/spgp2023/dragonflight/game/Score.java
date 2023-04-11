@@ -32,6 +32,9 @@ public class Score implements IGameObject {
     public void setScore(int score) {
         this.score = score;
     }
+    public int getScore() {
+        return score;
+    }
 
     @Override
     public void update() {
