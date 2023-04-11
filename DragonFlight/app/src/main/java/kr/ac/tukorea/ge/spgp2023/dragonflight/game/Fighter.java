@@ -99,7 +99,7 @@ public class Fighter extends Sprite {
         canvas.save();
         canvas.translate(2.0f, 5.0f);
         canvas.scale(5.0f, 5.0f);
-        gauge.draw(canvas);
+        gauge.draw(canvas, 0.7f);
         canvas.restore();
 
     }
