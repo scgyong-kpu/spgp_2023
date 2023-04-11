@@ -1,5 +1,6 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 
@@ -30,6 +31,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private int level;
     protected int life, maxLife;
     protected RectF collisionRect = new RectF();
+    protected Gauge gauge = new Gauge();
 
 //    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
 
@@ -67,6 +69,16 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         }
         collisionRect.set(dstRect);
         collisionRect.inset(0.11f, 0.11f);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        canvas.save();
+        canvas.translate(dstRect.left, dstRect.bottom);
+        canvas.scale(dstRect.width(), dstRect.height());
+        gauge.draw(canvas, (float)life / maxLife);
+        canvas.restore();
     }
 
     @Override
