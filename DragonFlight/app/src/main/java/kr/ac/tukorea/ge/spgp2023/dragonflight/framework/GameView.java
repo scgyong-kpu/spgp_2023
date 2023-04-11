@@ -22,6 +22,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
     protected Paint fpsPaint;
     protected Paint borderPaint;
 
+    protected boolean running;
+
     public GameView(Context context) {
         super(context);
         init(null, 0);
@@ -37,6 +39,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
+
+        running = true;
         Choreographer.getInstance().postFrameCallback(this);
 
         if (BuildConfig.DEBUG) {
@@ -63,7 +67,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         previousNanos = nanos;
         invalidate();
-        if (isShown()) {
+        if (running) {
             Choreographer.getInstance().postFrameCallback(this);
         }
     }
@@ -104,7 +108,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
         if (BuildConfig.DEBUG && BaseScene.frameTime > 0) {
             int fps = (int) (1.0f / BaseScene.frameTime);
-            canvas.drawText("FPS: " + fps, 100f, 200f, fpsPaint);
+            int count = (scene != null) ? scene.count() : 0;
+            canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
         }
     }
 
@@ -115,5 +120,18 @@ public class GameView extends View implements Choreographer.FrameCallback {
             return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    public void pauseGame() {
+        running = false;
+    }
+
+    public void resumeGame() {
+        if (running) {
+            return;
+        }
+        previousNanos = 0;
+        running = true;
+        Choreographer.getInstance().postFrameCallback(this);
     }
 }
