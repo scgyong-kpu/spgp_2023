@@ -37,19 +37,23 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         Enemy enemy = (Enemy) RecycleBin.get(Enemy.class);
         if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
-            enemy.y = -SIZE;
-            if (level != enemy.level) {
-                enemy.level = level;
-                enemy.bitmap = BitmapPool.get(resIds[level]); // 오래된 버그. 재사용시 비트맵도 바꾸어 주어야 한다
-            }
-            enemy.life = enemy.maxLife = (level + 1) * 10;
+            enemy.y = -SIZE/2;
+            enemy.init(level);
             return enemy;
         }
         return new Enemy(index, level);
     }
     private Enemy(int index, int level) {
-        super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
+        super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE/2, SIZE, SIZE, 10, 0);
         this.level = level;
+        init(level);
+    }
+
+    private void init(int level) {
+        if (level != this.level) {
+            this.level = level;
+            this.bitmap = BitmapPool.get(resIds[level]);
+        }
         this.life = this.maxLife = (level + 1) * 10;
     }
 

@@ -27,7 +27,7 @@ public class Fighter extends Sprite {
     private static final float SPARK_WIDTH = 50 * 0.0243f;
     private static final float SPARK_HEIGHT = 30 * 0.0243f;
     private static final float SPARK_OFFSET = 0.7f;
-    private static final float FIRE_INTERVAL = 1.25f;
+    private static final float FIRE_INTERVAL = 0.25f;
     private static final float SPARK_DURATION = 0.1f;
     private float accumulatedTime;
 
