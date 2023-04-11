@@ -31,7 +31,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private int level;
     protected int life, maxLife;
     protected RectF collisionRect = new RectF();
-    protected Gauge gauge = new Gauge(0.1f);
+    protected Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
 //    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
 
