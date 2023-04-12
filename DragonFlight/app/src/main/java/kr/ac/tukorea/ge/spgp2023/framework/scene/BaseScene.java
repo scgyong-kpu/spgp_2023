@@ -51,14 +51,40 @@ public class BaseScene {
         }
     }
 
-    public <E extends Enum<E>> void add(E layerEnum, IGameObject gobj) {
+    public <E extends Enum<E>> void add(E layerEnum, IGameObject gobj, boolean immediate) {
+        if (immediate) {
+            add(layerEnum, gobj);
+            return;
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                ArrayList<IGameObject> objects = layers.get(layerEnum.ordinal());
-                objects.add(gobj);
+                add(layerEnum, gobj);
             }
         });
+    }
+    public <E extends Enum<E>> void add(E layerEnum, IGameObject gobj) {
+        ArrayList<IGameObject> objects = layers.get(layerEnum.ordinal());
+        objects.add(gobj);
+    }
+    public <E extends Enum> void remove(E layerEnum, IGameObject gobj, boolean immediate) {
+        if (immediate) {
+            remove(layerEnum, gobj);
+            return;
+        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                remove(layerEnum, gobj);
+            }
+        });
+    }
+
+    public <E extends Enum> void remove(E layerEnum, IGameObject gobj) {
+        boolean removed = getObjectsAt(layerEnum).remove(gobj);
+        if (removed && gobj instanceof IRecyclable) {
+            RecycleBin.collect((IRecyclable) gobj);
+        }
     }
 
     public int count() {
@@ -110,20 +136,4 @@ public class BaseScene {
         return false;
     }
 
-    public void remove(IGameObject gobj) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (ArrayList<IGameObject> objects: layers) {
-                    boolean removed = objects.remove(gobj);
-                    if (removed) {
-                        if (gobj instanceof IRecyclable) {
-                            RecycleBin.collect((IRecyclable) gobj);
-                        }
-                        break;
-                    }
-                }
-            }
-        });
-    }
 }
