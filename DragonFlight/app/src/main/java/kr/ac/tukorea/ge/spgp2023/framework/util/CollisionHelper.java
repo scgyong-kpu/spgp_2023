@@ -1,8 +1,8 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework.util;
+package kr.ac.tukorea.ge.spgp2023.framework.util;
 
 import android.graphics.RectF;
 
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 
 public class CollisionHelper {
     public static boolean collides(IBoxCollidable obj1, IBoxCollidable obj2) {

@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.res.BitmapPool;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 
 public class Fighter extends Sprite {
     private static final float FIGHTER_X = 4.5f;

@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework.objects;
+package kr.ac.tukorea.ge.spgp2023.framework.objects;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

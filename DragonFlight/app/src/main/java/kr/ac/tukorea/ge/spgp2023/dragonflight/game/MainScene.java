@@ -3,8 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class MainScene extends BaseScene {
     private static final String TAG = MainScene.class.getSimpleName();

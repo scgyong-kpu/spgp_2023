@@ -3,11 +3,11 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IRecyclable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 
 public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_WIDTH = 28 * 0.0243f;

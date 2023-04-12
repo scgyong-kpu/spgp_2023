@@ -6,8 +6,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.res.BitmapPool;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 
 public class Score implements IGameObject {
     private final Bitmap bitmap;

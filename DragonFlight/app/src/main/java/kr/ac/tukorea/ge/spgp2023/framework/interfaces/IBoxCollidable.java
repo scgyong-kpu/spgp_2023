@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces;
+package kr.ac.tukorea.ge.spgp2023.framework.interfaces;
 
 import android.graphics.RectF;
 

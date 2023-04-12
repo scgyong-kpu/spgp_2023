@@ -4,14 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.objects.AnimSprite;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.res.BitmapPool;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.util.Gauge;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IRecyclable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.view.Metrics;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.framework.util.Gauge;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = Enemy.class.getSimpleName();

@@ -1,8 +1,8 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.view.Metrics;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 
 public class Background extends Sprite {
     private final float speed;

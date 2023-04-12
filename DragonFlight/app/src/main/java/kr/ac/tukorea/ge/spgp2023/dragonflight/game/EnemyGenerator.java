@@ -5,8 +5,8 @@ import android.util.Log;
 
 import java.util.Random;
 
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 
 public class EnemyGenerator implements IGameObject {
     private static final float GEN_INTERVAL = 5.0f;
