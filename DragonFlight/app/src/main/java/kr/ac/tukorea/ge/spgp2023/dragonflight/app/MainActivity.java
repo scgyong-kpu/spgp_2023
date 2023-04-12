@@ -4,9 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.GameView;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.game.MainScene;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,15 +1,10 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IGameObject;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.view.Metrics;
 
 public class MainScene extends BaseScene {
     private static final String TAG = MainScene.class.getSimpleName();
