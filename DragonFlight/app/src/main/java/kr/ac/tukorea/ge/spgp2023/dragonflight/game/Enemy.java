@@ -62,7 +62,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         y += SPEED * BaseScene.frameTime;
         fixDstRect();
         if (dstRect.top > 16.0) {
-            BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
+            BaseScene.getTopScene().remove(MainScene.Layer.enemy, this, false);
         }
         collisionRect.set(dstRect);
         collisionRect.inset(0.11f, 0.11f);
