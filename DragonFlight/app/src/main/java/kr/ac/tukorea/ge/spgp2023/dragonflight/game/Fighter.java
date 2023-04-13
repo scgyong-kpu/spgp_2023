@@ -56,8 +56,8 @@ public class Fighter extends Sprite {
         fire();
     }
     public void fire() {
-        Bullet bullet = new Bullet(x, y);
-        BaseScene.getTopScene().add(bullet);
+        Bullet bullet = Bullet.get(x, y);
+        BaseScene.getTopScene().add(MainScene.Layer.bullet, bullet);
     }
 
     @Override
