@@ -28,6 +28,10 @@ public class Sprite implements IGameObject {
     }
 
     protected void fixDstRect() {
+        setSize(width, height);
+    }
+
+    protected void setSize(float width, float height) {
         float half_width = width / 2;
         float half_height = height / 2;
         dstRect.set(x - half_width, y - half_height, x + half_width, y + half_height);
@@ -41,4 +45,5 @@ public class Sprite implements IGameObject {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dstRect, null);
     }
+
 }

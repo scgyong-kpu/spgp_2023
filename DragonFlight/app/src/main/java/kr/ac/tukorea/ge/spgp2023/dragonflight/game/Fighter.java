@@ -56,8 +56,11 @@ public class Fighter extends Sprite {
         fire();
     }
     public void fire() {
-        Bullet bullet = new Bullet(x, y);
-        BaseScene.getTopScene().add(bullet);
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        int score = scene.getScore();
+        int power = 10 + score / 1000;
+        Bullet bullet = Bullet.get(x, y, power);
+        BaseScene.getTopScene().add(MainScene.Layer.bullet, bullet);
     }
 
     @Override
