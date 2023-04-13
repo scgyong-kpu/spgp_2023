@@ -1,17 +1,10 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
@@ -21,21 +14,23 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_HEIGHT = 40 * 0.0243f;
     private static final String TAG = Bullet.class.getSimpleName();
     protected static float SPEED = 20.0f;
-    protected static Paint paint;
+    protected int power;
 
-    public static Bullet get(float x, float y) {
+    public static Bullet get(float x, float y, int power) {
         Bullet bullet = (Bullet) RecycleBin.get(Bullet.class);
         if (bullet != null) {
             bullet.x = x;
             bullet.y = y;
+            bullet.power = power;
             return bullet;
         }
-        return new Bullet(x, y);
+        return new Bullet(x, y, power);
     }
-    private Bullet(float x, float y) {
+    private Bullet(float x, float y, int power) {
         super(R.mipmap.laser_1, x, y, BULLET_WIDTH, BULLET_HEIGHT);
         this.x = x;
         this.y = y;
+        this.power = power;
     }
     @Override
     public void update() {
@@ -55,5 +50,9 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
 
     @Override
     public void onRecycle() {
+    }
+
+    public int getPower() {
+        return power;
     }
 }

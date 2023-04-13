@@ -1,19 +1,17 @@
 package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Gauge;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = Enemy.class.getSimpleName();
@@ -28,7 +26,9 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final float SPEED = 2.0f;
     public static final float SIZE = 1.8f;
     private int level;
+    protected int life, maxLife;
     protected RectF collisionRect = new RectF();
+    protected Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
 
 //    protected static ArrayList<Enemy> recycleBin = new ArrayList<>();
 
@@ -36,18 +36,24 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         Enemy enemy = (Enemy) RecycleBin.get(Enemy.class);
         if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
-            enemy.y = -SIZE;
-            if (level != enemy.level) {
-                enemy.level = level;
-                enemy.bitmap = BitmapPool.get(resIds[level]); // 오래된 버그. 재사용시 비트맵도 바꾸어 주어야 한다
-            }
+            enemy.y = -SIZE/2;
+            enemy.init(level);
             return enemy;
         }
         return new Enemy(index, level);
     }
     private Enemy(int index, int level) {
-        super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE, SIZE, SIZE, 10, 0);
+        super(resIds[level], (Metrics.game_width / 10) * (2 * index + 1), -SIZE/2, SIZE, SIZE, 10, 0);
         this.level = level;
+        init(level);
+    }
+
+    private void init(int level) {
+        if (level != this.level) {
+            this.level = level;
+            this.bitmap = BitmapPool.get(resIds[level]);
+        }
+        this.life = this.maxLife = (level + 1) * 10;
     }
 
     @Override
@@ -63,6 +69,18 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     }
 
     @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+
+        canvas.save();
+        float width = dstRect.width() * 0.75f;
+        canvas.translate(x - width / 2, dstRect.bottom);
+        canvas.scale(width, width);
+        gauge.draw(canvas, (float)life / maxLife);
+        canvas.restore();
+    }
+
+    @Override
     public RectF getCollisionRect() {
         return collisionRect;
     }
@@ -73,5 +91,11 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
 
     public int getScore() {
         return 10 * (level + 1);
+    }
+
+    public boolean decreaseLife(int power) {
+        life -= power;
+        if (life <= 0) return true;
+        return false;
     }
 }
