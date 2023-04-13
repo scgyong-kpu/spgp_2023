@@ -97,7 +97,8 @@ public class BaseScene {
     public void update(long elapsedNanos) {
         frameTime = elapsedNanos / 1_000_000_000f;
         for (ArrayList<IGameObject> objects: layers) {
-            for (IGameObject gobj : objects) {
+            for (int i = objects.size() - 1; i >= 0; i--) {
+                IGameObject gobj = objects.get(i);
                 gobj.update();
             }
         }
