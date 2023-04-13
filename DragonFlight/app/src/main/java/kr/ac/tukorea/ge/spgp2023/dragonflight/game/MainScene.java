@@ -16,7 +16,6 @@ public class MainScene extends BaseScene {
 
     private Score score;
     public MainScene() {
-        Metrics.setGameSize(16,16);
         initLayers(Layer.COUNT);
         fighter = new Fighter();
         add(Layer.player, fighter);

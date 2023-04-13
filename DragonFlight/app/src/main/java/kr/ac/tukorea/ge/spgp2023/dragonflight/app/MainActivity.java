@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gameView = new GameView(this);
+        gameView.setFullScreen();
         setContentView(gameView);
 
         new MainScene().pushScene();
