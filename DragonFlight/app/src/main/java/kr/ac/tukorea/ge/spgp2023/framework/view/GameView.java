@@ -99,6 +99,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.scale(Metrics.scale, Metrics.scale);
         BaseScene scene = BaseScene.getTopScene();
         if (scene != null) {
+            if (scene.clipsRect()) {
+                canvas.clipRect(0, 0, Metrics.game_width, Metrics.game_height);
+            }
             scene.draw(canvas);
         }
 

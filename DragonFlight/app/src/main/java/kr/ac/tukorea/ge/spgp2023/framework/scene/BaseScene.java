@@ -137,4 +137,7 @@ public class BaseScene {
         return false;
     }
 
+    public boolean clipsRect() {
+        return true;
+    }
 }
