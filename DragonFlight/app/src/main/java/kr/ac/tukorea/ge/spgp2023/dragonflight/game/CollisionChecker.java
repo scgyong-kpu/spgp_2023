@@ -17,23 +17,17 @@ public class CollisionChecker implements IGameObject {
         MainScene scene = (MainScene) BaseScene.getTopScene();
         ArrayList<IGameObject> enemies = scene.getObjectsAt(MainScene.Layer.enemy);
         ArrayList<IGameObject> bullets = scene.getObjectsAt(MainScene.Layer.bullet);
-        for (IGameObject o1 : enemies) {
-            if (!(o1 instanceof Enemy)) {
-                continue;
-            }
-            Enemy enemy = (Enemy) o1;
+        for (int ei = enemies.size() - 1; ei >= 0; ei--) {
+            Enemy enemy = (Enemy) enemies.get(ei);
 //            boolean removed = false;
-            for (IGameObject o2 : bullets) {
-                if (!(o2 instanceof Bullet)) {
-                    continue;
-                }
-                Bullet bullet = (Bullet) o2;
+            for (int bi = bullets.size() - 1; bi >= 0; bi--) {
+                Bullet bullet = (Bullet) bullets.get(bi);
                 if (CollisionHelper.collides(enemy, bullet)) {
                     Log.d(TAG, "Collision !!");
                     scene.remove(MainScene.Layer.bullet, bullet); // is this recyclable?
                     boolean dead = enemy.decreaseLife(bullet.getPower());
                     if (dead) {
-                        scene.remove(MainScene.Layer.enemy, enemy, false);
+                        scene.remove(MainScene.Layer.enemy, enemy);
                         scene.addScore(enemy.getScore());
                     }
 //                    removed = true;
