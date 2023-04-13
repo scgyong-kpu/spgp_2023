@@ -8,10 +8,11 @@ import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Fighter extends Sprite {
-    private static final float FIGHTER_X = 4.5f;
-    private static final float FIGHTER_Y = 14.8f;
+    //private static final float FIGHTER_X = 4.5f;
+    private static final float FIGHTER_Y_OFFSET = 1.2f;
     private static final float FIGHTER_WIDTH = 72 * 0.0243f; //1.75f;
     private static final float FIGHTER_HEIGHT = 80 * 0.0243f; //1.75f;
     private static final float TARGET_RADIUS = 0.5f;
@@ -32,7 +33,7 @@ public class Fighter extends Sprite {
     private float accumulatedTime;
 
     public Fighter() {
-        super(R.mipmap.fighter, FIGHTER_X, FIGHTER_Y, FIGHTER_WIDTH, FIGHTER_HEIGHT);
+        super(R.mipmap.fighter, Metrics.game_width / 2, Metrics.game_height - FIGHTER_Y_OFFSET, FIGHTER_WIDTH, FIGHTER_HEIGHT);
         targetBitmap = BitmapPool.get(R.mipmap.target);
         sparkBitmap = BitmapPool.get(R.mipmap.laser_0);
         tx = x;
@@ -41,8 +42,8 @@ public class Fighter extends Sprite {
     public void setTargetPosition(float tx, float ty) {
         this.tx = tx;
         targetRect.set(
-                tx - TARGET_RADIUS, FIGHTER_Y - TARGET_RADIUS,
-                tx + TARGET_RADIUS, FIGHTER_Y + TARGET_RADIUS);
+                tx - TARGET_RADIUS, y - TARGET_RADIUS,
+                tx + TARGET_RADIUS, y + TARGET_RADIUS);
     }
 
     private void checkFire() {

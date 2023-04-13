@@ -37,6 +37,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
             enemy.y = -SIZE/2;
+            enemy.fixDstRect();
             enemy.init(level);
             return enemy;
         }

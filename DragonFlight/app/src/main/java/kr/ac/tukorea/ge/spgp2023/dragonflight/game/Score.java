@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Score implements IGameObject {
     private final Bitmap bitmap;
@@ -20,7 +21,7 @@ public class Score implements IGameObject {
 
     public Score() {
         this.bitmap = BitmapPool.get(R.mipmap.number_24x32);
-        this.right = 8.5f;
+        this.right = Metrics.game_width - 0.5f;
         this.top = 0.5f;
         this.dstCharWidth = 0.6f;
         this.srcCharWidth = bitmap.getWidth() / 10;
