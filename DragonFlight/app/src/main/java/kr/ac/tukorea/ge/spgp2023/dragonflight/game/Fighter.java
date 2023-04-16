@@ -126,7 +126,8 @@ public class Fighter extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, rects[5], dstRect, null);
+        int rollIndex = 5 + (int)(rollTime * 5 / MAX_ROLL_TIME);
+        canvas.drawBitmap(bitmap, rects[rollIndex], dstRect, null);
         if (tx != x) {
             canvas.drawBitmap(targetBitmap, null, targetRect, null);
         }
