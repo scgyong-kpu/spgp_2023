@@ -2,7 +2,9 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -32,8 +34,22 @@ public class Fighter extends Sprite {
     private static final float SPARK_DURATION = 0.1f;
     private float accumulatedTime;
 
+    private static final Rect[] rects = new Rect[] {
+            new Rect(  8, 0,   8 + 42, 80),
+            new Rect( 76, 0,  76 + 42, 80),
+            new Rect(140, 0, 140 + 50, 80),
+            new Rect(205, 0, 205 + 56, 80),
+            new Rect(270, 0, 270 + 62, 80),
+            new Rect(334, 0, 334 + 70, 80),
+            new Rect(406, 0, 406 + 62, 80),
+            new Rect(477, 0, 477 + 56, 80),
+            new Rect(549, 0, 549 + 48, 80),
+            new Rect(621, 0, 621 + 42, 80),
+            new Rect(689, 0, 689 + 42, 80),
+    };
+
     public Fighter() {
-        super(R.mipmap.fighter, Metrics.game_width / 2, Metrics.game_height - FIGHTER_Y_OFFSET, FIGHTER_WIDTH, FIGHTER_HEIGHT);
+        super(R.mipmap.fighters, Metrics.game_width / 2, Metrics.game_height - FIGHTER_Y_OFFSET, FIGHTER_WIDTH, FIGHTER_HEIGHT);
         targetBitmap = BitmapPool.get(R.mipmap.target);
         sparkBitmap = BitmapPool.get(R.mipmap.laser_0);
         tx = x;
@@ -89,7 +105,7 @@ public class Fighter extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
+        canvas.drawBitmap(bitmap, rects[5], dstRect, null);
         if (tx != x) {
             canvas.drawBitmap(targetBitmap, null, targetRect, null);
         }
