@@ -10,7 +10,7 @@ import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
-import kr.ac.tukorea.ge.spgp2023.dragonflight.BuildConfig;
+import kr.ac.tukorea.ge.spgp2023.cookierun.BuildConfig;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
 /**
