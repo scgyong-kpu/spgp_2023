@@ -3,8 +3,6 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import java.util.ArrayList;
-
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 
@@ -14,12 +12,14 @@ public class Player extends AnimSprite {
     }
 
     protected enum State {
-        running, jump
+        running, jump, doubleJump, falling, COUNT
     }
 //    protected Rect[] srcRects
     protected static Rect[][] srcRects = {
             makeRects(100, 101, 102, 103), // State.running
             makeRects(7, 8),               // State.jump
+            makeRects(1, 2, 3, 4),         // State.doubleJump
+            makeRects(0),                  // State.falling
     };
     protected static Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
@@ -43,11 +43,10 @@ public class Player extends AnimSprite {
 
     protected State state = State.running;
     public void jump() {
-        if (state == State.running) {
-            state = State.jump;
-        } else {
-            state = State.running;
+        int ord = state.ordinal() + 1;
+        if (ord == State.COUNT.ordinal()) {
+            ord = 0;
         }
+        state = State.values()[ord]; // int 로부터 enum 만들기
     }
-
 }
