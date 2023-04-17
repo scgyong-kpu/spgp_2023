@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 
@@ -16,17 +18,19 @@ public class Player extends AnimSprite {
     }
 //    protected Rect[] srcRects
     protected static Rect[][] srcRects = {
-            new Rect[] {
-                    new Rect(72 + 0 * 272, 404, 72+140 + 0 * 272, 404+140),
-                    new Rect(72 + 1 * 272, 404, 72+140 + 1 * 272, 404+140),
-                    new Rect(72 + 2 * 272, 404, 72+140 + 2 * 272, 404+140),
-                    new Rect(72 + 3 * 272, 404, 72+140 + 3 * 272, 404+140)
-            },
-            new Rect[] {
-                    new Rect(72 + 7 * 272, 132, 72+140 + 7 * 272, 132+140),
-                    new Rect(72 + 8 * 272, 132, 72+140 + 8 * 272, 132+140),
-            },
+            makeRects(100, 101, 102, 103), // State.running
+            makeRects(7, 8),               // State.jump
     };
+    protected static Rect[] makeRects(int... indices) {
+        Rect[] rects = new Rect[indices.length];
+        for (int i = 0; i < indices.length; i++) {
+            int idx = indices[i];
+            int l = 72 + (idx % 100) * 272;
+            int t = 132 + (idx / 100) * 272;
+            rects[i] = new Rect(l, t, l + 140, t + 140);
+        }
+        return rects;
+    }
 
     @Override
     public void draw(Canvas canvas) {
