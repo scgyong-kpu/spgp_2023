@@ -35,6 +35,12 @@ public class Platform extends MapObject implements IRecyclable {
         // Platform 은 x,y 를 사용하지 않고 dstRect 만을 사용하도록 한다.
         dstRect.set(left, top, left + width, top + height);
     }
+
+    @Override
+    protected MainScene.Layer getLayer() {
+        return MainScene.Layer.platform;
+    }
+
     @Override
     public void onRecycle() {}
 }
