@@ -1,11 +1,13 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import androidx.annotation.NonNull;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
-public class Platform extends MapObject implements IRecyclable {
+public class Platform extends MapObject {
     public enum Type {
         T_10x2, T_2x2, T_3x1;
         int resId() { return resIds[this.ordinal()]; }
@@ -41,6 +43,9 @@ public class Platform extends MapObject implements IRecyclable {
         return MainScene.Layer.platform;
     }
 
+    @NonNull
     @Override
-    public void onRecycle() {}
+    public String toString() {
+        return getClass().getSimpleName() + "@" + System.identityHashCode(this) + "(" + width + "x" + height + ")";
+    }
 }

@@ -4,10 +4,11 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
-public class MapObject extends Sprite implements IBoxCollidable {
+public class MapObject extends Sprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = MapObject.class.getSimpleName();
     @Override
     public void update() {
@@ -28,4 +29,6 @@ public class MapObject extends Sprite implements IBoxCollidable {
     public RectF getCollisionRect() {
         return dstRect;
     }
+    @Override
+    public void onRecycle() {}
 }
