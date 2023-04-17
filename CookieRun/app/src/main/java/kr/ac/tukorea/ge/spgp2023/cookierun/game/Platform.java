@@ -1,9 +1,11 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
-public class Platform extends Sprite {
+public class Platform extends MapObject implements IRecyclable {
     public enum Type {
         T_10x2, T_2x2, T_3x1;
         int resId() { return resIds[this.ordinal()]; }
@@ -17,11 +19,22 @@ public class Platform extends Sprite {
         static int[] widths = { 10, 2, 3 };
         static int[] heights = { 2, 2, 1 };
     }
-    public Platform(Type type, float left, float top) {
+    private Platform() {}
+    public static Platform get(Type type, float left, float top) {
+        Platform platform = (Platform) RecycleBin.get(Platform.class);
+        if (platform == null) {
+            platform = new Platform();
+        }
+        platform.init(type, left, top);
+        return platform;
+    }
+    public void init(Type type, float left, float top) {
         setBitmapResource(type.resId());
         width = type.width();
         height = type.height();
         // Platform 은 x,y 를 사용하지 않고 dstRect 만을 사용하도록 한다.
         dstRect.set(left, top, left + width, top + height);
     }
+    @Override
+    public void onRecycle() {}
 }

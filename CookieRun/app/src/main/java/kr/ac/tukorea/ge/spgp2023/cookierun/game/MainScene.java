@@ -20,11 +20,11 @@ public class MainScene extends BaseScene {
         add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_2, 2.0f));
         add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_3, 3.0f));
 
-        add(Layer.platform, new Platform(Platform.Type.T_10x2, 0, 7));
-        add(Layer.platform, new Platform(Platform.Type.T_2x2, 10, 7));
-        add(Layer.platform, new Platform(Platform.Type.T_10x2, 12, 7));
-        add(Layer.platform, new Platform(Platform.Type.T_3x1, 8, 3));
-        add(Layer.platform, new Platform(Platform.Type.T_3x1, 11, 4));
+        add(Layer.platform, Platform.get(Platform.Type.T_10x2, 0, 7));
+        add(Layer.platform, Platform.get(Platform.Type.T_2x2, 10, 7));
+        add(Layer.platform, Platform.get(Platform.Type.T_10x2, 12, 7));
+        add(Layer.platform, Platform.get(Platform.Type.T_3x1, 8, 3));
+        add(Layer.platform, Platform.get(Platform.Type.T_3x1, 11, 4));
 
         player = new Player();
         add(Layer.player, player);
