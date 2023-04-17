@@ -2,7 +2,6 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
-import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
 
 public class Player extends AnimSprite {
     public Player() {
@@ -23,19 +22,4 @@ public class Player extends AnimSprite {
         }
     }
 
-    protected void setAnimationResource(int mipmapResId, float fps, int frameCount) {
-        bitmap = BitmapPool.get(mipmapResId);
-        this.fps = fps;
-        int imageWidth = bitmap.getWidth();
-        int imageHeight = bitmap.getHeight();
-        if (frameCount == 0) {
-            this.frameWidth = imageHeight;
-            this.frameHeight = imageHeight;
-            this.frameCount = imageWidth / imageHeight;
-        } else {
-            this.frameWidth = imageWidth / frameCount;
-            this.frameHeight = imageHeight;
-            this.frameCount = frameCount;
-        }
-    }
 }

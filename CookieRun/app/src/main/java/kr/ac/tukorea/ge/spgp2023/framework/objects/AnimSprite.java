@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.framework.objects;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+
 public class AnimSprite extends Sprite {
     private static final String TAG = AnimSprite.class.getSimpleName();
     protected Rect srcRect = new Rect();
@@ -33,5 +35,21 @@ public class AnimSprite extends Sprite {
         int frameIndex = Math.round(time * fps) % frameCount;
         srcRect.set(frameIndex * frameWidth, 0, (frameIndex + 1) * frameWidth, frameHeight);
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+    }
+
+    protected void setAnimationResource(int mipmapResId, float fps, int frameCount) {
+        bitmap = BitmapPool.get(mipmapResId);
+        this.fps = fps;
+        int imageWidth = bitmap.getWidth();
+        int imageHeight = bitmap.getHeight();
+        if (frameCount == 0) {
+            this.frameWidth = imageHeight;
+            this.frameHeight = imageHeight;
+            this.frameCount = imageWidth / imageHeight;
+        } else {
+            this.frameWidth = imageWidth / frameCount;
+            this.frameHeight = imageHeight;
+            this.frameCount = frameCount;
+        }
     }
 }
