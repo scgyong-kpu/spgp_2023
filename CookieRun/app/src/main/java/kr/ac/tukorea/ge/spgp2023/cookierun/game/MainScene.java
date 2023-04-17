@@ -10,7 +10,7 @@ public class MainScene extends BaseScene {
     private final Player player;
 
     public enum Layer {
-        bg, player, COUNT
+        bg, platform, player, COUNT
     }
     public MainScene() {
         Metrics.setGameSize(16.0f, 9.0f);
@@ -19,6 +19,8 @@ public class MainScene extends BaseScene {
         add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_1, 1.0f));
         add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_2, 2.0f));
         add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_3, 3.0f));
+
+        add(Layer.platform, new Platform());
 
         player = new Player();
         add(Layer.player, player);

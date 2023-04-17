@@ -8,7 +8,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 
 public class Player extends AnimSprite {
     public Player() {
-        super(R.mipmap.cookie_player_sheet, 2.0f, 7.0f, 2.0f, 2.0f, 8, 1);
+        super(R.mipmap.cookie_player_sheet, 2.0f, 6.0f, 2.0f, 2.0f, 8, 1);
     }
 
     protected enum State {
