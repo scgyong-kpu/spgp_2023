@@ -4,14 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.AnimSprite;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BitmapPool;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Gauge;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Metrics;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.framework.util.Gauge;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
 public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = Enemy.class.getSimpleName();
@@ -37,6 +37,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         if (enemy != null) {
             enemy.x = (Metrics.game_width / 10) * (2 * index + 1);
             enemy.y = -SIZE/2;
+            enemy.fixDstRect();
             enemy.init(level);
             return enemy;
         }
@@ -62,7 +63,7 @@ public class Enemy extends AnimSprite implements IBoxCollidable, IRecyclable {
         y += SPEED * BaseScene.frameTime;
         fixDstRect();
         if (dstRect.top > 16.0) {
-            BaseScene.getTopScene().remove(this);
+            BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
         }
         collisionRect.set(dstRect);
         collisionRect.inset(0.11f, 0.11f);
