@@ -27,6 +27,16 @@ public class Sprite implements IGameObject {
         Log.v(TAG, "Created " + this.getClass().getSimpleName() + "@" + System.identityHashCode(this));
     }
 
+    public float getWidth() { return width; }
+    public float getHeight() { return height; }
+    public float getDstWidth() {
+        return dstRect.width();
+    }
+
+    public float getDstHeight() {
+        return dstRect.height();
+    }
+
     protected void setBitmapResource(int bitmapResId) {
         bitmap = BitmapPool.get(bitmapResId);
     }

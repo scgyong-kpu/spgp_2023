@@ -2,14 +2,14 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import androidx.annotation.NonNull;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
-import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
-import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
 public class Platform extends MapObject {
     public enum Type {
-        T_10x2, T_2x2, T_3x1;
+        T_10x2, T_2x2, T_3x1, COUNT;
         int resId() { return resIds[this.ordinal()]; }
         int width() { return widths[this.ordinal()]; }
         int height() { return heights[this.ordinal()]; }
@@ -20,6 +20,9 @@ public class Platform extends MapObject {
         };
         static int[] widths = { 10, 2, 3 };
         static int[] heights = { 2, 2, 1 };
+        static Type random(Random random) {
+            return Type.values()[random.nextInt(COUNT.ordinal())];
+        }
     }
     private Platform() {}
     public static Platform get(Type type, float left, float top) {

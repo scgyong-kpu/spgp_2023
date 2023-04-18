@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
@@ -14,6 +16,7 @@ public class JellyItem extends MapObject {
     protected Rect srcRect = new Rect();
     JellyItem() {
         setBitmapResource(R.mipmap.jelly);
+        width = height = 1;
     }
     public static JellyItem get(int index, float left, float top) {
         JellyItem item = (JellyItem) RecycleBin.get(JellyItem.class);
@@ -24,9 +27,13 @@ public class JellyItem extends MapObject {
         return item;
     }
 
+    public static int getRandomIndex(Random random) {
+        return random.nextInt(JELLY_COUNT);
+    }
+
     private void init(int index, float left, float top) {
         setSrcRect(index);
-        dstRect.set(left, top, left + 1, top + 1);
+        dstRect.set(left, top, left + width, top + height);
     }
 
     private void setSrcRect(int index) {

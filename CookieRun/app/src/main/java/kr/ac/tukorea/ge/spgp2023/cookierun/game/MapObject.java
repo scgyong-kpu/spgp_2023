@@ -10,10 +10,10 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
 public class MapObject extends Sprite implements IBoxCollidable, IRecyclable {
     private static final String TAG = MapObject.class.getSimpleName();
+    public static final float SPEED = 2.0f;
     @Override
     public void update() {
-        float speed = -2.0f;
-        float dx = speed * BaseScene.frameTime;
+        float dx = -SPEED * BaseScene.frameTime;
         dstRect.offset(dx, 0);
         if (dstRect.right < 0) {
             Log.d(TAG, "Removing:" + this);
