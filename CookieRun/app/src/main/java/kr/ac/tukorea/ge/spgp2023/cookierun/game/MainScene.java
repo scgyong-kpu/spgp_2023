@@ -26,6 +26,7 @@ public class MainScene extends BaseScene {
         add(Layer.player, player);
 
         add(Layer.controller, new MapLoader());
+        add(Layer.controller, new CollisionChecker(player));
     }
 
     @Override

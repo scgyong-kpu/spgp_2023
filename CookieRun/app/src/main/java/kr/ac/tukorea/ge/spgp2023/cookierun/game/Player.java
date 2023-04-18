@@ -35,10 +35,10 @@ public class Player extends AnimSprite implements IBoxCollidable {
             makeRects(0),                  // State.falling
     };
     protected static float[][] edgeInsetRatios = {
-            { 0.1f, 0.0f, 0.1f, 0.0f }, // State.running
-            { 0.1f, 0.2f, 0.1f, 0.0f }, // State.jump
-            { 0.2f, 0.2f, 0.2f, 0.0f }, // State.doubleJump
-            { 0.2f, 0.0f, 0.2f, 0.0f }, // State.falling
+            { 0.1f, 0.01f, 0.1f, 0.0f }, // State.running
+            { 0.1f, 0.20f, 0.1f, 0.0f }, // State.jump
+            { 0.2f, 0.20f, 0.2f, 0.0f }, // State.doubleJump
+            { 0.2f, 0.01f, 0.2f, 0.0f }, // State.falling
     };
     protected static Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
