@@ -68,8 +68,7 @@ public class Player extends AnimSprite {
             state = State.jump;
             jumpSpeed = -JUMP_POWER;
         } else if (state == State.jump) {
-//            jumpSpeed = -JUMP_POWER;
-            jumpSpeed -= JUMP_POWER;
+            jumpSpeed = -JUMP_POWER;
             state = State.doubleJump;
         }
     }
