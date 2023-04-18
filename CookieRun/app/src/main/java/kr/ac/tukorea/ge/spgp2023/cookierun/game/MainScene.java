@@ -10,7 +10,7 @@ public class MainScene extends BaseScene {
     private final Player player;
 
     public enum Layer {
-        bg, platform, player, COUNT
+        bg, platform, item, player, COUNT
     }
     public MainScene() {
         Metrics.setGameSize(16.0f, 9.0f);
@@ -25,6 +25,8 @@ public class MainScene extends BaseScene {
         add(Layer.platform, Platform.get(Platform.Type.T_10x2, 12, 7));
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 8, 3));
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 11, 4));
+
+        add(Layer.item, new JellyItem());
 
         player = new Player();
         add(Layer.player, player);
