@@ -2,12 +2,14 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
-public class Player extends AnimSprite {
+public class Player extends AnimSprite implements IBoxCollidable {
     private final float ground;
     private float jumpSpeed;
     private static final float JUMP_POWER = 9.0f;
@@ -71,5 +73,10 @@ public class Player extends AnimSprite {
             jumpSpeed = -JUMP_POWER;
             state = State.doubleJump;
         }
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return dstRect;
     }
 }
