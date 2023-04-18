@@ -19,6 +19,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public Player() {
         super(R.mipmap.cookie_player_sheet, 2.0f, 6.0f, 2.0f, 2.0f, 8, 1);
         this.ground = y;
+        fixCollisionRect();
     }
 
     protected enum State {
