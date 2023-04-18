@@ -2,6 +2,8 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.view.MotionEvent;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
@@ -26,7 +28,12 @@ public class MainScene extends BaseScene {
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 8, 3));
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 11, 4));
 
-        add(Layer.item, JellyItem.get(10, 15, 6));
+        Random r = new Random();
+        for (int i = 0, x = 10; i < JellyItem.JELLY_COUNT; i++, x++) {
+            int jellyIndex = r.nextInt(JellyItem.JELLY_COUNT);
+            int y = r.nextInt(8);
+            add(Layer.item, JellyItem.get(jellyIndex, x, y));
+        }
 
         player = new Player();
         add(Layer.player, player);
