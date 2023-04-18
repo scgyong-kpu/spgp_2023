@@ -26,7 +26,7 @@ public class MainScene extends BaseScene {
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 8, 3));
         add(Layer.platform, Platform.get(Platform.Type.T_3x1, 11, 4));
 
-        add(Layer.item, new JellyItem());
+        add(Layer.item, JellyItem.get(10, 15, 6));
 
         player = new Player();
         add(Layer.player, player);
