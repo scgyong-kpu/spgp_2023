@@ -4,13 +4,16 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
-    private final float ground;
     private float jumpSpeed;
     private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
@@ -18,7 +21,6 @@ public class Player extends AnimSprite implements IBoxCollidable {
 
     public Player() {
         super(R.mipmap.cookie_player_sheet, 2.0f, 6.0f, 2.0f, 2.0f, 8, 1);
-        this.ground = y;
         fixCollisionRect();
     }
 
@@ -51,17 +53,46 @@ public class Player extends AnimSprite implements IBoxCollidable {
 
     @Override
     public void update() {
-        if (state == State.jump || state == State.doubleJump) {
+        switch (state) {
+        case jump:
+        case doubleJump:
             float dy = jumpSpeed * BaseScene.frameTime;
             jumpSpeed += GRAVITY * BaseScene.frameTime;
-            if (y + dy >= ground) {
-                dy = ground - y;
-                state = State.running;
+            if (jumpSpeed >= 0) { // 낙하하고 있다면 발밑에 땅이 있는지 확인한다
+                float foot = collisionRect.bottom;
+                float floor = findNearestPlatformTop(foot);
+                if (foot + dy >= floor) {
+                    dy = floor - foot;
+                    state = State.running;
+                }
             }
             y += dy;
-            fixDstRect();
+            //fixDstRect();
+            dstRect.offset(0, dy);
             fixCollisionRect();
         }
+    }
+
+    private float findNearestPlatformTop(float foot) {
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        ArrayList<IGameObject> platforms = scene.getObjectsAt(MainScene.Layer.platform);
+        float top = Metrics.game_height;
+        for (IGameObject obj: platforms) {
+            Platform platform = (Platform) obj;
+            RectF rect = platform.getCollisionRect();
+            if (rect.left > x || x > rect.right) {
+                continue;
+            }
+            //Log.d(TAG, "foot:" + foot + " platform: " + rect);
+            if (rect.top < foot) {
+                continue;
+            }
+            if (top > rect.top) {
+                top = rect.top;
+            }
+            //Log.d(TAG, "top=" + top + " gotcha:" + platform);
+        }
+        return top;
     }
 
     private void fixCollisionRect() {
