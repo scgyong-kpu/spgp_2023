@@ -56,6 +56,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
         switch (state) {
         case jump:
         case doubleJump:
+        case falling:
             float dy = jumpSpeed * BaseScene.frameTime;
             jumpSpeed += GRAVITY * BaseScene.frameTime;
             if (jumpSpeed >= 0) { // 낙하하고 있다면 발밑에 땅이 있는지 확인한다
@@ -70,6 +71,14 @@ public class Player extends AnimSprite implements IBoxCollidable {
             //fixDstRect();
             dstRect.offset(0, dy);
             fixCollisionRect();
+            break;
+        case running:
+            float foot = collisionRect.bottom;
+            float floor = findNearestPlatformTop(foot);
+            if (foot < floor) {
+                state = State.falling;
+                jumpSpeed = 0;
+            }
         }
     }
 
