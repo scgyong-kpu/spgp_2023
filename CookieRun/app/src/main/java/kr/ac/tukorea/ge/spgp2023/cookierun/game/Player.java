@@ -5,10 +5,17 @@ import android.graphics.Rect;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
 public class Player extends AnimSprite {
+    private final float ground;
+    private float jumpSpeed;
+    private static final float JUMP_POWER = 9.0f;
+    private static final float GRAVITY = 17.0f;
+
     public Player() {
         super(R.mipmap.cookie_player_sheet, 2.0f, 6.0f, 2.0f, 2.0f, 8, 1);
+        this.ground = y;
     }
 
     protected enum State {
@@ -33,6 +40,20 @@ public class Player extends AnimSprite {
     }
 
     @Override
+    public void update() {
+        if (state == State.jump) {
+            float dy = jumpSpeed * BaseScene.frameTime;
+            jumpSpeed += GRAVITY * BaseScene.frameTime;
+            if (y + dy >= ground) {
+                dy = ground - y;
+                state = State.running;
+            }
+            y += dy;
+            fixDstRect();
+        }
+    }
+
+    @Override
     public void draw(Canvas canvas) {
         long now = System.currentTimeMillis();
         float time = (now - createdOn) / 1000.0f;
@@ -43,10 +64,9 @@ public class Player extends AnimSprite {
 
     protected State state = State.running;
     public void jump() {
-        int ord = state.ordinal() + 1;
-        if (ord == State.COUNT.ordinal()) {
-            ord = 0;
+        if (state == State.running) {
+            state = State.jump;
+            jumpSpeed = -JUMP_POWER;
         }
-        state = State.values()[ord]; // int 로부터 enum 만들기
     }
 }
