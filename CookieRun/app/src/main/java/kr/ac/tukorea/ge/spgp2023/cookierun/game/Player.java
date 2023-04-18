@@ -41,7 +41,7 @@ public class Player extends AnimSprite {
 
     @Override
     public void update() {
-        if (state == State.jump) {
+        if (state == State.jump || state == State.doubleJump) {
             float dy = jumpSpeed * BaseScene.frameTime;
             jumpSpeed += GRAVITY * BaseScene.frameTime;
             if (y + dy >= ground) {
@@ -67,6 +67,10 @@ public class Player extends AnimSprite {
         if (state == State.running) {
             state = State.jump;
             jumpSpeed = -JUMP_POWER;
+        } else if (state == State.jump) {
+//            jumpSpeed = -JUMP_POWER;
+            jumpSpeed -= JUMP_POWER;
+            state = State.doubleJump;
         }
     }
 }
