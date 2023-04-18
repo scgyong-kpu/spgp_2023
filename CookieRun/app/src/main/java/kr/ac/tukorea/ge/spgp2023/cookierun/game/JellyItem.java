@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import java.util.Random;
 
@@ -13,7 +14,10 @@ public class JellyItem extends MapObject {
     private static final int ITEMS_IN_A_ROW = 30;
     private static final int SIZE = 66;
     private static final int BORDER = 2;
+    public static final float INSET = 0.20f;
     protected Rect srcRect = new Rect();
+    protected RectF collisionRect = new RectF();
+
     JellyItem() {
         setBitmapResource(R.mipmap.jelly);
         width = height = 1;
@@ -45,8 +49,23 @@ public class JellyItem extends MapObject {
     }
 
     @Override
+    public void update() {
+        super.update();
+        collisionRect.set(
+                dstRect.left + width * INSET,
+                dstRect.top + height * INSET,
+                dstRect.right - width * INSET,
+                dstRect.bottom - height * INSET);
+    }
+
+    @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return collisionRect;
     }
 
     @Override
