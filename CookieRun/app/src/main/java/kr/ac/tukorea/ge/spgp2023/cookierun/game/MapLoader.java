@@ -24,9 +24,20 @@ public class MapLoader implements IGameObject {
         }
         itemX -= MapObject.SPEED * BaseScene.frameTime;
         while (itemX < Metrics.game_width) {
-            JellyItem jellyItem = JellyItem.get(JellyItem.getRandomIndex(random), itemX, random.nextInt(7));
-            scene.add(MainScene.Layer.item, jellyItem);
-            itemX += jellyItem.getWidth();
+            int y = random.nextInt(6) + 1;
+            int count = 3;
+            if (y < 5) {
+                Platform platform = Platform.get(Platform.Type.T_3x1, itemX, y+1);
+                scene.add(MainScene.Layer.platform, platform);
+            } else {
+                count = random.nextInt(5) + 1;
+            }
+            for (int i = 0; i < count; i++) {
+                int y2 = y -= random.nextInt(2);
+                JellyItem jellyItem = JellyItem.get(JellyItem.getRandomIndex(random), itemX, y2);
+                scene.add(MainScene.Layer.item, jellyItem);
+                itemX += jellyItem.getWidth();
+            }
         }
     }
 

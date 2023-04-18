@@ -21,7 +21,7 @@ public class Platform extends MapObject {
         static int[] widths = { 10, 2, 3 };
         static int[] heights = { 2, 2, 1 };
         static Type random(Random random) {
-            return Type.values()[random.nextInt(COUNT.ordinal())];
+            return Type.values()[random.nextInt(2)];
         }
     }
     private Platform() {}

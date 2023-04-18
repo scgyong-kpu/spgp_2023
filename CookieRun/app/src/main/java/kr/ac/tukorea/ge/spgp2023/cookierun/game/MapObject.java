@@ -16,7 +16,7 @@ public class MapObject extends Sprite implements IBoxCollidable, IRecyclable {
         float dx = -SPEED * BaseScene.frameTime;
         dstRect.offset(dx, 0);
         if (dstRect.right < 0) {
-            Log.d(TAG, "Removing:" + this);
+//            Log.d(TAG, "Removing:" + this);
             BaseScene.getTopScene().remove(getLayer(), this);
         }
     }
