@@ -14,6 +14,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private float jumpSpeed;
     private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
+    private RectF collisionRect = new RectF();
 
     public Player() {
         super(R.mipmap.cookie_player_sheet, 2.0f, 6.0f, 2.0f, 2.0f, 8, 1);
@@ -29,6 +30,12 @@ public class Player extends AnimSprite implements IBoxCollidable {
             makeRects(7, 8),               // State.jump
             makeRects(1, 2, 3, 4),         // State.doubleJump
             makeRects(0),                  // State.falling
+    };
+    protected static float[][] edgeInsetRatios = {
+            { 0.1f, 0.0f, 0.1f, 0.0f }, // State.running
+            { 0.1f, 0.2f, 0.1f, 0.0f }, // State.jump
+            { 0.2f, 0.2f, 0.2f, 0.0f }, // State.doubleJump
+            { 0.2f, 0.0f, 0.2f, 0.0f }, // State.falling
     };
     protected static Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
@@ -52,7 +59,17 @@ public class Player extends AnimSprite implements IBoxCollidable {
             }
             y += dy;
             fixDstRect();
+            fixCollisionRect();
         }
+    }
+
+    private void fixCollisionRect() {
+        float[] insets = edgeInsetRatios[state.ordinal()];
+        collisionRect.set(
+                dstRect.left + width * insets[0],
+                dstRect.top + height * insets[1],
+                dstRect.right - width * insets[2],
+                dstRect.bottom - height * insets[3]);
     }
 
     @Override
@@ -77,6 +94,6 @@ public class Player extends AnimSprite implements IBoxCollidable {
 
     @Override
     public RectF getCollisionRect() {
-        return dstRect;
+        return collisionRect;
     }
 }
