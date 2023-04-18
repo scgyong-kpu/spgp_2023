@@ -1,8 +1,7 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
+package kr.ac.tukorea.ge.spgp2023.framework.objects;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class AnimSprite extends Sprite {
     private static final String TAG = AnimSprite.class.getSimpleName();

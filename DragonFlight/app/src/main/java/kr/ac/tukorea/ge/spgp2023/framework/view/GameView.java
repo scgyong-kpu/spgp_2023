@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
+package kr.ac.tukorea.ge.spgp2023.framework.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,6 +10,7 @@ import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.dragonflight.BuildConfig;
 
 /**
@@ -37,6 +38,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
         init(attrs, defStyle);
     }
 
+    public void setFullScreen() {
+        setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
     private void init(AttributeSet attrs, int defStyle) {
         GameView.res = getResources();
 
@@ -53,6 +57,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
             borderPaint.setStyle(Paint.Style.STROKE);
             borderPaint.setStrokeWidth(0.1f);
         }
+        //setFullScreen();
     }
 
     private long previousNanos;
@@ -98,6 +103,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
         canvas.scale(Metrics.scale, Metrics.scale);
         BaseScene scene = BaseScene.getTopScene();
         if (scene != null) {
+            if (scene.clipsRect()) {
+                canvas.clipRect(0, 0, Metrics.game_width, Metrics.game_height);
+            }
             scene.draw(canvas);
         }
 

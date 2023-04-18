@@ -1,9 +1,12 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
+package kr.ac.tukorea.ge.spgp2023.framework.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
+
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
 
 public class Sprite implements IGameObject {
     private static final String TAG = Sprite.class.getSimpleName();

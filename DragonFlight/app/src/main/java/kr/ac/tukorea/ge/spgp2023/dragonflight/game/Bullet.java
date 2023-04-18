@@ -3,11 +3,11 @@ package kr.ac.tukorea.ge.spgp2023.dragonflight.game;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2023.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IBoxCollidable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.IRecyclable;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.dragonflight.framework.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 
 public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
     private static final float BULLET_WIDTH = 28 * 0.0243f;
@@ -39,7 +39,7 @@ public class Bullet extends Sprite implements IBoxCollidable, IRecyclable {
         fixDstRect();
 
         if (dstRect.bottom < 0) {
-            BaseScene.getTopScene().remove(this);
+            BaseScene.getTopScene().remove(MainScene.Layer.bullet, this);
         }
     }
 

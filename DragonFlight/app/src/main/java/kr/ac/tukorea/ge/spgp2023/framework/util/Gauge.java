@@ -1,9 +1,11 @@
-package kr.ac.tukorea.ge.spgp2023.dragonflight.framework;
+package kr.ac.tukorea.ge.spgp2023.framework.util;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import androidx.core.content.res.ResourcesCompat;
+
+import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 
 public class Gauge {
     private Paint fgPaint = new Paint();
