@@ -13,6 +13,7 @@ public class Sprite implements IGameObject {
     protected Bitmap bitmap;
     protected RectF dstRect = new RectF();
     protected float x, y, width, height;
+    protected Sprite() {} // 상속받은 class 에서 자유롭게 생성자를 만들 수 있도록 default 생성자를 추가한다
     public Sprite(int bitmapResId, float cx, float cy, float width, float height) {
         this.x = cx;
         this.y = cy;
@@ -24,6 +25,16 @@ public class Sprite implements IGameObject {
         fixDstRect();
 
         Log.v(TAG, "Created " + this.getClass().getSimpleName() + "@" + System.identityHashCode(this));
+    }
+
+    public float getWidth() { return width; }
+    public float getHeight() { return height; }
+    public float getDstWidth() {
+        return dstRect.width();
+    }
+
+    public float getDstHeight() {
+        return dstRect.height();
     }
 
     protected void setBitmapResource(int bitmapResId) {
