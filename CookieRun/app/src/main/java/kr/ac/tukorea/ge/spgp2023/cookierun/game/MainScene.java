@@ -32,7 +32,8 @@ public class MainScene extends BaseScene {
         add(Layer.touch, new Button(R.mipmap.btn_slide_n, 1.5f, 8.0f, 2.0f, 0.75f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
-                Log.d(TAG, "Button: Slide");
+                //Log.d(TAG, "Button: Slide");
+                player.slide(action == Button.Action.pressed);
                 return true;
             }
         }));
