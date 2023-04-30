@@ -31,24 +31,28 @@ public class MainScene extends BaseScene {
 
         add(Layer.touch, new Button(R.mipmap.btn_slide_n, 1.5f, 8.0f, 2.0f, 0.75f, new Button.Callback() {
             @Override
-            public boolean onTouch() {
+            public boolean onTouch(Button.Action action) {
                 Log.d(TAG, "Button: Slide");
                 return true;
             }
         }));
         add(Layer.touch, new Button(R.mipmap.btn_jump_n, 14.5f, 7.7f, 2.0f, 0.75f, new Button.Callback() {
             @Override
-            public boolean onTouch() {
-                player.jump();
+            public boolean onTouch(Button.Action action) {
+                if (action == Button.Action.pressed) {
+                    player.jump();
+                }
                 //Log.d(TAG, "Button: Jump");
                 return true;
             }
         }));
         add(Layer.touch, new Button(R.mipmap.btn_fall_n, 14.5f, 8.5f, 2.0f, 0.75f, new Button.Callback() {
             @Override
-            public boolean onTouch() {
+            public boolean onTouch(Button.Action action) {
+                if (action == Button.Action.pressed) {
+                    player.fall();
+                }
                 //Log.d(TAG, "Button: Fall");
-                player.fall();
                 return true;
             }
         }));
