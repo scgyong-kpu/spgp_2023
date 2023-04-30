@@ -18,9 +18,9 @@ public class MainScene extends BaseScene {
         Metrics.setGameSize(16.0f, 9.0f);
         initLayers(Layer.COUNT);
 
-        add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_1, -0.2f));
-        add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_2, -0.4f));
-        add(Layer.bg, new VertScrollBackground(R.mipmap.cookie_run_bg_3, -0.6f));
+        add(Layer.bg, new HorzScrollBackground(R.mipmap.cookie_run_bg_1, -0.2f));
+        add(Layer.bg, new HorzScrollBackground(R.mipmap.cookie_run_bg_2, -0.4f));
+        add(Layer.bg, new HorzScrollBackground(R.mipmap.cookie_run_bg_3, -0.6f));
 
         player = new Player();
         add(Layer.player, player);
