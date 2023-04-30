@@ -1,5 +1,6 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.Random;
@@ -11,6 +12,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class MainScene extends BaseScene {
+    private static final String TAG = MainScene.class.getSimpleName();
     private final Player player;
 
     public enum Layer {
@@ -27,9 +29,27 @@ public class MainScene extends BaseScene {
         player = new Player();
         add(Layer.player, player);
 
-        add(Layer.touch, new Button(R.mipmap.btn_slide_n, 1.5f, 8.0f, 2.0f, 0.75f ));
-        add(Layer.touch, new Button(R.mipmap.btn_jump_n, 14.5f, 7.7f, 2.0f, 0.75f ));
-        add(Layer.touch, new Button(R.mipmap.btn_fall_n, 14.5f, 8.5f, 2.0f, 0.75f ));
+        add(Layer.touch, new Button(R.mipmap.btn_slide_n, 1.5f, 8.0f, 2.0f, 0.75f, new Button.Callback() {
+            @Override
+            public boolean onTouch() {
+                Log.d(TAG, "Button: Slide");
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.btn_jump_n, 14.5f, 7.7f, 2.0f, 0.75f, new Button.Callback() {
+            @Override
+            public boolean onTouch() {
+                Log.d(TAG, "Button: Jump");
+                return true;
+            }
+        }));
+        add(Layer.touch, new Button(R.mipmap.btn_fall_n, 14.5f, 8.5f, 2.0f, 0.75f, new Button.Callback() {
+            @Override
+            public boolean onTouch() {
+                Log.d(TAG, "Button: Fall");
+                return true;
+            }
+        }));
         add(Layer.controller, new MapLoader());
         add(Layer.controller, new CollisionChecker(player));
     }
