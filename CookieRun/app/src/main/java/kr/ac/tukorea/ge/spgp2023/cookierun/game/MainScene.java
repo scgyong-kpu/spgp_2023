@@ -39,7 +39,8 @@ public class MainScene extends BaseScene {
         add(Layer.touch, new Button(R.mipmap.btn_jump_n, 14.5f, 7.7f, 2.0f, 0.75f, new Button.Callback() {
             @Override
             public boolean onTouch() {
-                Log.d(TAG, "Button: Jump");
+                player.jump();
+                //Log.d(TAG, "Button: Jump");
                 return true;
             }
         }));
