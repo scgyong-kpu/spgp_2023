@@ -47,7 +47,8 @@ public class MainScene extends BaseScene {
         add(Layer.touch, new Button(R.mipmap.btn_fall_n, 14.5f, 8.5f, 2.0f, 0.75f, new Button.Callback() {
             @Override
             public boolean onTouch() {
-                Log.d(TAG, "Button: Fall");
+                //Log.d(TAG, "Button: Fall");
+                player.fall();
                 return true;
             }
         }));

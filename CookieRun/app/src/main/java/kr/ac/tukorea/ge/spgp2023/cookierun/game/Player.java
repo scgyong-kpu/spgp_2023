@@ -83,6 +83,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
     }
 
     private float findNearestPlatformTop(float foot) {
+        Platform platform = findNearestPlatform(foot);
+        if (platform == null) return Metrics.game_height;
+        return platform.getCollisionRect().top;
+    }
+
+    private Platform findNearestPlatform(float foot) {
+        Platform nearest = null;
         MainScene scene = (MainScene) BaseScene.getTopScene();
         ArrayList<IGameObject> platforms = scene.getObjectsAt(MainScene.Layer.platform);
         float top = Metrics.game_height;
@@ -98,10 +105,11 @@ public class Player extends AnimSprite implements IBoxCollidable {
             }
             if (top > rect.top) {
                 top = rect.top;
+                nearest = platform;
             }
             //Log.d(TAG, "top=" + top + " gotcha:" + platform);
         }
-        return top;
+        return nearest;
     }
 
     private void fixCollisionRect() {
@@ -131,6 +139,17 @@ public class Player extends AnimSprite implements IBoxCollidable {
             jumpSpeed = -JUMP_POWER;
             state = State.doubleJump;
         }
+    }
+    public void fall() {
+        if (state != State.running) return;
+        float foot = collisionRect.bottom;
+        Platform platform = findNearestPlatform(foot);
+        if (platform == null) return;
+        if (!platform.canPass()) return;
+        state = State.falling;
+        dstRect.offset(0, 0.001f);
+        collisionRect.offset(0, 0.001f);
+        jumpSpeed = 0;
     }
 
     @Override
