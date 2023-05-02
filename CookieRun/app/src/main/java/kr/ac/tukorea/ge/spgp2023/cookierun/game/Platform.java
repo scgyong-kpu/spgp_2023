@@ -8,6 +8,11 @@ import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
 
 public class Platform extends MapObject {
+    private Type type;
+
+    public boolean canPass() {
+        return type != Type.T_10x2;
+    }
     public enum Type {
         T_10x2, T_2x2, T_3x1, COUNT;
         int resId() { return resIds[this.ordinal()]; }
@@ -34,6 +39,7 @@ public class Platform extends MapObject {
         return platform;
     }
     public void init(Type type, float left, float top) {
+        this.type = type;
         setBitmapResource(type.resId());
         width = type.width();
         height = type.height();
