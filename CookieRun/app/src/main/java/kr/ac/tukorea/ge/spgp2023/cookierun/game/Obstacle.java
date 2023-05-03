@@ -1,9 +1,9 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.animation.ValueAnimator;
 import android.graphics.RectF;
-import android.util.Log;
 
-import java.util.AbstractList;
+import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
@@ -25,6 +25,7 @@ public class Obstacle extends MapObject {
     protected RectF collisionRect = new RectF();
     protected long createdOn;
     protected Modifier modifier;
+    protected ValueAnimator animator;
 
     protected static class Modifier {
         protected final float width, height;
@@ -83,6 +84,40 @@ public class Obstacle extends MapObject {
         }
     }
 
+    private static class MoveModifier extends Modifier {
+        public MoveModifier(float widthUnit, float heightUnit, int mipmapResId) {
+            super(widthUnit, heightUnit, mipmapResId);
+        }
+        protected static Random random = new Random();
+
+        @Override
+        public void init(Obstacle obstacle, float unitLeft, float unitTop) {
+            super.init(obstacle, unitLeft, unitTop);
+            float height = obstacle.getDstHeight();
+            float bottom = obstacle.dstRect.bottom;
+            obstacle.dstRect.offset(0, -bottom);
+            ValueAnimator animator = ValueAnimator.ofFloat(0, bottom);
+            animator.setStartDelay(random.nextInt(800) + 2000);
+            animator.setDuration(random.nextInt(800) + 600);
+            //animator.setInterpolator(new BounceInterpolator());
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator va) {
+                    float value = (Float)va.getAnimatedValue();
+                    obstacle.dstRect.set(
+                            obstacle.dstRect.left,
+                            value - height,
+                            obstacle.dstRect.right,
+                            value
+                    );
+                    obstacle.collisionRect.set(obstacle.dstRect);
+                }
+            });
+            animator.start();
+            obstacle.animator = animator;
+        }
+    }
+
     protected static Modifier[] MODIFIERS = {
             new Modifier(0.78f, 0.78f*99/63f, R.mipmap.epn01_tm01_jp1a),
             new AnimModifier(1, 131/81f, new int[] {
@@ -100,11 +135,13 @@ public class Obstacle extends MapObject {
                     R.mipmap.epn01_tm01_jp2up_04,
                     R.mipmap.epn01_tm01_jp2up_05,
             }, 68/222f),
-            new Modifier(1, 482/86f, R.mipmap.epn01_tm01_sda),
+            new MoveModifier(1, 482/86f, R.mipmap.epn01_tm01_sda),
     } ;
     public static final int COUNT = MODIFIERS.length;
 
     private void init(int index, float unitLeft, float unitTop) {
+        animator = null;
+        bitmap = null;
         modifier = MODIFIERS[index];
         modifier.init(this, unitLeft, unitTop);
     }
@@ -118,5 +155,14 @@ public class Obstacle extends MapObject {
     @Override
     public RectF getCollisionRect() {
         return collisionRect;
+    }
+
+    @Override
+    public void onRecycle() {
+        super.onRecycle();
+        if (animator != null) {
+            animator.cancel();
+            animator = null;
+        }
     }
 }
