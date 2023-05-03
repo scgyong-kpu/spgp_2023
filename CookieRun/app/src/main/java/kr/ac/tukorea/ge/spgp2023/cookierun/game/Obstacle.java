@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.animation.ValueAnimator;
 import android.graphics.RectF;
+import android.view.animation.BounceInterpolator;
 
 import java.util.Random;
 
@@ -99,7 +100,7 @@ public class Obstacle extends MapObject {
             ValueAnimator animator = ValueAnimator.ofFloat(0, bottom);
             animator.setStartDelay(random.nextInt(800) + 2000);
             animator.setDuration(random.nextInt(800) + 600);
-            //animator.setInterpolator(new BounceInterpolator());
+            animator.setInterpolator(new BounceInterpolator());
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator va) {
