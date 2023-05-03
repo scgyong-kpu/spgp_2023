@@ -20,7 +20,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private RectF collisionRect = new RectF();
 
     public Player() {
-        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 2.0f, 2.0f, 8, 1);
+        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 3.86f, 3.86f, 8, 1);
         fixCollisionRect();
     }
 
