@@ -11,7 +11,7 @@ public class Platform extends MapObject {
     private Type type;
 
     public boolean canPass() {
-        return type != Type.T_10x2;
+        return type == Type.T_3x1;
     }
     public enum Type {
         T_10x2, T_2x2, T_3x1, COUNT;
