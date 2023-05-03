@@ -1,8 +1,13 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
-import android.util.Log;
+import android.util.JsonReader;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
@@ -13,6 +18,23 @@ public class MapLoader implements IGameObject {
     private static final String TAG = MapLoader.class.getSimpleName();
     private Random random = new Random();
     private float platformX, itemX;
+
+    public MapLoader(Context context) {
+        loadStage(context, 1);
+    }
+
+    private void loadStage(Context context, int stage) {
+        AssetManager assets = context.getAssets();
+        try {
+            String file = String.format("stage_%02d.tml", stage);
+            InputStream is = assets.open(file);
+            InputStreamReader jsr = new InputStreamReader(is);
+            JsonReader jr = new JsonReader(jsr);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void update() {
         MainScene scene = (MainScene) BaseScene.getTopScene();
