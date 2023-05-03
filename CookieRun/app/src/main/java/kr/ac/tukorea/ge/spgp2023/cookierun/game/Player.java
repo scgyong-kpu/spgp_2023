@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
@@ -18,6 +19,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
     private RectF collisionRect = new RectF();
+    protected Obstacle obstacle;
 
     public Player() {
         super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 3.86f, 3.86f, 8, 1);
@@ -25,7 +27,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
     }
 
     protected enum State {
-        running, jump, doubleJump, falling, slide, COUNT
+        running, jump, doubleJump, falling, slide, hurt, COUNT
     }
 //    protected Rect[] srcRects
     protected static Rect[][] srcRects = {
@@ -34,6 +36,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
             makeRects(1, 2, 3, 4),         // State.doubleJump
             makeRects(0),                  // State.falling
             makeRects(9, 10),              // State.slide
+            makeRects(503, 504),           // State.hurt
     };
     protected static float[][] edgeInsets = {
             { 1.20f, 1.95f, 1.10f, 0.00f }, // State.running
@@ -41,6 +44,7 @@ public class Player extends AnimSprite implements IBoxCollidable {
             { 1.20f, 2.20f, 1.10f, 0.00f }, // State.doubleJump
             { 1.20f, 1.80f, 1.20f, 0.00f }, // State.falling
             { 0.80f, 2.90f, 0.80f, 0.00f }, // slide
+            { 1.20f, 1.95f, 1.10f, 0.00f }, // State.hurt
     };
     protected static Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
@@ -82,6 +86,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
                 state = State.falling;
                 jumpSpeed = 0;
             }
+            break;
+        case hurt:
+            if (!CollisionHelper.collides(this, obstacle)) {
+                state = State.running;
+                obstacle = null;
+            }
+            break;
         }
     }
 
@@ -165,6 +176,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
             fixCollisionRect();
             return;
         }
+    }
+
+    public void hurt(Obstacle obstacle) {
+        if (state == State.hurt) return;
+        state = State.hurt;
+        fixCollisionRect();
+        this.obstacle = obstacle;
     }
 
     @Override
