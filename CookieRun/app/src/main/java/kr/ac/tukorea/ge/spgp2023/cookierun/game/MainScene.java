@@ -16,7 +16,7 @@ public class MainScene extends BaseScene {
     private final Player player;
 
     public enum Layer {
-        bg, platform, item, player, ui, touch, controller, COUNT
+        bg, platform, item, obstacle, player, ui, touch, controller, COUNT
     }
     public MainScene() {
         Metrics.setGameSize(16.0f, 9.0f);

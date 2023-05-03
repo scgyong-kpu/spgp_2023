@@ -32,6 +32,11 @@ public class MapLoader implements IGameObject {
             } else {
                 count = random.nextInt(5) + 1;
             }
+            if (y <= 3) {
+                int index = random.nextInt(Obstacle.COUNT);
+                Obstacle obstacle = Obstacle.get(index, itemX, 6);
+                scene.add(MainScene.Layer.obstacle, obstacle);
+            }
             for (int i = 0; i < count; i++) {
                 int y2 = y -= random.nextInt(2);
                 JellyItem jellyItem = JellyItem.get(JellyItem.getRandomIndex(random), itemX, y2);
