@@ -34,7 +34,9 @@ public class MapLoader implements IGameObject {
             }
             if (y <= 3) {
                 int index = random.nextInt(Obstacle.COUNT);
-                Obstacle obstacle = Obstacle.get(index, itemX, 6);
+                int oy = 6;
+                if (index == 3) oy--;
+                Obstacle obstacle = Obstacle.get(index, itemX, oy);
                 scene.add(MainScene.Layer.obstacle, obstacle);
             }
             for (int i = 0; i < count; i++) {
