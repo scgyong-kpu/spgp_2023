@@ -1,5 +1,6 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -16,9 +17,9 @@ public class MainScene extends BaseScene {
     private final Player player;
 
     public enum Layer {
-        bg, platform, item, player, ui, touch, controller, COUNT
+        bg, platform, item, obstacle, player, ui, touch, controller, COUNT
     }
-    public MainScene() {
+    public MainScene(Context context) {
         Metrics.setGameSize(16.0f, 9.0f);
         initLayers(Layer.COUNT);
 
@@ -57,7 +58,7 @@ public class MainScene extends BaseScene {
                 return true;
             }
         }));
-        add(Layer.controller, new MapLoader());
+        add(Layer.controller, new MapLoader(context));
         add(Layer.controller, new CollisionChecker(player));
     }
 
