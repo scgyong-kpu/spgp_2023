@@ -80,8 +80,7 @@ public class MapLoader implements IGameObject {
         if ('1' <= tile && tile <= '9') {
             mobj = JellyItem.get(tile - 1, left, top);
         } else if ('O' <= tile && tile <= 'Q') {
-            Platform.Type ptype = Platform.Type.values()[tile - 'O'];
-            mobj = Platform.get(ptype, left, top);
+            mobj = Platform.get(tile - 'O', left, top);
         }
 
         if (mobj != null) {
