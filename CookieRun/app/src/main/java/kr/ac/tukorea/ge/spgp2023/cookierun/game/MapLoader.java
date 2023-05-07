@@ -21,7 +21,7 @@ public class MapLoader implements IGameObject {
     private int index;
 
     public MapLoader(Context context) {
-        //loadStage(context, 1);
+        loadStage(context, 1);
     }
 
     private static final int STAGE_WIDTH = 300;
@@ -41,17 +41,17 @@ public class MapLoader implements IGameObject {
             }
     };
 
-//    private void loadStage(Context context, int stage) {
-//        AssetManager assets = context.getAssets();
-//        try {
-//            String file = String.format("stage_%02d.tml", stage);
-//            InputStream is = assets.open(file);
-//            InputStreamReader jsr = new InputStreamReader(is);
-//            JsonReader jr = new JsonReader(jsr);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    private void loadStage(Context context, int stage) {
+        AssetManager assets = context.getAssets();
+        try {
+            String file = String.format("stage_%02d.txt", stage);
+            InputStream is = assets.open(file);
+            InputStreamReader jsr = new InputStreamReader(is);
+            JsonReader jr = new JsonReader(jsr);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void update() {
@@ -90,6 +90,7 @@ public class MapLoader implements IGameObject {
     }
 
     private int getAt(int col, int row) {
+        if (col >= STAGE_WIDTH) return 0;
         int idx = row * STAGE_WIDTH + col;
         if (idx >= STAGES[0].length) return 0;
         return STAGES[0][idx];
