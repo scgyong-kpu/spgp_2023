@@ -81,6 +81,13 @@ public class MapLoader implements IGameObject {
             mobj = JellyItem.get(tile - 1, left, top);
         } else if ('O' <= tile && tile <= 'Q') {
             mobj = Platform.get(tile - 'O', left, top);
+        } else switch (tile) {
+            case 'X': case 'Y': case 'Z':
+                mobj = Obstacle.get(tile - 'X', left, top);
+                break;
+            case 'W':
+                mobj = Obstacle.get(3, left, top);
+                break;
         }
 
         if (mobj != null) {
