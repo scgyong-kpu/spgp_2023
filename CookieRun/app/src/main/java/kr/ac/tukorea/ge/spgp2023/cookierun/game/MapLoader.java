@@ -76,16 +76,16 @@ public class MapLoader implements IGameObject {
 
     private void createObject(int tile, float left, int top) {
         MainScene scene = (MainScene) BaseScene.getTopScene();
+        MapObject mobj = null;
         if ('1' <= tile && tile <= '9') {
-            JellyItem item = JellyItem.get(tile - 1, left, top);
-            scene.add(MainScene.Layer.item, item);
-            return;
-        }
-        if ('O' <= tile && tile <= 'Q') {
+            mobj = JellyItem.get(tile - 1, left, top);
+        } else if ('O' <= tile && tile <= 'Q') {
             Platform.Type ptype = Platform.Type.values()[tile - 'O'];
-            Platform platform = Platform.get(ptype, left, top);
-            scene.add(MainScene.Layer.platform, platform);
-            return;
+            mobj = Platform.get(ptype, left, top);
+        }
+
+        if (mobj != null) {
+            scene.add(mobj.layer, mobj);
         }
     }
 
