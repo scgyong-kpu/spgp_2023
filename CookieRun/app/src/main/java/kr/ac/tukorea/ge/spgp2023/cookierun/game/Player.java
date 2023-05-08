@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
@@ -18,14 +19,15 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
     private RectF collisionRect = new RectF();
+    protected Obstacle obstacle;
 
     public Player() {
-        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 2.0f, 2.0f, 8, 1);
+        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 3.86f, 3.86f, 8, 1);
         fixCollisionRect();
     }
 
     protected enum State {
-        running, jump, doubleJump, falling, slide, COUNT
+        running, jump, doubleJump, falling, slide, hurt, COUNT
     }
 //    protected Rect[] srcRects
     protected static Rect[][] srcRects = {
@@ -34,21 +36,23 @@ public class Player extends AnimSprite implements IBoxCollidable {
             makeRects(1, 2, 3, 4),         // State.doubleJump
             makeRects(0),                  // State.falling
             makeRects(9, 10),              // State.slide
+            makeRects(503, 504),           // State.hurt
     };
-    protected static float[][] edgeInsetRatios = {
-            { 0.1f, 0.01f, 0.1f, 0.0f }, // State.running
-            { 0.1f, 0.20f, 0.1f, 0.0f }, // State.jump
-            { 0.2f, 0.20f, 0.2f, 0.0f }, // State.doubleJump
-            { 0.2f, 0.01f, 0.2f, 0.0f }, // State.falling
-            { 0.00f, 0.50f, 0.00f, 0.00f }, // slide
+    protected static float[][] edgeInsets = {
+            { 1.20f, 1.95f, 1.10f, 0.00f }, // State.running
+            { 1.20f, 2.25f, 1.10f, 0.00f }, // State.jump
+            { 1.20f, 2.20f, 1.10f, 0.00f }, // State.doubleJump
+            { 1.20f, 1.80f, 1.20f, 0.00f }, // State.falling
+            { 0.80f, 2.90f, 0.80f, 0.00f }, // slide
+            { 1.20f, 1.95f, 1.10f, 0.00f }, // State.hurt
     };
     protected static Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
         for (int i = 0; i < indices.length; i++) {
             int idx = indices[i];
-            int l = 72 + (idx % 100) * 272;
-            int t = 132 + (idx / 100) * 272;
-            rects[i] = new Rect(l, t, l + 140, t + 140);
+            int l = 2 + (idx % 100) * 272;
+            int t = 2 + (idx / 100) * 272;
+            rects[i] = new Rect(l, t, l + 270, t + 270);
         }
         return rects;
     }
@@ -82,6 +86,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
                 state = State.falling;
                 jumpSpeed = 0;
             }
+            break;
+        case hurt:
+            if (!CollisionHelper.collides(this, obstacle)) {
+                state = State.running;
+                obstacle = null;
+            }
+            break;
         }
     }
 
@@ -116,12 +127,12 @@ public class Player extends AnimSprite implements IBoxCollidable {
     }
 
     private void fixCollisionRect() {
-        float[] insets = edgeInsetRatios[state.ordinal()];
+        float[] insets = edgeInsets[state.ordinal()];
         collisionRect.set(
-                dstRect.left + width * insets[0],
-                dstRect.top + height * insets[1],
-                dstRect.right - width * insets[2],
-                dstRect.bottom - height * insets[3]);
+                dstRect.left + insets[0],
+                dstRect.top + insets[1],
+                dstRect.right - insets[2],
+                dstRect.bottom -  insets[3]);
     }
 
     @Override
@@ -157,12 +168,21 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public void slide(boolean startsSlide) {
         if (state == State.running && startsSlide) {
             state = State.slide;
+            fixCollisionRect();
             return;
         }
         if (state == State.slide && !startsSlide) {
             state = State.running;
+            fixCollisionRect();
             return;
         }
+    }
+
+    public void hurt(Obstacle obstacle) {
+        if (state == State.hurt) return;
+        state = State.hurt;
+        fixCollisionRect();
+        this.obstacle = obstacle;
     }
 
     @Override

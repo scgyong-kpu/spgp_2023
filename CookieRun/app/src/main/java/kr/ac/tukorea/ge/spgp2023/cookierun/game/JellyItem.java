@@ -19,6 +19,7 @@ public class JellyItem extends MapObject {
     protected RectF collisionRect = new RectF();
 
     JellyItem() {
+        super(MainScene.Layer.item);
         setBitmapResource(R.mipmap.jelly);
         width = height = 1;
     }
@@ -66,10 +67,5 @@ public class JellyItem extends MapObject {
     @Override
     public RectF getCollisionRect() {
         return collisionRect;
-    }
-
-    @Override
-    protected MainScene.Layer getLayer() {
-        return MainScene.Layer.item;
     }
 }
