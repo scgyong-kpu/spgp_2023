@@ -4,6 +4,7 @@ import android.content.Context;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Button;
+import kr.ac.tukorea.ge.spgp2023.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
@@ -57,7 +58,17 @@ public class MainScene extends BaseScene {
         add(Layer.controller, new CollisionChecker(player));
     }
 
-//    @Override
+    @Override
+    protected void onStart() {
+        Sound.playMusic(R.raw.main);
+    }
+
+    @Override
+    protected void onEnd() {
+        Sound.stopMusic();
+    }
+
+    //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        if (event.getAction() == MotionEvent.ACTION_DOWN) {
 //            player.jump();

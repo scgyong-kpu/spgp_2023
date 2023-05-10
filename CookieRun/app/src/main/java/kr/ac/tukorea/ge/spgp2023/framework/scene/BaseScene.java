@@ -36,10 +36,12 @@ public class BaseScene {
 
     public int pushScene() {
         stack.add(this);
+        this.onStart();
         return stack.size();
     }
 
     public void popScene() {
+        this.onEnd();
         stack.remove(this);
         // TODO: additional callback should be called
     }
@@ -155,4 +157,10 @@ public class BaseScene {
     public boolean clipsRect() {
         return true;
     }
+
+    protected void onStart() {
+    }
+    protected void onEnd() {
+    }
+
 }
