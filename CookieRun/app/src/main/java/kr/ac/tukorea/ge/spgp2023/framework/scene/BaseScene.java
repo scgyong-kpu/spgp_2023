@@ -46,6 +46,14 @@ public class BaseScene {
         // TODO: additional callback should be called
     }
 
+    public void pauseScene() {
+        onPause();
+    }
+
+    public void resumeScene() {
+        onResume();
+    }
+
     protected <E extends Enum<E>> void initLayers(E countEnum) {
         int layerCount = countEnum.ordinal();
         layers = new ArrayList<>();
@@ -163,4 +171,8 @@ public class BaseScene {
     protected void onEnd() {
     }
 
+    protected void onPause() {
+    }
+    protected void onResume() {
+    }
 }

@@ -68,6 +68,16 @@ public class MainScene extends BaseScene {
         Sound.stopMusic();
     }
 
+    @Override
+    protected void onPause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        Sound.resumeMusic();
+    }
+
     //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        if (event.getAction() == MotionEvent.ACTION_DOWN) {

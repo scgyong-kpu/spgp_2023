@@ -139,6 +139,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public void pauseGame() {
         running = false;
+        BaseScene.getTopScene().pauseScene();
     }
 
     public void resumeGame() {
@@ -147,6 +148,8 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         previousNanos = 0;
         running = true;
+
+        BaseScene.getTopScene().resumeScene();
         Choreographer.getInstance().postFrameCallback(this);
     }
 }
