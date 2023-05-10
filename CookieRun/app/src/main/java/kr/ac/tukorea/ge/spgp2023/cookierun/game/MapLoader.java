@@ -3,7 +3,6 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Canvas;
-import android.util.JsonReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,8 +23,8 @@ public class MapLoader implements IGameObject {
     private int columns;
     private ArrayList<String> lines = new ArrayList<>();
 
-    public MapLoader(Context context) {
-        loadStage(context, 1);
+    public MapLoader(Context context, int stage) {
+        loadStage(context, stage);
     }
 
     public static final int STAGE_HEIGHT = 9;
