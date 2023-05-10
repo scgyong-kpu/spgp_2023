@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.cookierun.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,5 +41,7 @@ public class TitleActivity extends AppCompatActivity {
     }
     public void onBtnStartGame(View view) {
         Log.d(TAG, "Starting game stage: " + stage);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
