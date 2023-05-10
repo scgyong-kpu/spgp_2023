@@ -42,6 +42,7 @@ public class TitleActivity extends AppCompatActivity {
     public void onBtnStartGame(View view) {
         Log.d(TAG, "Starting game stage: " + stage);
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("stage", stage);
         startActivity(intent);
     }
 }
