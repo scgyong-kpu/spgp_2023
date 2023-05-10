@@ -12,13 +12,14 @@ import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String PARAM_STAGE_INDEX = "stageIndex";
     private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        int stage = extras.getInt("stage");
+        int stage = extras.getInt(PARAM_STAGE_INDEX);
         Log.d(TAG, "MainActivity.onCreate: stage=" + stage);
         gameView = new GameView(this);
         gameView.setFullScreen();
