@@ -1,14 +1,10 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
-
-import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Button;
-import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2023.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
@@ -19,7 +15,7 @@ public class MainScene extends BaseScene {
     public enum Layer {
         bg, platform, item, obstacle, player, ui, touch, controller, COUNT
     }
-    public MainScene(Context context) {
+    public MainScene(Context context, int stage) {
         Metrics.setGameSize(16.0f, 9.0f);
         initLayers(Layer.COUNT);
 
@@ -58,11 +54,31 @@ public class MainScene extends BaseScene {
                 return true;
             }
         }));
-        add(Layer.controller, new MapLoader(context));
+        add(Layer.controller, new MapLoader(context, stage));
         add(Layer.controller, new CollisionChecker(player));
     }
 
-//    @Override
+    @Override
+    protected void onStart() {
+        Sound.playMusic(R.raw.main);
+    }
+
+    @Override
+    protected void onEnd() {
+        Sound.stopMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        Sound.resumeMusic();
+    }
+
+    //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        if (event.getAction() == MotionEvent.ACTION_DOWN) {
 //            player.jump();
