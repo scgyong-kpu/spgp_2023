@@ -80,6 +80,10 @@ public class BaseScene {
         onResume();
     }
 
+    public boolean isTransparent() {
+        return false;
+    }
+
     protected <E extends Enum<E>> void initLayers(E countEnum) {
         int layerCount = countEnum.ordinal();
         layers = new ArrayList<>();
@@ -142,6 +146,14 @@ public class BaseScene {
     }
 
     public void draw(Canvas canvas) {
+        draw(canvas, stack.size() - 1);
+    }
+    protected void draw(Canvas canvas, int index) {
+        BaseScene scene = stack.get(index);
+        if (scene.isTransparent() && index > 0) {
+            draw(canvas, index - 1);
+        }
+
         for (ArrayList<IGameObject> objects: layers) {
             for (IGameObject gobj : objects) {
                 gobj.draw(canvas);
