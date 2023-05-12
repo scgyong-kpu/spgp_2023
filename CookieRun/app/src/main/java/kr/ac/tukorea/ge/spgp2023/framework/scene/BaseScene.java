@@ -14,6 +14,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.ITouchable;
+import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();
@@ -61,7 +62,14 @@ public class BaseScene {
         BaseScene scene = getTopScene();
         if (scene != null) {
             scene.onResume();
+            return;
         }
+
+        finishActivity();
+    }
+
+    public void finishActivity() {
+        GameView.view.getActivity().finish();
     }
 
     public void pauseScene() {

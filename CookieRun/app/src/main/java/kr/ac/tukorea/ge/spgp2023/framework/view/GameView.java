@@ -1,11 +1,14 @@
 package kr.ac.tukorea.ge.spgp2023.framework.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.ActionMode;
 import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
@@ -130,7 +133,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        boolean handled = BaseScene.getTopScene().onTouchEvent(event);
+        BaseScene topScene = BaseScene.getTopScene();
+        if (topScene == null) return false;
+
+        boolean handled = topScene.onTouchEvent(event);
         if (handled) {
             return true;
         }
@@ -139,7 +145,9 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public void pauseGame() {
         running = false;
-        BaseScene.getTopScene().pauseScene();
+        BaseScene topScene = BaseScene.getTopScene();
+        if (topScene == null) return;
+        topScene.pauseScene();
     }
 
     public void resumeGame() {
@@ -151,5 +159,16 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
         BaseScene.getTopScene().resumeScene();
         Choreographer.getInstance().postFrameCallback(this);
+    }
+
+    public Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
     }
 }
