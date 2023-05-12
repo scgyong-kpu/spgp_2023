@@ -70,17 +70,12 @@ public class GameView extends View implements Choreographer.FrameCallback {
         //setFullScreen();
     }
 
-    private long previousNanos;
     @Override
     public void doFrame(long nanos) {
-        if (previousNanos != 0) {
-            long elapsedNanos = nanos - previousNanos;
-            BaseScene scene = BaseScene.getTopScene();
-            if (scene != null) {
-                scene.update(elapsedNanos);
-            }
+        BaseScene scene = BaseScene.getTopScene();
+        if (scene != null) {
+            scene.update(nanos);
         }
-        previousNanos = nanos;
         invalidate();
         if (running) {
             Choreographer.getInstance().postFrameCallback(this);
@@ -154,7 +149,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (running) {
             return;
         }
-        previousNanos = 0;
         running = true;
 
         BaseScene.getTopScene().resumeScene();
