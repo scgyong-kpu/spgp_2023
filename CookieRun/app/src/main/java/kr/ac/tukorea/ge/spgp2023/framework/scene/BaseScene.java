@@ -35,6 +35,10 @@ public class BaseScene {
     }
 
     public int pushScene() {
+        BaseScene scene = getTopScene();
+        if (scene != null) {
+            scene.onPause();
+        }
         stack.add(this);
         this.onStart();
         return stack.size();
@@ -43,7 +47,10 @@ public class BaseScene {
     public void popScene() {
         this.onEnd();
         stack.remove(this);
-        // TODO: additional callback should be called
+        BaseScene scene = getTopScene();
+        if (scene != null) {
+            scene.onResume();
+        }
     }
 
     public void pauseScene() {

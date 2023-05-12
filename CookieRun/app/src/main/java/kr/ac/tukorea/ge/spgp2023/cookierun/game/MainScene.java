@@ -57,6 +57,9 @@ public class MainScene extends BaseScene {
         add(Layer.touch, new Button(R.mipmap.btn_pause, 15.0f, 1.0f, 1.0f, 1.0f, new Button.Callback() {
             @Override
             public boolean onTouch(Button.Action action) {
+                if (action == Button.Action.pressed) {
+                    new PausedScene().pushScene();
+                }
                 return true;
             }
         }));
