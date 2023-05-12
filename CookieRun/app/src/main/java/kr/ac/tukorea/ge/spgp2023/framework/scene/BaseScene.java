@@ -34,6 +34,17 @@ public class BaseScene {
         }
     }
 
+    public int changeScene() {
+        BaseScene scene = getTopScene();
+        if (scene != null) {
+            scene.onEnd();
+        }
+        int topIndex = stack.size() - 1;
+        stack.set(topIndex, this);
+        this.onStart();
+        return stack.size();
+    }
+
     public int pushScene() {
         BaseScene scene = getTopScene();
         if (scene != null) {
