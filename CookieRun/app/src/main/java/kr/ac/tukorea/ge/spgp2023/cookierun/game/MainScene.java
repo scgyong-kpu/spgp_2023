@@ -58,7 +58,7 @@ public class MainScene extends BaseScene {
             @Override
             public boolean onTouch(Button.Action action) {
                 if (action == Button.Action.pressed) {
-                    new PausedScene().changeScene();
+                    new PausedScene().pushScene();
                 }
                 return true;
             }
