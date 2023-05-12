@@ -54,6 +54,13 @@ public class MainScene extends BaseScene {
                 return true;
             }
         }));
+        add(Layer.touch, new Button(R.mipmap.btn_pause, 15.0f, 1.0f, 1.0f, 1.0f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                return true;
+            }
+        }));
+
         add(Layer.controller, new MapLoader(context, stage));
         add(Layer.controller, new CollisionChecker(player));
     }
