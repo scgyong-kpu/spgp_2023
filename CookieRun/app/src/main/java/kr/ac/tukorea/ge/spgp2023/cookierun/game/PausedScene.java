@@ -29,6 +29,11 @@ public class PausedScene extends BaseScene {
     }
 
     @Override
+    public boolean isTransparent() {
+        return true;
+    }
+
+    @Override
     public void update(long elapsedNanos) {
         super.update(elapsedNanos);
         angle += BaseScene.frameTime * Math.PI / 4;

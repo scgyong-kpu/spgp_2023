@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -154,6 +155,7 @@ public class BaseScene {
             draw(canvas, index - 1);
         }
 
+        ArrayList<ArrayList<IGameObject>> layers = scene.layers;
         for (ArrayList<IGameObject> objects: layers) {
             for (IGameObject gobj : objects) {
                 gobj.draw(canvas);
