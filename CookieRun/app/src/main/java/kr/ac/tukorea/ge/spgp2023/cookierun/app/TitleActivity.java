@@ -27,6 +27,8 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTitleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Player.load(this);
         setStage(1);
         setCookieIndex(0);
     }

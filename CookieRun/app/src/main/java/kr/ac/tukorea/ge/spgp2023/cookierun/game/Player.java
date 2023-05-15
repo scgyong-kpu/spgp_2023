@@ -1,15 +1,18 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.JsonReader;
 import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,22 +34,47 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private int imageSize = 0;
 
     public static class CookieInfo {
+        public int id;
         public String name;
         public float jumpPower, scoreRate;
-        public CookieInfo(String name, float jumpPower, float scoreRate) {
-            this.name = name;
-            this.jumpPower = jumpPower;
-            this.scoreRate = scoreRate;
-        }
+
+        public CookieInfo() {}
     }
     public static HashMap<Integer, CookieInfo> cookieInfoMap;
-    static {
-        cookieInfoMap = new HashMap<>();
-        cookieInfoMap.put(107566, new CookieInfo("Brave Cookie", 9.0f, 1.0f));
-        cookieInfoMap.put(107567, new CookieInfo("Bright Cookie", 8.0f, 1.2f));
-        cookieInfoMap.put(107568, new CookieInfo("Strawberry Cookie", 7.0f, 1.0f));
-        cookieInfoMap.put(107571, new CookieInfo("Buttercream Choco Cookie", 12.0f, 1.0f));
-        cookieInfoMap.put(107583, new CookieInfo("Ch17 Cookie", 15.0f, 1.0f));
+    public static void load(Context context) {
+        if (cookieInfoMap != null) return;
+
+        AssetManager assets = context.getAssets();
+        try {
+            InputStream is = assets.open("cookies.json");
+            InputStreamReader isr = new InputStreamReader(is);
+            JsonReader jr = new JsonReader(isr);
+            jr.beginArray();
+            cookieInfoMap = new HashMap<>();
+            while (jr.hasNext()) {
+                CookieInfo ci = new CookieInfo();
+                jr.beginObject();
+                while (jr.hasNext()) {
+                    String name = jr.nextName();
+                    if (name.equals("id")) {
+                        ci.id = jr.nextInt();
+                    } else if (name.equals("name")) {
+                        ci.name = jr.nextString();
+                    } else if (name.equals("jumpPower")) {
+                        ci.jumpPower = (float) jr.nextDouble();
+                    } else if (name.equals("scoreRate")) {
+                        ci.scoreRate = (float) jr.nextDouble();
+                    }
+                }
+                jr.endObject();
+                if (ci == null) break;
+                cookieInfoMap.put(ci.id, ci);
+            }
+            jr.endArray();
+            jr.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     private CookieInfo cookieInfo;
 
