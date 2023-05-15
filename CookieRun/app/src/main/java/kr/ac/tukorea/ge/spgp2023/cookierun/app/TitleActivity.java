@@ -53,7 +53,7 @@ public class TitleActivity extends AppCompatActivity {
     }
 
     private static final int[] cookieIds = {
-            107566, 107567,
+            107566, 107567, 107568, 107571, 107583,
     };
     private int cookieIndex = 0;
     public void onBtnPrevCookie(View view) {
