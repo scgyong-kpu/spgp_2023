@@ -11,6 +11,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
@@ -23,17 +24,38 @@ import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
     private float jumpSpeed;
-    private static final float JUMP_POWER = 9.0f;
+//    private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
     private RectF collisionRect = new RectF();
     protected Obstacle obstacle;
     private int imageSize = 0;
+
+    public static class CookieInfo {
+        public String name;
+        public float jumpPower, scoreRate;
+        public CookieInfo(String name, float jumpPower, float scoreRate) {
+            this.name = name;
+            this.jumpPower = jumpPower;
+            this.scoreRate = scoreRate;
+        }
+    }
+    public static HashMap<Integer, CookieInfo> cookieInfoMap;
+    static {
+        cookieInfoMap = new HashMap<>();
+        cookieInfoMap.put(107566, new CookieInfo("Brave Cookie", 9.0f, 1.0f));
+        cookieInfoMap.put(107567, new CookieInfo("Bright Cookie", 8.0f, 1.2f));
+        cookieInfoMap.put(107568, new CookieInfo("Strawberry Cookie", 7.0f, 1.0f));
+        cookieInfoMap.put(107571, new CookieInfo("Buttercream Choco Cookie", 12.0f, 1.0f));
+        cookieInfoMap.put(107583, new CookieInfo("Ch17 Cookie", 15.0f, 1.0f));
+    }
+    private CookieInfo cookieInfo;
 
     public Player(int cookieId) {
         super(2.0f, 3.0f, 3.86f, 3.86f, 8);
         fixDstRect();
         fixCollisionRect();
         loadAssetImage(cookieId);
+        cookieInfo = cookieInfoMap.get(cookieId);
     }
 
     private void loadAssetImage(int cookieId) {
@@ -175,9 +197,9 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public void jump() {
         if (state == State.running) {
             state = State.jump;
-            jumpSpeed = -JUMP_POWER;
+            jumpSpeed = -cookieInfo.jumpPower;
         } else if (state == State.jump) {
-            jumpSpeed = -JUMP_POWER;
+            jumpSpeed = -cookieInfo.jumpPower;
             state = State.doubleJump;
         }
     }

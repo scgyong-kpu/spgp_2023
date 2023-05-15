@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.cookierun.databinding.ActivityTitleBinding;
+import kr.ac.tukorea.ge.spgp2023.cookierun.game.Player;
 
 public class TitleActivity extends AppCompatActivity {
 
@@ -70,6 +71,7 @@ public class TitleActivity extends AppCompatActivity {
         try {
             Bitmap bmp = BitmapFactory.decodeStream(getAssets().open("cookies/" + cookieId + "_icon.png"));
             binding.cookieImageView.setImageBitmap(bmp);
+            binding.cookieNameTextView.setText(Player.cookieInfoMap.get(cookieId).name);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -26,7 +26,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/title_round_bg"
-            android:padding="15dp"
+            android:padding="10dp"
             android:layout_marginVertical="20dp"
             android:gravity="center_vertical"
             >
@@ -57,12 +57,17 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/title_round_bg"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            >
+        <LinearLayout
             android:id="@+id/cookieSelectLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/title_round_bg"
-            android:padding="15dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center_vertical"
             >
             <Button
@@ -73,14 +78,14 @@
                 android:text="&lt;"
                 android:onClick="onBtnPrevCookie"
                 />
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/cookieImageView"
-                android:src="@mipmap/c_107566_icon"
-                android:layout_weight="1"
-                android:gravity="center"
-                />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/cookieImageView"
+                    android:src="@mipmap/c_107566_icon"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    />
             <Button
                 android:id="@+id/nextCookieButton"
                 android:layout_width="wrap_content"
@@ -88,6 +93,13 @@
                 android:minWidth="0dp"
                 android:text="&gt;"
                 android:onClick="onBtnNextCookie"
+                />
+        </LinearLayout>
+            <TextView
+                android:id="@+id/cookieNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 />
         </LinearLayout>
 
