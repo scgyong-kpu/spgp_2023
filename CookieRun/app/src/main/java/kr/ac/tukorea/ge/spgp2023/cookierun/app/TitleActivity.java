@@ -51,24 +51,21 @@ public class TitleActivity extends AppCompatActivity {
         Log.d(TAG, "Starting game stage: " + stage);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.PARAM_STAGE_INDEX, stage);
-        intent.putExtra(MainActivity.PARAM_COOKIE_ID, cookieIds[cookieIndex]);
+        intent.putExtra(MainActivity.PARAM_COOKIE_ID, Player.cookieIds[cookieIndex]);
         startActivity(intent);
     }
 
-    private static final int[] cookieIds = {
-            107566, 107567, 107568, 107571, 107583,
-    };
     private int cookieIndex = 0;
     public void onBtnPrevCookie(View view) {
-        setCookieIndex((cookieIndex + cookieIds.length - 1) % cookieIds.length);
+        setCookieIndex((cookieIndex + Player.cookieIds.length - 1) % Player.cookieIds.length);
     }
     public void onBtnNextCookie(View view) {
-        setCookieIndex((cookieIndex + 1) % cookieIds.length);
+        setCookieIndex((cookieIndex + 1) % Player.cookieIds.length);
     }
 
     private void setCookieIndex(int index) {
         cookieIndex = index;
-        int cookieId = cookieIds[index];
+        int cookieId = Player.cookieIds[index];
 
         try {
             Bitmap bmp = BitmapFactory.decodeStream(getAssets().open("cookies/" + cookieId + "_icon.png"));

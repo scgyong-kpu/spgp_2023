@@ -41,9 +41,11 @@ public class Player extends AnimSprite implements IBoxCollidable {
         public CookieInfo() {}
     }
     public static HashMap<Integer, CookieInfo> cookieInfoMap;
+    public static int[] cookieIds;
     public static void load(Context context) {
         if (cookieInfoMap != null) return;
 
+        ArrayList<Integer> idArrayList = new ArrayList<>();
         AssetManager assets = context.getAssets();
         try {
             InputStream is = assets.open("cookies.json");
@@ -67,11 +69,15 @@ public class Player extends AnimSprite implements IBoxCollidable {
                     }
                 }
                 jr.endObject();
-                if (ci == null) break;
                 cookieInfoMap.put(ci.id, ci);
+                idArrayList.add(ci.id);
             }
             jr.endArray();
             jr.close();
+            cookieIds = new int[idArrayList.size()];
+            for (int i = 0; i < cookieIds.length; i++) {
+                cookieIds[i] = idArrayList.get(i);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
