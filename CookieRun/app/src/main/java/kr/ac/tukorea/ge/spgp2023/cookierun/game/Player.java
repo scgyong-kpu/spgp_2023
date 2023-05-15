@@ -1,9 +1,15 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
@@ -12,6 +18,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
+import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
@@ -20,23 +27,43 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private static final float GRAVITY = 17.0f;
     private RectF collisionRect = new RectF();
     protected Obstacle obstacle;
+    private int imageSize = 0;
 
-    public Player() {
-        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 3.86f, 3.86f, 8, 1);
+    public Player(int cookieId) {
+        super(2.0f, 3.0f, 3.86f, 3.86f, 8);
+        fixDstRect();
         fixCollisionRect();
+        loadAssetImage(cookieId);
+    }
+
+    private void loadAssetImage(int cookieId) {
+        AssetManager assets = GameView.view.getContext().getAssets();
+        String filename = "cookies/" + cookieId + "_sheet.png";
+        Log.d("KKK", filename);
+        try {
+            InputStream is = assets.open(filename);
+            bitmap = BitmapFactory.decodeStream(is);
+            imageSize = (bitmap.getWidth() - 2) / 11 - 2;
+            makeSourceRects();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected enum State {
         running, jump, doubleJump, falling, slide, hurt, COUNT
     }
 //    protected Rect[] srcRects
-    protected static Rect[][] srcRects = {
-            makeRects(100, 101, 102, 103), // State.running
-            makeRects(7, 8),               // State.jump
-            makeRects(1, 2, 3, 4),         // State.doubleJump
-            makeRects(0),                  // State.falling
-            makeRects(9, 10),              // State.slide
-            makeRects(503, 504),           // State.hurt
+    protected Rect[][] srcRects;
+    private void makeSourceRects() {
+        srcRects = new Rect[][] {
+                makeRects(100, 101, 102, 103), // State.running
+                makeRects(7, 8),               // State.jump
+                makeRects(1, 2, 3, 4),         // State.doubleJump
+                makeRects(0),                  // State.falling
+                makeRects(9, 10),              // State.slide
+                makeRects(503, 504),           // State.hurt
+        };
     };
     protected static float[][] edgeInsets = {
             { 1.20f, 1.95f, 1.10f, 0.00f }, // State.running
@@ -46,13 +73,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
             { 0.80f, 2.90f, 0.80f, 0.00f }, // slide
             { 1.20f, 1.95f, 1.10f, 0.00f }, // State.hurt
     };
-    protected static Rect[] makeRects(int... indices) {
+    protected Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
         for (int i = 0; i < indices.length; i++) {
             int idx = indices[i];
-            int l = 2 + (idx % 100) * 272;
-            int t = 2 + (idx / 100) * 272;
-            rects[i] = new Rect(l, t, l + 270, t + 270);
+            int l = 2 + (idx % 100) * (imageSize + 2);
+            int t = 2 + (idx / 100) * (imageSize + 2);
+            rects[i] = new Rect(l, t, l + imageSize, t + imageSize);
         }
         return rects;
     }

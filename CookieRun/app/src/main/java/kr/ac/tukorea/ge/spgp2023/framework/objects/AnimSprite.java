@@ -12,9 +12,18 @@ public class AnimSprite extends Sprite {
     protected float fps;
     protected long createdOn;
     protected int frameWidth, frameHeight;
+    protected AnimSprite(float cx, float cy, float width, float height, float fps) {
+        super(0, cx, cy, width, height);
+        this.fps = fps;
+        createdOn = System.currentTimeMillis();
+    }
     public AnimSprite(int bitmapResId, float cx, float cy, float width, float height, float fps, int frameCount) {
         super(bitmapResId, cx, cy, width, height);
         this.fps = fps;
+        createdOn = System.currentTimeMillis();
+        if (bitmap == null) {
+            return;
+        }
         int imageWidth = bitmap.getWidth();
         frameHeight = bitmap.getHeight();
         if (frameCount == 0) {
@@ -25,7 +34,6 @@ public class AnimSprite extends Sprite {
             this.frameCount = frameCount;
         }
         srcRect.set(0, 0, frameWidth, frameHeight);
-        createdOn = System.currentTimeMillis();
     }
 
     @Override
