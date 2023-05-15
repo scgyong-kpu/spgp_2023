@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
 
@@ -22,11 +24,13 @@ public class CollisionChecker implements IGameObject {
         ArrayList<IGameObject> items = scene.getObjectsAt(MainScene.Layer.item);
         for (int i = items.size() - 1; i >= 0; i--) {
             IGameObject gobj = items.get(i);
-            if (!(gobj instanceof IBoxCollidable)) {
+            if (!(gobj instanceof JellyItem)) {
                 continue;
             }
-            if (CollisionHelper.collides(player, (IBoxCollidable) gobj)) {
+            JellyItem item = (JellyItem) gobj;
+            if (CollisionHelper.collides(player, item)) {
                 scene.remove(MainScene.Layer.item, gobj);
+                Sound.playEffect(item.soundId());
             }
         }
         ArrayList<IGameObject> obstacles = scene.getObjectsAt(MainScene.Layer.obstacle);

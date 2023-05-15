@@ -32,6 +32,9 @@ public class Platform extends MapObject {
     private Platform() {
         super(MainScene.Layer.platform);
     }
+    public static Platform get(int type, float left, float top) {
+        return get(Type.values()[type], left, top);
+    }
     public static Platform get(Type type, float left, float top) {
         Platform platform = (Platform) RecycleBin.get(Platform.class);
         if (platform == null) {
