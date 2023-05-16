@@ -13,19 +13,18 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String PARAM_STAGE_INDEX = "stageIndex";
+    public static final String PARAM_COOKIE_ID = "cookieId";
     private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-        int stage = extras.getInt(PARAM_STAGE_INDEX);
-        Log.d(TAG, "MainActivity.onCreate: stage=" + stage);
         gameView = new GameView(this);
         gameView.setFullScreen();
         setContentView(gameView);
 
-        new MainScene(this, stage).pushScene();
+        new MainScene(this, extras).pushScene();
     }
 
 

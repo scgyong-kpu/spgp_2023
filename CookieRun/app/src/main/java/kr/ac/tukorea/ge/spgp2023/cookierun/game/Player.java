@@ -1,10 +1,20 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.JsonReader;
+import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IBoxCollidable;
@@ -12,31 +22,104 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
+import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class Player extends AnimSprite implements IBoxCollidable {
     private float jumpSpeed;
-    private static final float JUMP_POWER = 9.0f;
+//    private static final float JUMP_POWER = 9.0f;
     private static final float GRAVITY = 17.0f;
     private RectF collisionRect = new RectF();
     protected Obstacle obstacle;
+    private int imageSize = 0;
 
-    public Player() {
-        super(R.mipmap.cookie_player_sheet, 2.0f, 3.0f, 3.86f, 3.86f, 8, 1);
+    public static class CookieInfo {
+        public int id;
+        public String name;
+        public float jumpPower, scoreRate;
+
+        public CookieInfo() {}
+    }
+    public static HashMap<Integer, CookieInfo> cookieInfoMap;
+    public static int[] cookieIds;
+    public static void load(Context context) {
+        if (cookieInfoMap != null) return;
+
+        ArrayList<Integer> idArrayList = new ArrayList<>();
+        AssetManager assets = context.getAssets();
+        try {
+            InputStream is = assets.open("cookies.json");
+            InputStreamReader isr = new InputStreamReader(is);
+            JsonReader jr = new JsonReader(isr);
+            jr.beginArray();
+            cookieInfoMap = new HashMap<>();
+            while (jr.hasNext()) {
+                CookieInfo ci = new CookieInfo();
+                jr.beginObject();
+                while (jr.hasNext()) {
+                    String name = jr.nextName();
+                    if (name.equals("id")) {
+                        ci.id = jr.nextInt();
+                    } else if (name.equals("name")) {
+                        ci.name = jr.nextString();
+                    } else if (name.equals("jumpPower")) {
+                        ci.jumpPower = (float) jr.nextDouble();
+                    } else if (name.equals("scoreRate")) {
+                        ci.scoreRate = (float) jr.nextDouble();
+                    }
+                }
+                jr.endObject();
+                cookieInfoMap.put(ci.id, ci);
+                idArrayList.add(ci.id);
+            }
+            jr.endArray();
+            jr.close();
+            cookieIds = new int[idArrayList.size()];
+            for (int i = 0; i < cookieIds.length; i++) {
+                cookieIds[i] = idArrayList.get(i);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private CookieInfo cookieInfo;
+
+    public Player(int cookieId) {
+        super(2.0f, 3.0f, 3.86f, 3.86f, 8);
+        fixDstRect();
         fixCollisionRect();
+        loadAssetImage(cookieId);
+        cookieInfo = cookieInfoMap.get(cookieId);
+    }
+
+    private void loadAssetImage(int cookieId) {
+        AssetManager assets = GameView.view.getContext().getAssets();
+        String filename = "cookies/" + cookieId + "_sheet.png";
+        Log.d("KKK", filename);
+        try {
+            InputStream is = assets.open(filename);
+            bitmap = BitmapFactory.decodeStream(is);
+            imageSize = (bitmap.getWidth() - 2) / 11 - 2;
+            makeSourceRects();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected enum State {
         running, jump, doubleJump, falling, slide, hurt, COUNT
     }
 //    protected Rect[] srcRects
-    protected static Rect[][] srcRects = {
-            makeRects(100, 101, 102, 103), // State.running
-            makeRects(7, 8),               // State.jump
-            makeRects(1, 2, 3, 4),         // State.doubleJump
-            makeRects(0),                  // State.falling
-            makeRects(9, 10),              // State.slide
-            makeRects(503, 504),           // State.hurt
+    protected Rect[][] srcRects;
+    private void makeSourceRects() {
+        srcRects = new Rect[][] {
+                makeRects(100, 101, 102, 103), // State.running
+                makeRects(7, 8),               // State.jump
+                makeRects(1, 2, 3, 4),         // State.doubleJump
+                makeRects(0),                  // State.falling
+                makeRects(9, 10),              // State.slide
+                makeRects(503, 504),           // State.hurt
+        };
     };
     protected static float[][] edgeInsets = {
             { 1.20f, 1.95f, 1.10f, 0.00f }, // State.running
@@ -46,13 +129,13 @@ public class Player extends AnimSprite implements IBoxCollidable {
             { 0.80f, 2.90f, 0.80f, 0.00f }, // slide
             { 1.20f, 1.95f, 1.10f, 0.00f }, // State.hurt
     };
-    protected static Rect[] makeRects(int... indices) {
+    protected Rect[] makeRects(int... indices) {
         Rect[] rects = new Rect[indices.length];
         for (int i = 0; i < indices.length; i++) {
             int idx = indices[i];
-            int l = 2 + (idx % 100) * 272;
-            int t = 2 + (idx / 100) * 272;
-            rects[i] = new Rect(l, t, l + 270, t + 270);
+            int l = 2 + (idx % 100) * (imageSize + 2);
+            int t = 2 + (idx / 100) * (imageSize + 2);
+            rects[i] = new Rect(l, t, l + imageSize, t + imageSize);
         }
         return rects;
     }
@@ -148,9 +231,9 @@ public class Player extends AnimSprite implements IBoxCollidable {
     public void jump() {
         if (state == State.running) {
             state = State.jump;
-            jumpSpeed = -JUMP_POWER;
+            jumpSpeed = -cookieInfo.jumpPower;
         } else if (state == State.jump) {
-            jumpSpeed = -JUMP_POWER;
+            jumpSpeed = -cookieInfo.jumpPower;
             state = State.doubleJump;
         }
     }
