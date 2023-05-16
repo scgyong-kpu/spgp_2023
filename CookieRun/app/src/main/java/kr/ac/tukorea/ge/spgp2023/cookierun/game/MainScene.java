@@ -1,8 +1,11 @@
 package kr.ac.tukorea.ge.spgp2023.cookierun.game;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2023.cookierun.R;
+import kr.ac.tukorea.ge.spgp2023.cookierun.app.MainActivity;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Button;
 import kr.ac.tukorea.ge.spgp2023.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -15,7 +18,7 @@ public class MainScene extends BaseScene {
     public enum Layer {
         bg, platform, item, obstacle, player, ui, touch, controller, COUNT
     }
-    public MainScene(Context context, int stage) {
+    public MainScene(Context context, Bundle extras) {
         Metrics.setGameSize(16.0f, 9.0f);
         initLayers(Layer.COUNT);
 
@@ -23,7 +26,9 @@ public class MainScene extends BaseScene {
         add(Layer.bg, new HorzScrollBackground(R.mipmap.cookie_run_bg_2, -0.4f));
         add(Layer.bg, new HorzScrollBackground(R.mipmap.cookie_run_bg_3, -0.6f));
 
-        player = new Player();
+        int cookieId = extras.getInt(MainActivity.PARAM_COOKIE_ID);
+
+        player = new Player(cookieId);
         add(Layer.player, player);
 
         add(Layer.touch, new Button(R.mipmap.btn_slide_n, 1.5f, 8.0f, 2.0f, 0.75f, new Button.Callback() {
@@ -54,6 +59,19 @@ public class MainScene extends BaseScene {
                 return true;
             }
         }));
+        add(Layer.touch, new Button(R.mipmap.btn_pause, 15.0f, 1.0f, 1.0f, 1.0f, new Button.Callback() {
+            @Override
+            public boolean onTouch(Button.Action action) {
+                if (action == Button.Action.pressed) {
+                    new PausedScene().pushScene();
+                }
+                return true;
+            }
+        }));
+
+        int stage = extras.getInt(MainActivity.PARAM_STAGE_INDEX);
+        Log.d(TAG, "MainActivity.onCreate: stage=" + stage);
+
         add(Layer.controller, new MapLoader(context, stage));
         add(Layer.controller, new CollisionChecker(player));
     }
