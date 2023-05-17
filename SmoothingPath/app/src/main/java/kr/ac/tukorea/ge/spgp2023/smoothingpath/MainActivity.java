@@ -35,4 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckClosed(View view) {
         binding.pathView.setClosed(binding.closedCheckbox.isChecked());
     }
+
+    public void onBtnStart(View view) {
+        binding.pathView.start();
+    }
 }

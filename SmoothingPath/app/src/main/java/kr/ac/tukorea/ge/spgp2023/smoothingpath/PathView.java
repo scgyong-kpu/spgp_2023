@@ -1,10 +1,14 @@
 package kr.ac.tukorea.ge.spgp2023.smoothingpath;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,7 +25,12 @@ public class PathView extends View {
     private static final String TAG = PathView.class.getSimpleName();
     private static final int DIRECTION_FACTOR = 6;
     private Paint paint;
-//    private ArrayList<PointF> points = new ArrayList<>();
+    private PointF fighterPos = new PointF();
+    private Bitmap bitmap;
+    private float hw, hh;
+
+
+    //    private ArrayList<PointF> points = new ArrayList<>();
     public static class PathPoint {
         float x, y;
         float dx, dy;
@@ -61,6 +70,10 @@ public class PathView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2.0f);
         paint.setColor(Color.BLUE);
+
+        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.plane_240);
+        hw = bitmap.getWidth() / 2;
+        hh = bitmap.getHeight() / 2;
     }
 
     @Override
@@ -73,9 +86,11 @@ public class PathView extends View {
         PathPoint first = points.get(0);
         if (ptCount == 1) {
             canvas.drawCircle(first.x, first.y, 5.0f, paint);
-            return;
+        } else {
+            canvas.drawPath(path, paint);
         }
-        canvas.drawPath(path, paint);
+
+        canvas.drawBitmap(bitmap, fighterPos.x - hw, fighterPos.y - hh, null);
     }
     private void buildPath() {
         int ptCount = points.size();
@@ -143,6 +158,9 @@ public class PathView extends View {
             pt.y = event.getY();
             points.add(pt);
             buildPath();
+            if (points.size() == 1) {
+                fighterPos.set(pt.x, pt.y);
+            }
             Log.d(TAG, "Points:" + points.size());
             if (listener != null) {
                 listener.onAdd();
@@ -163,4 +181,28 @@ public class PathView extends View {
         buildPath();
         invalidate();
     }
+
+    float[] pos = new float[2];
+    float[] tan = new float[2];
+    public void start() {
+        int msecPerPoint = 300;
+        int ptCount = points.size();
+        if (ptCount < 2) { return; }
+        PathMeasure pm = new PathMeasure(path, false);
+        float length = pm.getLength();
+        ValueAnimator anim = ValueAnimator.ofFloat(0f, length);
+        anim.setDuration(ptCount * msecPerPoint);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float progress = (Float) animation.getAnimatedValue();
+                pm.getPosTan(progress, pos, tan);
+                fighterPos.x = pos[0];
+                fighterPos.y = pos[1];
+                invalidate();
+            }
+        });
+        anim.start();
+    }
+
 }
