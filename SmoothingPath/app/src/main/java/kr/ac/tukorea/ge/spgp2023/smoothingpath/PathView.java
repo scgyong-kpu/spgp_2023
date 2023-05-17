@@ -24,7 +24,7 @@ public class PathView extends View {
 
     private static final String TAG = PathView.class.getSimpleName();
     private static final int DIRECTION_FACTOR = 6;
-    private Paint paint;
+    private Paint paint, alphaPaint;
     private PointF fighterPos = new PointF();
     private Bitmap bitmap;
     private float hw, hh;
@@ -71,6 +71,9 @@ public class PathView extends View {
         paint.setStrokeWidth(2.0f);
         paint.setColor(Color.BLUE);
 
+        alphaPaint = new Paint();
+        alphaPaint.setAlpha(255 * 60 / 100);
+
         bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.plane_240);
         hw = bitmap.getWidth() / 2;
         hh = bitmap.getHeight() / 2;
@@ -90,7 +93,7 @@ public class PathView extends View {
             canvas.drawPath(path, paint);
         }
 
-        canvas.drawBitmap(bitmap, fighterPos.x - hw, fighterPos.y - hh, null);
+        canvas.drawBitmap(bitmap, fighterPos.x - hw, fighterPos.y - hh, alphaPaint);
     }
     private void buildPath() {
         int ptCount = points.size();
