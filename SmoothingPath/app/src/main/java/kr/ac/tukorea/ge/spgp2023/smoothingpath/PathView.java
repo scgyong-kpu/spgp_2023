@@ -78,4 +78,9 @@ public class PathView extends View {
         }
         return super.onTouchEvent(event);
     }
+
+    public void clear() {
+        points.clear();
+        invalidate();
+    }
 }

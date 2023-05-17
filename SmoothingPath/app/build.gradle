@@ -6,6 +6,9 @@ android {
     namespace 'kr.ac.tukorea.ge.spgp2023.smoothingpath'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "kr.ac.tukorea.ge.spgp2023.smoothingpath"
         minSdk 21
