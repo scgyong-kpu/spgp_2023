@@ -76,8 +76,10 @@ public class MapLoader implements IGameObject {
     private void createObject(int tile, float left, int top) {
         MainScene scene = (MainScene) BaseScene.getTopScene();
         MapObject mobj = null;
-        if ('1' <= tile && tile <= '9') {
-            mobj = JellyItem.get(tile - 1, left, top);
+        if ('0' <= tile && tile <= '9') {
+            mobj = JellyItem.get(tile - '0', left, top);
+        } else if (tile == '@') {
+            mobj = JellyItem.get(26, left, top);
         } else if ('O' <= tile && tile <= 'Q') {
             mobj = Platform.get(tile - 'O', left, top);
         } else switch (tile) {
