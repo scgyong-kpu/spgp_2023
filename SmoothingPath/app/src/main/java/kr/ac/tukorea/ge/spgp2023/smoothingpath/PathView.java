@@ -184,8 +184,7 @@ public class PathView extends View {
 
     float[] pos = new float[2];
     float[] tan = new float[2];
-    public void start() {
-        int msecPerPoint = 300;
+    public void start(int msecPerPoint) {
         int ptCount = points.size();
         if (ptCount < 2) { return; }
         PathMeasure pm = new PathMeasure(path, false);

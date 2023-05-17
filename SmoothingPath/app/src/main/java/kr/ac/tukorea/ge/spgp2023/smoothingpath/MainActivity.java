@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnStart(View view) {
-        binding.pathView.start();
+        int msecPerPoint = 1000 - binding.seekBar.getProgress();
+        binding.pathView.start(msecPerPoint);
     }
 }
