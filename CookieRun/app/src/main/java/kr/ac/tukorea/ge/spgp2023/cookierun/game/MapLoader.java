@@ -11,8 +11,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
+import kr.ac.tukorea.ge.spgp2023.cookierun.R;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class MapLoader implements IGameObject {
@@ -106,6 +108,13 @@ public class MapLoader implements IGameObject {
         }
     }
 
+    Gauge gauge = new Gauge(0.025f, R.color.mapGaugeFg, R.color.mapGaugeBg);
     @Override
-    public void draw(Canvas canvas) {}
+    public void draw(Canvas canvas) {
+        canvas.save();
+        canvas.translate(2.0f, 1.0f);
+        canvas.scale(12.0f, 14.0f);
+        gauge.draw(canvas, (float)index / mapLength);
+        canvas.restore();
+    }
 }
