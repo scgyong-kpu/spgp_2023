@@ -22,7 +22,17 @@ public class PathView extends View {
     private Paint paint;
     ArrayList<PointF> points = new ArrayList<>();
     private boolean closed;
+    private Listener listener;
 
+    public interface Listener {
+        public void onAdd();
+    }
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+    public int getCount() {
+        return points.size();
+    }
     public PathView(Context context) {
         super(context);
         init(null, 0);
@@ -81,7 +91,9 @@ public class PathView extends View {
             pt.y = event.getY();
             points.add(pt);
             Log.d(TAG, "Points:" + points.size());
-
+            if (listener != null) {
+                listener.onAdd();
+            }
             invalidate();
         }
         return super.onTouchEvent(event);

@@ -24,6 +24,14 @@
             android:text="Closed"
             android:onClick="onCheckClosed"
             />
+        <TextView
+            android:id="@+id/countTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="10dp"
+            />
     </LinearLayout>
 
     <kr.ac.tukorea.ge.spgp2023.smoothingpath.PathView

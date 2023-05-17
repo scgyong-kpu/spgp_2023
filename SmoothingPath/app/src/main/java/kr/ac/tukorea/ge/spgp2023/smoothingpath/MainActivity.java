@@ -16,8 +16,17 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.pathView.setListener(new PathView.Listener() {
+            @Override
+            public void onAdd() {
+                showCount();
+            }
+        });
+        showCount();
     }
-
+    private void showCount() {
+        binding.countTextView.setText("Count: " + binding.pathView.getCount());
+    }
     public void onBtnClear(View view) {
         binding.pathView.clear();
     }
