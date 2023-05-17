@@ -21,6 +21,7 @@ public class PathView extends View {
     private static final String TAG = PathView.class.getSimpleName();
     private Paint paint;
     ArrayList<PointF> points = new ArrayList<>();
+    private boolean closed;
 
     public PathView(Context context) {
         super(context);
@@ -58,6 +59,9 @@ public class PathView extends View {
             PointF pt = points.get(i);
             path.lineTo(pt.x, pt.y);
         }
+        if (closed) {
+            path.close();
+        }
         canvas.drawPath(path, paint);
     }
 
@@ -81,6 +85,11 @@ public class PathView extends View {
 
     public void clear() {
         points.clear();
+        invalidate();
+    }
+
+    public void setClosed(boolean checked) {
+        closed = checked;
         invalidate();
     }
 }

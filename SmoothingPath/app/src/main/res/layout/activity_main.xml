@@ -10,12 +10,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#7ffc"
         >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clear"
             android:onClick="onBtnClear"/>
+        <CheckBox
+            android:id="@+id/closedCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Closed"
+            android:onClick="onCheckClosed"
+            />
     </LinearLayout>
 
     <kr.ac.tukorea.ge.spgp2023.smoothingpath.PathView
