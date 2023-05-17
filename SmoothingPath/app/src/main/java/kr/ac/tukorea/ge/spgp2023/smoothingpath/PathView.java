@@ -20,7 +20,12 @@ public class PathView extends View {
 
     private static final String TAG = PathView.class.getSimpleName();
     private Paint paint;
-    private ArrayList<PointF> points = new ArrayList<>();
+//    private ArrayList<PointF> points = new ArrayList<>();
+    public static class PathPoint {
+        float x, y;
+        float dx, dy;
+    }
+    ArrayList<PathPoint> points = new ArrayList<>();
     private Path path;
 
     private boolean closed;
@@ -64,7 +69,7 @@ public class PathView extends View {
         int ptCount = points.size();
         if (ptCount == 0) { return; }
 
-        PointF first = points.get(0);
+        PathPoint first = points.get(0);
         if (ptCount == 1) {
             canvas.drawCircle(first.x, first.y, 5.0f, paint);
             return;
@@ -75,10 +80,10 @@ public class PathView extends View {
         int ptCount = points.size();
         if (ptCount < 2) { return; }
         path = new Path();
-        PointF first = points.get(0);
+        PathPoint first = points.get(0);
         path.moveTo(first.x, first.y);
         for (int i = 1; i < ptCount; i++) {
-            PointF pt = points.get(i);
+            PathPoint pt = points.get(i);
             path.lineTo(pt.x, pt.y);
         }
         if (closed) {
@@ -93,7 +98,7 @@ public class PathView extends View {
                 points.clear();
                 return false;
             }
-            PointF pt = new PointF();
+            PathPoint pt = new PathPoint();
             pt.x = event.getX();
             pt.y = event.getY();
             points.add(pt);
