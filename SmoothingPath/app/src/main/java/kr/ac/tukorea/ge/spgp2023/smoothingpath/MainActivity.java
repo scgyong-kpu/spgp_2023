@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onBtnClear(View view) {
         binding.pathView.clear();
+        showCount();
     }
 
     public void onCheckClosed(View view) {
