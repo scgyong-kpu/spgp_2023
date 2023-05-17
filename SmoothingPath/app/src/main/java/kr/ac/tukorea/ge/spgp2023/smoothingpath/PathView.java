@@ -81,30 +81,40 @@ public class PathView extends View {
         int ptCount = points.size();
         if (ptCount < 2) { return; }
 
+        PathPoint pt, prev, next;
         for (int i = ptCount - 2; i < ptCount; i++) {
-            PathPoint pt = points.get(i);
-            if (i == 0) { // only next
-                PathPoint next = points.get(i + 1);
-                pt.dx = ((next.x - pt.x) / DIRECTION_FACTOR);
-                pt.dy = ((next.y - pt.y) / DIRECTION_FACTOR);
-            } else if (i == ptCount - 1) { // only prev
-                PathPoint prev = points.get(i - 1);
-                pt.dx = ((pt.x - prev.x) / DIRECTION_FACTOR);
-                pt.dy = ((pt.y - prev.y) / DIRECTION_FACTOR);
-            } else { // prev and next
-                PathPoint next = points.get(i + 1);
-                PathPoint prev = points.get(i - 1);
-                pt.dx = ((next.x - prev.x) / DIRECTION_FACTOR);
-                pt.dy = ((next.y - prev.y) / DIRECTION_FACTOR);
+            pt = points.get(i);
+            prev = null;
+            next = null;
+            if (!closed) {
+                if (i == 0) {
+                    prev = pt;
+                } else if (i == ptCount - 1) {
+                    next = pt;
+                }
             }
+            if (prev == null) {
+                prev = points.get((i - 1 + ptCount) % ptCount);
+            }
+            if (next == null) {
+                next = points.get((i + 1) % ptCount);
+            }
+            pt.dx = ((next.x - prev.x) / DIRECTION_FACTOR);
+            pt.dy = ((next.y - prev.y) / DIRECTION_FACTOR);
         }
 
+        pt = points.get(0);
+        next = points.get(1);
+        prev = closed ? points.get(points.size() - 1) : pt;
+        pt.dx = ((next.x - prev.x) / DIRECTION_FACTOR);
+        pt.dy = ((next.y - prev.y) / DIRECTION_FACTOR);
+
         path = new Path();
-        PathPoint prev = points.get(0);
+        prev = points.get(0);
         path.moveTo(prev.x, prev.y);
 
         for (int i = 1; i < ptCount; i++) {
-            PathPoint pt = points.get(i);
+            pt = points.get(i);
             path.cubicTo(
                     prev.x + prev.dx, prev.y + prev.dy,
                     pt.x - pt.dx, pt.y - pt.dy,
@@ -112,6 +122,11 @@ public class PathView extends View {
             prev = pt;
         }
         if (closed) {
+            PathPoint first = points.get(0);
+            PathPoint last = points.get(points.size() - 1);
+            path.cubicTo(last.x + last.dx, last.y + last.dy,
+                    first.x - first.dx, first.y - first.dy,
+                    first.x, first.y);
             path.close();
         }
     }
