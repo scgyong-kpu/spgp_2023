@@ -26,6 +26,7 @@ public class PathView extends View {
     private static final int DIRECTION_FACTOR = 6;
     private Paint paint, alphaPaint;
     private PointF fighterPos = new PointF();
+    private float angle;
     private Bitmap bitmap;
     private float hw, hh;
 
@@ -93,7 +94,10 @@ public class PathView extends View {
             canvas.drawPath(path, paint);
         }
 
+        canvas.save();
+        canvas.rotate(angle, fighterPos.x, fighterPos.y);
         canvas.drawBitmap(bitmap, fighterPos.x - hw, fighterPos.y - hh, alphaPaint);
+        canvas.restore();
     }
     private void buildPath() {
         int ptCount = points.size();
@@ -201,6 +205,7 @@ public class PathView extends View {
                 pm.getPosTan(progress, pos, tan);
                 fighterPos.x = pos[0];
                 fighterPos.y = pos[1];
+                angle = (float)(Math.atan2(tan[1], tan[0]) * 180 / Math.PI);
                 invalidate();
             }
         });
