@@ -165,4 +165,10 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         return null;
     }
+
+    public boolean handleBackKey() {
+        BaseScene topScene = BaseScene.getTopScene();
+        if (topScene == null) return false;
+        return topScene.handleBackKey();
+    }
 }

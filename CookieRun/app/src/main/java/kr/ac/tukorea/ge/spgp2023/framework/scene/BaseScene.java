@@ -223,4 +223,8 @@ public class BaseScene {
     }
     protected void onResume() {
     }
+
+    public boolean handleBackKey() {
+        return false;
+    }
 }
