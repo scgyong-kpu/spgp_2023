@@ -225,6 +225,7 @@ public class BaseScene {
     }
 
     public boolean handleBackKey() {
-        return false;
+        popScene();
+        return true;
     }
 }
