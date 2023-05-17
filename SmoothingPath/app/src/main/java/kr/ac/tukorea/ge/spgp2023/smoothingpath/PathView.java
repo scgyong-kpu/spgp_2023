@@ -115,6 +115,7 @@ public class PathView extends View {
 
     public void setClosed(boolean checked) {
         closed = checked;
+        buildPath();
         invalidate();
     }
 }
