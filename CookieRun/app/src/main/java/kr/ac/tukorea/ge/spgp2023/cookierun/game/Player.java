@@ -33,6 +33,14 @@ public class Player extends AnimSprite implements IBoxCollidable {
     protected Obstacle obstacle;
     private int imageSize = 0;
 
+    private static final float SCALE_NORMAL = 1.0f;
+    private static final float SCALE_MAGNIFIED = 2.0f;
+    private float scale = 1.0f, magSpeed = 0;
+    public void magnify(boolean enlarges) {
+//        magSpeed = enlarges ? 1.0f : -1.0f;
+        magSpeed = scale == 1.0f ? 1.0f : -1.0f;
+    }
+
     public static class CookieInfo {
         public int id;
         public String name;
@@ -177,6 +185,23 @@ public class Player extends AnimSprite implements IBoxCollidable {
             }
             break;
         }
+
+        if (magSpeed != 0) {
+            scale += BaseScene.frameTime * magSpeed;
+            if (magSpeed < 0 && scale <= SCALE_NORMAL) {
+                magSpeed = 0;
+                scale = SCALE_NORMAL;
+            } else if (magSpeed > 0 && scale >= SCALE_MAGNIFIED) {
+                magSpeed = 0;
+                scale = SCALE_MAGNIFIED;
+            }
+            float bot = dstRect.bottom;
+            float hw = width / 2 * scale;
+            float left = x - hw, right = x + hw;
+            float top = bot - height * scale;
+            dstRect.set(left, top, right, bot);
+            fixCollisionRect();
+        }
     }
 
     private float findNearestPlatformTop(float foot) {
@@ -212,10 +237,10 @@ public class Player extends AnimSprite implements IBoxCollidable {
     private void fixCollisionRect() {
         float[] insets = edgeInsets[state.ordinal()];
         collisionRect.set(
-                dstRect.left + insets[0],
-                dstRect.top + insets[1],
-                dstRect.right - insets[2],
-                dstRect.bottom -  insets[3]);
+                dstRect.left + scale * insets[0],
+                dstRect.top + scale * insets[1],
+                dstRect.right - scale * insets[2],
+                dstRect.bottom -  scale * insets[3]);
     }
 
     @Override

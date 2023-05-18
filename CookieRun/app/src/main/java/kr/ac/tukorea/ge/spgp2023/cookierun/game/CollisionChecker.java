@@ -31,6 +31,9 @@ public class CollisionChecker implements IGameObject {
             if (CollisionHelper.collides(player, item)) {
                 scene.remove(MainScene.Layer.item, gobj);
                 Sound.playEffect(item.soundId());
+                if (item.index == 26) {
+                    player.magnify(true);
+                }
             }
         }
         ArrayList<IGameObject> obstacles = scene.getObjectsAt(MainScene.Layer.obstacle);
