@@ -223,4 +223,9 @@ public class BaseScene {
     }
     protected void onResume() {
     }
+
+    public boolean handleBackKey() {
+        popScene();
+        return true;
+    }
 }

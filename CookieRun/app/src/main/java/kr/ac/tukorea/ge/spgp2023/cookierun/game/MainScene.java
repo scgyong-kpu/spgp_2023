@@ -108,4 +108,10 @@ public class MainScene extends BaseScene {
     protected int getTouchLayerIndex() {
         return Layer.touch.ordinal();
     }
+
+    @Override
+    public boolean handleBackKey() {
+        new PausedScene().pushScene();
+        return true;
+    }
 }
