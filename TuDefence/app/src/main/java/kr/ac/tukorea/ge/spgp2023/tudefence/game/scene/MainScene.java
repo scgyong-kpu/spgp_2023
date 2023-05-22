@@ -12,6 +12,6 @@ public class MainScene extends BaseScene {
     protected void onStart() {
         super.onStart();
         initLayers(Layer.COUNT);
-        add(Layer.bg, new TiledBackground("map", "earth.tmj"));
+        add(Layer.bg, new TiledBackground("map", "earth.tmj").setFitWidth());
     }
 }

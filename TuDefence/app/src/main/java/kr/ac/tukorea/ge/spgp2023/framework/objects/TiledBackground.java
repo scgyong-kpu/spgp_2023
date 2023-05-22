@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.map.MapLoader;
 import kr.ac.tukorea.ge.spgp2023.framework.map.TiledMap;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class TiledBackground implements IGameObject {
     private final TiledMap map;
@@ -12,6 +13,17 @@ public class TiledBackground implements IGameObject {
     public TiledBackground(String folder, String tmjFile) {
         this.map = new MapLoader().loadAsset(folder, tmjFile);
     }
+
+    public TiledBackground setFitWidth() {
+        map.scale = Metrics.game_width / map.width;
+        return this;
+    }
+
+    public TiledBackground setFitHeight() {
+        map.scale = Metrics.game_height / map.height;
+        return this;
+    }
+
     @Override
     public void update() {
     }

@@ -14,6 +14,8 @@ public class TiledMap {
     public int tilewidth, tileheight;
     ////////////////////////////////////////////////////////////
 
+    public float scale = 1.0f;
+
     public void draw(Canvas canvas) {
         draw(canvas, 0, 0);
     }

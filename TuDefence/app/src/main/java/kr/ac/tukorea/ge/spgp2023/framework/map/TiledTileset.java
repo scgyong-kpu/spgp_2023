@@ -52,8 +52,6 @@ public class TiledTileset {
         float canvasWidth = Metrics.game_width;
         float canvasHeight = Metrics.game_height;
 
-        float sx = 0, sy = 0;
-
         int width = map.width;
 
         int tile_x = 0;
@@ -62,12 +60,12 @@ public class TiledTileset {
         float beg_x = 0;
         float beg_y = 0;
         dstRect.top = beg_y;
-        dstRect.bottom = beg_y + 1;
+        dstRect.bottom = beg_y + map.scale;
         int ty = tile_y;
         while (dstRect.top < canvasHeight) {
             if (ty >= 0) {
                 dstRect.left = beg_x;
-                dstRect.right = beg_x + 1;
+                dstRect.right = beg_x + map.scale;
                 int tx = tile_x;
                 int ti = ty * width + tx;
                 while (dstRect.left < canvasWidth) {
@@ -78,14 +76,14 @@ public class TiledTileset {
                     getRectForTile(tile, srcRect);
 //                    Log.d(TAG, "src=" + srcRect + " dst=" + dstRect + " tx=" + tx + " ty=" + ty + " ti=" + ti);
                     canvas.drawBitmap(bitmap, srcRect, dstRect, null);
-                    dstRect.left += 1;
-                    dstRect.right += 1;
+                    dstRect.left += map.scale;
+                    dstRect.right += map.scale;
                     ti++;
                     tx = (tx + 1) % layer.width;
                 }
             }
-            dstRect.top += 1;
-            dstRect.bottom += 1;
+            dstRect.top += map.scale;
+            dstRect.bottom += map.scale;
             ty = (ty + 1) % layer.height;
         }
     }
