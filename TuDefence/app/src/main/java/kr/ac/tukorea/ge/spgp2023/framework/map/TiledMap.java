@@ -6,4 +6,9 @@ public class TiledMap {
     private static final String TAG = TiledMap.class.getSimpleName();
     ArrayList<TiledTileset> tilesets;
     ArrayList<TiledLayer> layers;
+    ////////////////////////////////////////////////////////////
+    // from tmj
+    public int width, height;
+    public int tilewidth, tileheight;
+    ////////////////////////////////////////////////////////////
 }

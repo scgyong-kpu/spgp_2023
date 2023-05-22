@@ -1,4 +1,9 @@
 package kr.ac.tukorea.ge.spgp2023.framework.map;
 
 public class TiledLayer {
+    ////////////////////////////////////////////////////////////
+    // from tmj
+    public int x, y, width, height;
+    public int[] data;
+    ////////////////////////////////////////////////////////////
 }
