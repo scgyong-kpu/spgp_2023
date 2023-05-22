@@ -38,7 +38,14 @@ public class MapLoader {
         while (reader.hasNext()) {
             String name = reader.nextName();
             Log.d(TAG, "Map JSON TMJ key = " + name);
-            reader.skipValue();
+            if (name.equals("width")) {
+                map.width = reader.nextInt();
+            } else if (name.equals("height")) {
+                map.height = reader.nextInt();
+            } else {
+                Log.d(TAG, " -- Skipping");
+                reader.skipValue();
+            }
         }
 
         return null;
