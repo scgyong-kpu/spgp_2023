@@ -6,7 +6,6 @@ import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
-import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class FlyGen implements IGameObject {
 
