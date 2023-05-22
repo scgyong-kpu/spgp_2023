@@ -11,7 +11,7 @@ public class MainScene extends BaseScene {
     }
 
     public MainScene() {
-        Metrics.setGameSize(16, 9);
+        Metrics.setGameSize(32, 18);
     }
 
     @Override
@@ -20,7 +20,6 @@ public class MainScene extends BaseScene {
         initLayers(Layer.COUNT);
         add(Layer.bg,
                 new TiledBackground("map", "desert.tmj")
-                        .setFitWidth()
         );
     }
 }
