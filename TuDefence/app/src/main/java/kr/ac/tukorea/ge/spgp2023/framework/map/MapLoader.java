@@ -53,6 +53,7 @@ public class MapLoader {
                 }
                 map.layers = layers;
                 reader.endArray();
+                Log.d(TAG, "Did read " + layers.size() + " layer(s)");
             } else {
                 //Log.d(TAG, " -- Skipping");
                 reader.skipValue();
@@ -93,17 +94,23 @@ public class MapLoader {
         Log.v(TAG, " Reading layer:");
         TiledLayer layer = new TiledLayer(map);
         reader.beginObject();
+        String layerType = "";
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("data")) {
                 layer.data = readIntArray(reader);
                 Log.d(TAG, "int[] : " + layer.data.length + " integers");
+            } else if (name.equals("type")) {
+                layerType = reader.nextString();
             } else if (readProperty(layer, name, reader)) {
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
+        if (!layerType.equals("tilelayer")) {
+            return null;
+        }
         return layer;
     }
 
