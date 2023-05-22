@@ -2,6 +2,8 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
 
 import android.graphics.Rect;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.SheetSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -15,7 +17,11 @@ public class Fly extends SheetSprite implements IRecyclable {
     private float speed, distance;
 
     public enum Type {
-        boss, red, blue, cyan, dragon, COUNT, RANDOM;
+        boss, red, blue, cyan, dragon, COUNT;
+
+        public static Type random(Random rand) {
+            return Type.values()[rand.nextInt(COUNT.ordinal())];
+        }
     }
     public static Fly get(Type type, float speed, float size) {
         Fly fly = (Fly) RecycleBin.get(Fly.class);
