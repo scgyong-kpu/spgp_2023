@@ -4,12 +4,15 @@ import android.graphics.Rect;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.SheetSprite;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 
 public class Fly extends SheetSprite implements IRecyclable {
 
     private Type type;
+    private float speed, distance;
 
     public enum Type {
         boss, red, blue, cyan, dragon, COUNT, RANDOM;
@@ -43,8 +46,20 @@ public class Fly extends SheetSprite implements IRecyclable {
     private Rect[][] rects_array;
     private void init(Type type, float speed, float size) {
         this.type = type;
+        this.speed = speed;
         this.width = this.height = size;
+        this.distance = 0;
         srcRects = rects_array[type.ordinal()];
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        distance += speed * BaseScene.frameTime;
+        moveTo(distance, y);
+        if (distance > Metrics.game_width) {
+            BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
+        }
     }
 
     @Override

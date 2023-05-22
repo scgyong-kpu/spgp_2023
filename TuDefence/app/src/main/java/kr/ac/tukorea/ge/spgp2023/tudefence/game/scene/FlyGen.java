@@ -9,19 +9,28 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class FlyGen implements IGameObject {
-    public FlyGen() {
-        MainScene scene = (MainScene) BaseScene.getTopScene();
-        Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            Fly fly = Fly.get(Fly.Type.blue, 0, 3);
-            fly.moveTo(
-                    rand.nextFloat() * Metrics.game_width,
-                    rand.nextFloat() * Metrics.game_height);
-            scene.add(MainScene.Layer.enemy, fly);
-        }
-    }
+
+    private static final float GEN_INTERVAL = 1.0f;
+    private Random rand = new Random();
+    private float time;
+
     @Override
     public void update() {
+        time += BaseScene.frameTime;
+        if (time >= GEN_INTERVAL) {
+            spawn();
+            time -= GEN_INTERVAL;
+        }
+    }
+
+    private void spawn() {
+        float y = rand.nextFloat() * Metrics.game_height;
+        float size = rand.nextFloat() + 2;
+        float speed = rand.nextFloat() * 0.5f + 1.0f;
+        Fly fly = Fly.get(Fly.Type.blue, speed, size);
+        fly.moveTo(0, y);
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        scene.add(MainScene.Layer.enemy, fly);
     }
 
     @Override
