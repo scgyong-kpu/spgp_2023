@@ -5,10 +5,12 @@ import android.graphics.Canvas;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.map.MapLoader;
 import kr.ac.tukorea.ge.spgp2023.framework.map.TiledMap;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class TiledBackground implements IGameObject {
     private final TiledMap map;
+    private float x, y, dx, dy;
 
     public TiledBackground(String folder, String tmjFile) {
         this.map = new MapLoader().loadAsset(folder, tmjFile);
@@ -24,12 +26,20 @@ public class TiledBackground implements IGameObject {
         return this;
     }
 
+    public TiledBackground setScroll(float dx, float dy) {
+        this.dx = dx;
+        this.dy = dy;
+        return this;
+    }
+
     @Override
     public void update() {
+        this.x += dx * BaseScene.frameTime;
+        this.y += dy * BaseScene.frameTime;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        map.draw(canvas);
+        map.draw(canvas, x, y);
     }
 }

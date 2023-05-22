@@ -12,6 +12,10 @@ public class MainScene extends BaseScene {
     protected void onStart() {
         super.onStart();
         initLayers(Layer.COUNT);
-        add(Layer.bg, new TiledBackground("map", "earth_horz.tmj").setFitHeight());
+        add(Layer.bg,
+                new TiledBackground("map", "earth.tmj")
+                        .setFitWidth()
+                        .setScroll(0, 1)
+        );
     }
 }

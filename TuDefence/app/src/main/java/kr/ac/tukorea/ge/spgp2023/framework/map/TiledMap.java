@@ -16,14 +16,14 @@ public class TiledMap {
 
     public float scale = 1.0f;
 
-    public void draw(Canvas canvas) {
-        draw(canvas, 0, 0);
+    public void draw(Canvas canvas, float x, float y) {
+        draw(canvas, x, y, 0, 0);
     }
-    public void draw(Canvas canvas, int tilesetIndex, int layerIndex) {
+    public void draw(Canvas canvas, float x, float y, int tilesetIndex, int layerIndex) {
         try {
             TiledLayer layer = layers.get(layerIndex);
             TiledTileset tileset = tilesets.get(tilesetIndex);
-            tileset.draw(canvas, layer);
+            tileset.draw(canvas, layer, x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }

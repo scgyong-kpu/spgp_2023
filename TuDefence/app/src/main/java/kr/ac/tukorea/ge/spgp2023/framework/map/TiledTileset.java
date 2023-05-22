@@ -48,17 +48,17 @@ public class TiledTileset {
     private Rect srcRect = new Rect();
     private RectF dstRect = new RectF();
 
-    public void draw(Canvas canvas, TiledLayer layer) {
+    public void draw(Canvas canvas, TiledLayer layer, float scrollX, float scrollY) {
         float canvasWidth = Metrics.game_width;
         float canvasHeight = Metrics.game_height;
 
         int width = map.width;
 
-        int tile_x = 0;
-        int tile_y = 0;
+        int tile_x = (int) (scrollX / map.scale);
+        int tile_y = (int) (scrollY / map.scale);
 
-        float beg_x = 0;
-        float beg_y = 0;
+        float beg_x = - (scrollX % map.scale);
+        float beg_y = - (scrollY % map.scale);
         dstRect.top = beg_y;
         dstRect.bottom = beg_y + map.scale;
         int ty = tile_y;
