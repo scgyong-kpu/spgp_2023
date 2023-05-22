@@ -43,6 +43,7 @@ public class MapLoader {
             if (readProperty(map, name, reader)) {
                 //Log.d(TAG, " - did read in readProperty()");
             } else if (name.equals("layers")) {
+                Log.d(TAG, "Starts to read layers:");
                 reader.beginArray();
                 ArrayList<TiledLayer> layers = new ArrayList<>();
                 while (reader.hasNext()) {
@@ -54,6 +55,17 @@ public class MapLoader {
                 map.layers = layers;
                 reader.endArray();
                 Log.d(TAG, "Did read " + layers.size() + " layer(s)");
+            } else if (name.equals("tilesets")) {
+                Log.d(TAG, "Starts to read tilesets:");
+                reader.beginArray();
+                ArrayList<TiledTileset> tilesets = new ArrayList<>();
+                while (reader.hasNext()) {
+                    TiledTileset tileset = readTileset(reader, map);
+                    tilesets.add(tileset);
+                }
+                map.tilesets = tilesets;
+                reader.endArray();
+                Log.d(TAG, "Did read " + tilesets.size() + " tileset(s)");
             } else {
                 //Log.d(TAG, " -- Skipping");
                 reader.skipValue();
@@ -129,5 +141,20 @@ public class MapLoader {
         }
 
         return ints;
+    }
+
+    private TiledTileset readTileset(JsonReader reader, TiledMap map) throws IOException {
+        Log.v(TAG, " Reading tileset:");
+        TiledTileset tileset = new TiledTileset(map);
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (readProperty(tileset, name, reader)) {
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return tileset;
     }
 }
