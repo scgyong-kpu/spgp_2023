@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 
@@ -40,7 +41,18 @@ public class MapLoader {
             String name = reader.nextName();
             //Log.d(TAG, "Map JSON TMJ key = " + name);
             if (readProperty(map, name, reader)) {
-                Log.d(TAG, " - did read in readProperty()");
+                //Log.d(TAG, " - did read in readProperty()");
+            } else if (name.equals("layers")) {
+                reader.beginArray();
+                ArrayList<TiledLayer> layers = new ArrayList<>();
+                while (reader.hasNext()) {
+                    TiledLayer layer = readLayer(reader, map);
+                    if (layer != null) {
+                        layers.add(layer);
+                    }
+                }
+                map.layers = layers;
+                reader.endArray();
             } else {
                 //Log.d(TAG, " -- Skipping");
                 reader.skipValue();
@@ -75,5 +87,20 @@ public class MapLoader {
 //            e.printStackTrace();
             return false;
         }
+    }
+
+    private TiledLayer readLayer(JsonReader reader, TiledMap map) throws IOException {
+        Log.v(TAG, " Reading layer:");
+        TiledLayer layer = new TiledLayer(map);
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (readProperty(layer, name, reader)) {
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return layer;
     }
 }
