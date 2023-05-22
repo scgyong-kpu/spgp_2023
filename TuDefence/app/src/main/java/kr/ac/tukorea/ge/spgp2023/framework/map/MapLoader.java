@@ -95,12 +95,32 @@ public class MapLoader {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (readProperty(layer, name, reader)) {
+            if (name.equals("data")) {
+                layer.data = readIntArray(reader);
+                Log.d(TAG, "int[] : " + layer.data.length + " integers");
+            } else if (readProperty(layer, name, reader)) {
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
         return layer;
+    }
+
+    private int[] readIntArray(JsonReader reader) throws IOException {
+        ArrayList<Integer> integers = new ArrayList<>();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            int value = reader.nextInt();
+            integers.add(value);
+        }
+        reader.endArray();
+
+        int[] ints = new int[integers.size()];
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] = integers.get(i);
+        }
+
+        return ints;
     }
 }
