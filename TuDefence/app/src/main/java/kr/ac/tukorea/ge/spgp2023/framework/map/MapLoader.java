@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 
 import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 
@@ -37,17 +38,42 @@ public class MapLoader {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            Log.d(TAG, "Map JSON TMJ key = " + name);
-            if (name.equals("width")) {
-                map.width = reader.nextInt();
-            } else if (name.equals("height")) {
-                map.height = reader.nextInt();
+            //Log.d(TAG, "Map JSON TMJ key = " + name);
+            if (readProperty(map, name, reader)) {
+                Log.d(TAG, " - did read in readProperty()");
             } else {
-                Log.d(TAG, " -- Skipping");
+                //Log.d(TAG, " -- Skipping");
                 reader.skipValue();
             }
         }
 
         return null;
+    }
+
+    private boolean readProperty(Object object, String name, JsonReader reader) throws IOException {
+        try {
+            Field field = object.getClass().getField(name);
+            Class<?> type = field.getType();
+            if (type == int.class) {
+                int value = reader.nextInt();
+                Log.d(TAG, "Int " + name + ": " + value + " - " + object);
+                field.setInt(object, value);
+            } else if (type == String.class) {
+                String value = reader.nextString();
+                Log.d(TAG, "String " + name + ": " + value + " - " + object);
+                field.set(object, value);
+            } else {
+                Log.e(TAG, "Not handling " + name + ". type: " + type + " - " + object);
+                return false;
+            }
+            return true;
+        } catch (NoSuchFieldException e) {
+            Log.e(TAG, "No field \"" + name + "\" in " + object);
+//            e.printStackTrace();
+            return false;
+        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+            return false;
+        }
     }
 }
