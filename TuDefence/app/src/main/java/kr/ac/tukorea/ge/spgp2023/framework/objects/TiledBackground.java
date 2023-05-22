@@ -18,6 +18,6 @@ public class TiledBackground implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-
+        map.draw(canvas);
     }
 }

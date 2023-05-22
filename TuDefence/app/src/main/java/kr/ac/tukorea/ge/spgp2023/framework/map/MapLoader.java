@@ -72,7 +72,7 @@ public class MapLoader {
             }
         }
 
-        return null;
+        return map;
     }
 
     private boolean readProperty(Object object, String name, JsonReader reader) throws IOException {
