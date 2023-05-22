@@ -6,8 +6,8 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 
 public class MainScene extends BaseScene {
-    private enum Layer {
-        bg, COUNT
+    public enum Layer {
+        bg, enemy, controller, COUNT
     }
 
     public MainScene() {
@@ -21,5 +21,6 @@ public class MainScene extends BaseScene {
         add(Layer.bg,
                 new TiledBackground("map", "desert.tmj")
         );
+        add(Layer.controller, new FlyGen());
     }
 }
