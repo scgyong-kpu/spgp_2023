@@ -155,6 +155,7 @@ public class MapLoader {
             }
         }
         reader.endObject();
+        tileset.loadAssetBitmap(assets, folder);
         return tileset;
     }
 }
