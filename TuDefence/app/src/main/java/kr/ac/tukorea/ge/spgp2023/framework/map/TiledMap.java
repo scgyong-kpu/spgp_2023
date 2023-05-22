@@ -15,6 +15,7 @@ public class TiledMap {
     ////////////////////////////////////////////////////////////
 
     public float scale = 1.0f;
+    public boolean wraps;
 
     public void draw(Canvas canvas, float x, float y) {
         draw(canvas, x, y, 0, 0);

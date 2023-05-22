@@ -16,6 +16,7 @@ public class MainScene extends BaseScene {
                 new TiledBackground("map", "earth.tmj")
                         .setFitWidth()
                         .setScroll(0, 1)
+                        .setWraps(true)
         );
     }
 }

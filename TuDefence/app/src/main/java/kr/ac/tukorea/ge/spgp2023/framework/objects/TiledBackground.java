@@ -32,6 +32,11 @@ public class TiledBackground implements IGameObject {
         return this;
     }
 
+    public TiledBackground setWraps(boolean wraps) {
+        map.wraps = wraps;
+        return this;
+    }
+
     @Override
     public void update() {
         this.x += dx * BaseScene.frameTime;

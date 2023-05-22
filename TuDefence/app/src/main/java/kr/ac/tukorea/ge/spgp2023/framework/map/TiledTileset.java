@@ -52,6 +52,18 @@ public class TiledTileset {
         float canvasWidth = Metrics.game_width;
         float canvasHeight = Metrics.game_height;
 
+        if (map.wraps) {
+            float fullWidth = map.width * map.scale;
+            scrollX %= fullWidth;
+            if (scrollX < 0) {
+                scrollX += fullWidth;
+            }
+            float fullHeight = map.height * map.scale;
+            scrollY %= fullHeight;
+            if (scrollY < 0) {
+                scrollY += fullHeight;
+            }
+        }
         int width = map.width;
 
         int tile_x = (int) (scrollX / map.scale);
