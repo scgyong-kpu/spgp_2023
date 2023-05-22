@@ -28,19 +28,19 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     static {
         path = new Path();
-        path.moveTo(0, 18);
-        path.lineTo(5, 13);
-        path.lineTo(1, 5);
-        path.lineTo(7, 0);
-        path.lineTo(13, 5);
-        path.lineTo(9, 13);
-        path.lineTo(16, 18);
-        path.lineTo(23, 13);
-        path.lineTo(19, 5);
-        path.lineTo(25, 0);
-        path.lineTo(31, 5);
-        path.lineTo(27, 13);
-        path.lineTo(32, 18);
+        path.moveTo(-1.28f, 18.176f);
+        path.cubicTo(1.984f, 17.856f, 3.84f, 15.584f, 3.84f, 12.8f);
+        path.cubicTo(3.84f, 10.016f, 0.864f, 9.568f, 0.896f, 6.56f);
+        path.cubicTo(0.928f, 3.552f, 3.328f, 0.544f, 6.4f, 0.512f);
+        path.cubicTo(9.472f, 0.48f, 11.776f, 3.392f, 11.84f, 6.496f);
+        path.cubicTo(11.904f, 9.6f, 9.888f, 9.248f, 9.92f, 12.512f);
+        path.cubicTo(9.952f, 15.776f, 14.4f, 16.928f, 16.096f, 16.928f);
+        path.cubicTo(17.792f, 16.928f, 22.08f, 14.752f, 22.112f, 12.224f);
+        path.cubicTo(22.144f, 9.696f, 19.936f, 8.832f, 19.936f, 6.048f);
+        path.cubicTo(19.936f, 3.264f, 23.488f, 0.864f, 25.76f, 0.864f);
+        path.cubicTo(28.032f, 0.864f, 31.232f, 4.064f, 31.392f, 6.336f);
+        path.cubicTo(31.552f, 8.608f, 28.064f, 11.392f, 28.192f, 13.408f);
+        path.cubicTo(28.32f, 15.424f, 32f, 18.208f, 32.32f, 17.568f);
 
         pm = new PathMeasure(path, false);
         length = pm.getLength();
