@@ -13,9 +13,9 @@ public class MainScene extends BaseScene {
         super.onStart();
         initLayers(Layer.COUNT);
         add(Layer.bg,
-                new TiledBackground("map", "earth.tmj")
-                        .setFitWidth()
-                        .setScroll(0, 1)
+                new TiledBackground("map", "earth_horz.tmj")
+                        .setFitHeight()
+                        .setScroll(10, 0)
                         .setWraps(true)
         );
     }
