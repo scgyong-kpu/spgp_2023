@@ -1,5 +1,9 @@
 package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 
 import java.util.Random;
@@ -15,6 +19,26 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     private Type type;
     private float speed, distance;
+
+    private static Path path;
+    private static Paint paint;
+    static {
+        path = new Path();
+        path.moveTo(0, 18);
+        path.lineTo(7, 0);
+        path.lineTo(16, 18);
+        path.lineTo(25, 0);
+        path.lineTo(32, 18);
+
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(0.1f);
+        paint.setColor(Color.MAGENTA);
+    }
+
+    public static void drawPath(Canvas canvas) {
+        canvas.drawPath(path, paint);
+    }
 
     public enum Type {
         boss, red, blue, cyan, dragon, COUNT;

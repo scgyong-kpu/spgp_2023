@@ -36,5 +36,6 @@ public class FlyGen implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
+        Fly.drawPath(canvas);
     }
 }
