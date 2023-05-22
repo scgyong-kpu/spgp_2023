@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.Rect;
 
 import java.util.Random;
@@ -21,7 +22,10 @@ public class Fly extends SheetSprite implements IRecyclable {
     private float speed, distance;
 
     private static Path path;
+    private static PathMeasure pm;
+    private static final float length;
     private static Paint paint;
+
     static {
         path = new Path();
         path.moveTo(0, 18);
@@ -29,6 +33,9 @@ public class Fly extends SheetSprite implements IRecyclable {
         path.lineTo(16, 18);
         path.lineTo(25, 0);
         path.lineTo(32, 18);
+
+        pm = new PathMeasure(path, false);
+        length = pm.getLength();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
@@ -82,12 +89,15 @@ public class Fly extends SheetSprite implements IRecyclable {
         srcRects = rects_array[type.ordinal()];
     }
 
+    private float[] pos = new float[2];
+    private float[] tan = new float[2];
     @Override
     public void update() {
         super.update();
         distance += speed * BaseScene.frameTime;
-        moveTo(distance, y);
-        if (distance > Metrics.game_width) {
+        pm.getPosTan(distance, pos, tan);
+        moveTo(pos[0], pos[1]);
+        if (distance > length) {
             BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
         }
     }
