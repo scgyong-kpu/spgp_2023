@@ -20,7 +20,6 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.BuildConfig;
  */
 public class GameView extends View implements Choreographer.FrameCallback {
     private static final String TAG = GameView.class.getSimpleName();
-    public static Resources res;
     public static GameView view;
     //    private Ball ball1, ball2;
     protected Paint fpsPaint;
@@ -43,7 +42,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public static void clear() {
         view = null;
-        res = null;
     }
 
     public void setFullScreen() {
@@ -51,7 +49,6 @@ public class GameView extends View implements Choreographer.FrameCallback {
     }
     private void init(AttributeSet attrs, int defStyle) {
         GameView.view = this;
-        GameView.res = getResources();
 
         running = true;
         Choreographer.getInstance().postFrameCallback(this);

@@ -17,7 +17,7 @@ public class BitmapPool {
     public static Bitmap get(int mipmapResId) {
         Bitmap bitmap = bitmaps.get(mipmapResId);
         if (bitmap == null) {
-            Resources res = GameView.res;
+            Resources res = GameView.view.getResources();
             if (opts == null) {
                 opts = new BitmapFactory.Options();
                 opts.inScaled = false;
