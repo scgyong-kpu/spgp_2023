@@ -104,8 +104,15 @@ public class Cannon extends Sprite {
     }
 
     public void upgrade() {
-        if (level == BITMAP_IDS.length) return;
+        if (level == BITMAP_IDS.length) {
+            uninstall();
+            return;
+        }
 
         setLevel(level + 1);
+    }
+
+    public void uninstall() {
+        BaseScene.getTopScene().remove(MainScene.Layer.cannon, this);
     }
 }
