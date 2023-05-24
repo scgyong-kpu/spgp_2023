@@ -69,7 +69,7 @@ public class Cannon extends Sprite {
     }
 
     public Fly findNearestFly() {
-        float dist = Float.MAX_VALUE;
+        float dist = range;
         Fly nearest = null;
         ArrayList<IGameObject> flies = BaseScene.getTopScene().getObjectsAt(MainScene.Layer.enemy);
         for (IGameObject gameObject: flies) {
