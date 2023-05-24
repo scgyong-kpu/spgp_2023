@@ -28,7 +28,7 @@ public class Fly extends SheetSprite implements IRecyclable {
     private static Path path;
     private static PathMeasure pm;
     private static final float length;
-    private static Paint paint;
+//    private static Paint paint;
 
     static {
         path = new Path();
@@ -50,15 +50,15 @@ public class Fly extends SheetSprite implements IRecyclable {
         pm = new PathMeasure(path, false);
         length = pm.getLength();
 
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(0.1f);
-        paint.setColor(Color.MAGENTA);
+//        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(0.1f);
+//        paint.setColor(Color.MAGENTA);
     }
 
-    public static void drawPath(Canvas canvas) {
-        canvas.drawPath(path, paint);
-    }
+//    public static void drawPath(Canvas canvas) {
+//        canvas.drawPath(path, paint);
+//    }
 
     public enum Type {
         boss, red, blue, cyan, dragon, COUNT, RANDOM;
