@@ -2,11 +2,13 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
@@ -53,14 +55,27 @@ public class Shell extends Sprite implements IRecyclable {
 
     @Override
     public void update() {
+        BaseScene scene = BaseScene.getTopScene();
         x += dx * BaseScene.frameTime;
         y += dy * BaseScene.frameTime;
         fixDstRect();
         if (x < -radius || x > Metrics.game_width + radius ||
                 y < -radius || y > Metrics.game_height + radius) {
             //Log.d("CannonFire", "Remove(" + x + "," + y + ") " + this);
-            BaseScene.getTopScene().remove(MainScene.Layer.shell, this);
+            scene.remove(MainScene.Layer.shell, this);
             return;
+        }
+        if (target == null) {
+            return;
+        }
+        float dx = x - target.getX();
+        float dy = y - target.getY();
+        double dist = Math.sqrt(dx * dx + dy * dy);
+        float flyRadius = target.getWidth() / 2;
+        if (dist < radius + flyRadius) {
+            scene.remove(MainScene.Layer.shell, this);
+            scene.remove(MainScene.Layer.enemy, target);
+            target = null;
         }
     }
 
