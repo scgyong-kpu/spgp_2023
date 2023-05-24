@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
@@ -66,14 +68,24 @@ public class Shell extends Sprite implements IRecyclable {
             scene.remove(MainScene.Layer.shell, this);
             return;
         }
-        if (target == null) {
-            return;
+        if (target != null) {
+            checkCollision(target);
+        } else {
+            ArrayList<IGameObject> flies = scene.getObjectsAt(MainScene.Layer.enemy);
+            for (int i = flies.size() - 1; i >= 0; i--) {
+                Fly fly = (Fly) flies.get(i);
+                checkCollision(fly);
+            }
         }
+    }
+
+    private boolean checkCollision(Fly target) {
         float dx = x - target.getX();
         float dy = y - target.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
         float flyRadius = target.getWidth() / 2;
         if (dist < radius + flyRadius) {
+            BaseScene scene = BaseScene.getTopScene();
             scene.remove(MainScene.Layer.shell, this);
             scene.remove(MainScene.Layer.enemy, target);
             for (IGameObject o: scene.getObjectsAt(MainScene.Layer.shell)) {
@@ -82,8 +94,10 @@ public class Shell extends Sprite implements IRecyclable {
                     s.target = null;
                 }
             }
-            target = null;
+            this.target = null;
+            return true;
         }
+        return false;
     }
 
     @Override
