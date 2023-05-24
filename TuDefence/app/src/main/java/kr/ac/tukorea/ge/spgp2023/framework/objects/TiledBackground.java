@@ -52,8 +52,17 @@ public class TiledBackground implements IGameObject {
     }
 
     public boolean canInstallAt(int x, int y) {
-        int tile = map.getLayerAt(0).tileAt(x, y);
-        Log.d(TAG, "Tile @(" + x + "," + y + ") = " + tile);
-        return tile == TILE_INDEX_BRICK;
+        if (x < 1 || y < 1) return false;
+        int tile;
+        tile = map.getLayerAt(0).tileAt(x, y);
+        if (tile != TILE_INDEX_BRICK) return false;
+        tile = map.getLayerAt(0).tileAt(x - 1, y);
+        if (tile != TILE_INDEX_BRICK) return false;
+        tile = map.getLayerAt(0).tileAt(x, y - 1);
+        if (tile != TILE_INDEX_BRICK) return false;
+        tile = map.getLayerAt(0).tileAt(x - 1, y - 1);
+        if (tile != TILE_INDEX_BRICK) return false;
+
+        return true;
     }
 }
