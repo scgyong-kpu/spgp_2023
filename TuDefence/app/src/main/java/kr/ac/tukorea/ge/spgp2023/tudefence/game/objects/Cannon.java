@@ -4,13 +4,19 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
+
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Cannon extends Sprite {
     private int level;
     private float power, interval;
+    private float angle;
     private Bitmap barrelBitmap;
     private RectF barrelRect;
     public Cannon(int level, int x, int y) {
@@ -31,6 +37,40 @@ public class Cannon extends Sprite {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        canvas.save();
+        canvas.rotate(angle, x, y);
         canvas.drawBitmap(barrelBitmap, null, barrelRect, null);
+        canvas.restore();
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        Fly fly = findNearestFly();
+        if (fly != null) {
+            angle = (float) (Math.atan2(fly.getY() - y, fly.getX() - x) / Math.PI * 180);
+        }
+    }
+
+    public Fly findNearestFly() {
+        float dist = Float.MAX_VALUE;
+        Fly nearest = null;
+        ArrayList<IGameObject> flies = BaseScene.getTopScene().getObjectsAt(MainScene.Layer.enemy);
+        for (IGameObject gameObject: flies) {
+            if (!(gameObject instanceof Fly)) continue;
+            Fly fly = (Fly) gameObject;
+            float fx = fly.getX();
+            float fy = fly.getY();
+            float dx = x - fx;
+            if (dx > dist) continue;
+            float dy = y - fy;
+            if (dy > dist) continue;
+            float d = (float) Math.sqrt(dx * dx + dy * dy);
+            if (dist > d) {
+                dist = d;
+                nearest = fly;
+            }
+        }
+        return nearest;
     }
 }
