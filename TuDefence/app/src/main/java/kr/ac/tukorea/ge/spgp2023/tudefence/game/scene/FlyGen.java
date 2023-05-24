@@ -9,7 +9,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 
 public class FlyGen implements IGameObject {
 
-    private static final float GEN_INTERVAL = 1.0f;
+    private static final float GEN_INTERVAL = 2.0f;
     private Random rand = new Random();
     private float time;
 
