@@ -16,7 +16,7 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 public class Cannon extends Sprite {
     private int level;
     private float power, interval;
-    private float angle;
+    private float angle = -90;
     private Bitmap barrelBitmap;
     private RectF barrelRect;
     public Cannon(int level, int x, int y) {
