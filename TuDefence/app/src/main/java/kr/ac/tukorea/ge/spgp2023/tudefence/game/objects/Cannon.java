@@ -20,7 +20,8 @@ public class Cannon extends Sprite {
         this.interval = 5.0f - level / 2.0f;
         barrelBitmap = BitmapPool.get(R.mipmap.tank_barrel);
         barrelRect = new RectF(dstRect);
-        barrelRect.inset(-1.5f, -1.5f);
+        float barrelSize = 0.5f + level * 0.1f;
+        barrelRect.inset(-barrelSize, -barrelSize);
     }
     private static int[] BITMAP_IDS = {
             R.mipmap.f_01_01,R.mipmap.f_02_01,R.mipmap.f_03_01,R.mipmap.f_04_01,R.mipmap.f_05_01,

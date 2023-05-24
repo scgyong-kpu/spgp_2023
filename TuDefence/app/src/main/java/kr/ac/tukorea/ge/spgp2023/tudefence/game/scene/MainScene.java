@@ -26,6 +26,7 @@ public class MainScene extends BaseScene {
         add(Layer.cannon, new Cannon(2, 6, 8));
         add(Layer.cannon, new Cannon(3, 16, 10));
         add(Layer.cannon, new Cannon(4, 25, 5));
+        add(Layer.cannon, new Cannon(10, 26, 8));
         add(Layer.controller, new FlyGen());
     }
 }
