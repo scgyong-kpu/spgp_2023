@@ -29,4 +29,13 @@ public class MainScene extends BaseScene {
         add(Layer.cannon, new Cannon(10, 26, 8));
         add(Layer.controller, new FlyGen());
     }
+
+    @Override
+    public boolean handleBackKey() {
+        new BaseScene() {
+            @Override
+            public boolean isTransparent() { return true; }
+        }.pushScene();
+        return true;
+    }
 }
