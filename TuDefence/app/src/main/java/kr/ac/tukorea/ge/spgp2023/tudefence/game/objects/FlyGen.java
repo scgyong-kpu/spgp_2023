@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
+package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Canvas;
 
@@ -6,6 +6,7 @@ import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class FlyGen implements IGameObject {
 

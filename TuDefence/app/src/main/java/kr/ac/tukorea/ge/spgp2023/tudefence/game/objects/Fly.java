@@ -1,8 +1,6 @@
-package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
+package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
@@ -13,8 +11,8 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.SheetSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Fly extends SheetSprite implements IRecyclable {
 

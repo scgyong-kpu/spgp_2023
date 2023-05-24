@@ -1,9 +1,9 @@
 package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
 
-import kr.ac.tukorea.ge.spgp2023.framework.map.MapLoader;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.TiledBackground;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.objects.FlyGen;
 
 public class MainScene extends BaseScene {
     public enum Layer {
