@@ -35,12 +35,13 @@ public class Fly extends SheetSprite implements IRecyclable {
         path.cubicTo(9.472f, 0.48f, 11.776f, 3.392f, 11.84f, 6.496f);
         path.cubicTo(11.904f, 9.6f, 9.888f, 9.248f, 9.92f, 12.512f);
         path.cubicTo(9.952f, 15.776f, 14.4f, 16.928f, 16.096f, 16.928f);
-        path.cubicTo(17.792f, 16.928f, 22.08f, 14.752f, 22.112f, 12.224f);
-        path.cubicTo(22.144f, 9.696f, 19.936f, 8.832f, 19.936f, 6.048f);
-        path.cubicTo(19.936f, 3.264f, 23.488f, 0.864f, 25.76f, 0.864f);
-        path.cubicTo(28.032f, 0.864f, 31.232f, 4.064f, 31.392f, 6.336f);
-        path.cubicTo(31.552f, 8.608f, 28.064f, 11.392f, 28.192f, 13.408f);
-        path.cubicTo(28.32f, 15.424f, 32f, 18.208f, 32.32f, 17.568f);
+        path.cubicTo(17.792f, 16.928f, 22.176f, 15.168f, 22.208f, 12.64f);
+        path.cubicTo(22.24f, 10.112f, 19.936f, 9.408f, 19.936f, 6.624f);
+        path.cubicTo(19.936f, 3.84f, 22.368f, 0.832f, 25.76f, 0.864f);
+        path.cubicTo(29.152f, 0.896f, 31.2f, 4.192f, 31.104f, 6.752f);
+        path.cubicTo(31.008f, 9.312f, 28.16f, 10.784f, 28.192f, 13.408f);
+        path.cubicTo(28.224f, 16.032f, 31.552f, 17.824f, 33.6f, 17.664f);
+
 
         pm = new PathMeasure(path, false);
         length = pm.getLength();
