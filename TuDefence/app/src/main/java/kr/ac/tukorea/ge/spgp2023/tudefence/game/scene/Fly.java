@@ -21,8 +21,10 @@ public class Fly extends SheetSprite implements IRecyclable {
     private Type type;
     private float speed, distance;
     private float angle;
+    private float dx, dy;
 
 
+    private static Random random = new Random();
     private static Path path;
     private static PathMeasure pm;
     private static final float length;
@@ -59,11 +61,7 @@ public class Fly extends SheetSprite implements IRecyclable {
     }
 
     public enum Type {
-        boss, red, blue, cyan, dragon, COUNT;
-
-        public static Type random(Random rand) {
-            return Type.values()[rand.nextInt(COUNT.ordinal())];
-        }
+        boss, red, blue, cyan, dragon, COUNT, RANDOM;
     }
     public static Fly get(Type type, float speed, float size) {
         Fly fly = (Fly) RecycleBin.get(Fly.class);
@@ -93,10 +91,14 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     private Rect[][] rects_array;
     private void init(Type type, float speed, float size) {
+        if (type == Type.RANDOM) {
+            type = Type.values()[random.nextInt(Type.COUNT.ordinal())];
+        }
         this.type = type;
         this.speed = speed;
         this.width = this.height = size;
         this.distance = 0;
+        dx = dy = 0;
         srcRects = rects_array[type.ordinal()];
     }
 
@@ -106,8 +108,16 @@ public class Fly extends SheetSprite implements IRecyclable {
     public void update() {
         super.update();
         distance += speed * BaseScene.frameTime;
+        float maxDiff = width / 5;
+        dx += (2 * maxDiff * random.nextFloat() - maxDiff) * BaseScene.frameTime;
+        if (dx < -maxDiff) dx = -maxDiff;
+        else if (dx > maxDiff) dx = maxDiff;
+        dy += (2 * maxDiff * random.nextFloat() - maxDiff) * BaseScene.frameTime;
+        if (dy < -maxDiff) dy = -maxDiff;
+        else if (dy > maxDiff) dy = maxDiff;
+
         pm.getPosTan(distance, pos, tan);
-        moveTo(pos[0], pos[1]);
+        moveTo(pos[0] + dx, pos[1] + dy);
         angle = (float)(Math.atan2(tan[1], tan[0]) * 180 / Math.PI) ;
         if (distance > length) {
             BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
