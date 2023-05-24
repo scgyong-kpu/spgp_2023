@@ -12,6 +12,8 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.game.objects.FlyGen;
 public class MainScene extends BaseScene {
     private static final String TAG = MainScene.class.getSimpleName();
 
+    protected TiledBackground tiledBg;
+
     public enum Layer {
         bg, enemy, shell, cannon, controller, COUNT
     }
@@ -24,14 +26,8 @@ public class MainScene extends BaseScene {
     protected void onStart() {
         super.onStart();
         initLayers(Layer.COUNT);
-        add(Layer.bg,
-                new TiledBackground("map", "desert.tmj")
-        );
-        add(Layer.cannon, new Cannon(1, 7, 4));
-        add(Layer.cannon, new Cannon(2, 6, 8));
-        add(Layer.cannon, new Cannon(3, 16, 10));
-        add(Layer.cannon, new Cannon(4, 25, 5));
-        add(Layer.cannon, new Cannon(10, 26, 8));
+        tiledBg = new TiledBackground("map", "desert.tmj");
+        add(Layer.bg, tiledBg);
         add(Layer.controller, new FlyGen());
     }
 
@@ -49,7 +45,8 @@ public class MainScene extends BaseScene {
         if (event.getAction() != MotionEvent.ACTION_DOWN) return false;
         float x = (float) (Math.round(Metrics.toGameX(event.getX()) / 0.5) * 0.5);
         float y = (float) (Math.round(Metrics.toGameY(event.getY()) / 0.5) * 0.5);
-        Log.d(TAG, "Touch Event: " + x + "," + y);
+        boolean canInstall = tiledBg.canInstallAt((int)x, (int)y);
+        Log.d(TAG, "Touch Event: " + x + "," + y + " Install=" + canInstall);
         return true;
     }
 }
