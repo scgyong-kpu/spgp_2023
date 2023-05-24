@@ -46,7 +46,10 @@ public class MainScene extends BaseScene {
         float x = (float) (Math.round(Metrics.toGameX(event.getX()) / 0.5) * 0.5);
         float y = (float) (Math.round(Metrics.toGameY(event.getY()) / 0.5) * 0.5);
         boolean canInstall = tiledBg.canInstallAt((int)x, (int)y);
+        if (!canInstall) return false;
         Log.d(TAG, "Touch Event: " + x + "," + y + " Install=" + canInstall);
+        Cannon cannon = new Cannon(1, (int)x, (int)y);
+        add(Layer.cannon, cannon);
         return true;
     }
 }
