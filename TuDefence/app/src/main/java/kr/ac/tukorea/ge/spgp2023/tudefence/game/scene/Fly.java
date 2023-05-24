@@ -20,6 +20,8 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     private Type type;
     private float speed, distance;
+    private float angle;
+
 
     private static Path path;
     private static PathMeasure pm;
@@ -106,9 +108,18 @@ public class Fly extends SheetSprite implements IRecyclable {
         distance += speed * BaseScene.frameTime;
         pm.getPosTan(distance, pos, tan);
         moveTo(pos[0], pos[1]);
+        angle = (float)(Math.atan2(tan[1], tan[0]) * 180 / Math.PI) ;
         if (distance > length) {
             BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(angle, x, y);
+        super.draw(canvas);
+        canvas.restore();
     }
 
     @Override
