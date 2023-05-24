@@ -8,7 +8,7 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.game.objects.FlyGen;
 
 public class MainScene extends BaseScene {
     public enum Layer {
-        bg, enemy, cannon, controller, COUNT
+        bg, enemy, shell, cannon, controller, COUNT
     }
 
     public MainScene() {

@@ -17,16 +17,17 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Cannon extends Sprite {
-    private int level;
-    private float power, interval, range;
-    private float angle = -90;
+    int level;
+    float power, interval, range;
+    float angle = -90;
+    private float time;
     private Bitmap barrelBitmap;
     private RectF barrelRect;
     public Cannon(int level, int x, int y) {
         super(BITMAP_IDS[level - 1], x, y, 2, 2);
         this.level = level;
         this.power = level * 2;
-        this.interval = 5.0f - level / 2.0f;
+        this.interval = 5.5f - level / 2.0f;
         this.range = 2 + level * 2;
         barrelBitmap = BitmapPool.get(R.mipmap.tank_barrel);
         barrelRect = new RectF(dstRect);
@@ -65,6 +66,12 @@ public class Cannon extends Sprite {
         Fly fly = findNearestFly();
         if (fly != null) {
             angle = (float) (Math.atan2(fly.getY() - y, fly.getX() - x) / Math.PI * 180);
+        }
+        time += BaseScene.frameTime;
+        if (time > interval && fly != null) {
+            Shell shell = Shell.get(this, fly);
+            BaseScene.getTopScene().add(MainScene.Layer.shell, shell);
+            time = 0;
         }
     }
 
