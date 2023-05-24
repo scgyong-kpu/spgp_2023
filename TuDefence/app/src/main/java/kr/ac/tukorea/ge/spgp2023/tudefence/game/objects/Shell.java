@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -75,6 +76,12 @@ public class Shell extends Sprite implements IRecyclable {
         if (dist < radius + flyRadius) {
             scene.remove(MainScene.Layer.shell, this);
             scene.remove(MainScene.Layer.enemy, target);
+            for (IGameObject o: scene.getObjectsAt(MainScene.Layer.shell)) {
+                Shell s = (Shell)o;
+                if (s.target == target) {
+                    s.target = null;
+                }
+            }
             target = null;
         }
     }
