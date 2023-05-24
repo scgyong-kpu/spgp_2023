@@ -3,11 +3,12 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.TiledBackground;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.objects.Cannon;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.objects.FlyGen;
 
 public class MainScene extends BaseScene {
     public enum Layer {
-        bg, enemy, controller, COUNT
+        bg, enemy, cannon, controller, COUNT
     }
 
     public MainScene() {
@@ -21,6 +22,10 @@ public class MainScene extends BaseScene {
         add(Layer.bg,
                 new TiledBackground("map", "desert.tmj")
         );
+        add(Layer.cannon, new Cannon(1, 7, 4));
+        add(Layer.cannon, new Cannon(2, 6, 8));
+        add(Layer.cannon, new Cannon(3, 16, 10));
+        add(Layer.cannon, new Cannon(4, 25, 5));
         add(Layer.controller, new FlyGen());
     }
 }
