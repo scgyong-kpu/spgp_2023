@@ -1,8 +1,10 @@
 package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
 
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.TiledBackground;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
@@ -43,13 +45,47 @@ public class MainScene extends BaseScene {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() != MotionEvent.ACTION_DOWN) return false;
-        int x = Math.round(Metrics.toGameX(event.getX()));
-        int y = Math.round(Metrics.toGameY(event.getY()));
+        float gx = Metrics.toGameX(event.getX());
+        float gy = Metrics.toGameY(event.getY());
+        Cannon cannon = findCannonAt(gx, gy);
+        if (cannon != null) {
+            cannon.upgrade();
+            return false;
+        }
+        if (intersectsIfInstalledAt(gx, gy)) {
+            return false;
+        }
+        int x = Math.round(gx);
+        int y = Math.round(gy);
         boolean canInstall = tiledBg.canInstallAt(x, y);
         if (!canInstall) return false;
         Log.d(TAG, "Touch Event: " + x + "," + y + " Install=" + canInstall);
-        Cannon cannon = new Cannon(1, x, y);
+        cannon = new Cannon(1, x, y);
         add(Layer.cannon, cannon);
         return true;
+    }
+
+    private RectF instRect = new RectF();
+    private Cannon findCannonAt(float x, float y) {
+        for (IGameObject obj: getObjectsAt(Layer.cannon)) {
+            Cannon cannon = (Cannon) obj;
+            float cx = cannon.getX(), cy = cannon.getY();
+            instRect.set(cx - 1, cy - 1, cx + 1, cy + 1);
+            if (instRect.contains(x, y)) {
+                return cannon;
+            }
+        }
+        return null;
+    }
+    private boolean intersectsIfInstalledAt(float x, float y) {
+        instRect.set(x - 1, y - 1, x + 1, y + 1);
+        for (IGameObject obj: getObjectsAt(Layer.cannon)) {
+            Cannon cannon = (Cannon) obj;
+            float cx = cannon.getX(), cy = cannon.getY();
+            if (instRect.intersects(cx - 1, cy - 1, cx + 1, cy + 1)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

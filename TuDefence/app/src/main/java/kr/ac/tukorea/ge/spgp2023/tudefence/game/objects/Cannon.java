@@ -96,4 +96,12 @@ public class Cannon extends Sprite {
         }
         return nearest;
     }
+
+    public void upgrade() {
+        if (level == BITMAP_IDS.length) return;
+
+        level += 1;
+        bitmap = BitmapPool.get(BITMAP_IDS[level - 1]);
+        this.range = 2 + level * 2;
+    }
 }
