@@ -2,6 +2,9 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
+import android.graphics.PathDashPathEffect;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
@@ -15,7 +18,7 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Cannon extends Sprite {
     private int level;
-    private float power, interval;
+    private float power, interval, range;
     private float angle = -90;
     private Bitmap barrelBitmap;
     private RectF barrelRect;
@@ -24,6 +27,7 @@ public class Cannon extends Sprite {
         this.level = level;
         this.power = level * 2;
         this.interval = 5.0f - level / 2.0f;
+        this.range = 2 + level * 2;
         barrelBitmap = BitmapPool.get(R.mipmap.tank_barrel);
         barrelRect = new RectF(dstRect);
         float barrelSize = 0.5f + level * 0.1f;
@@ -34,6 +38,17 @@ public class Cannon extends Sprite {
             R.mipmap.f_06_01,R.mipmap.f_07_01,R.mipmap.f_08_01,R.mipmap.f_09_01,R.mipmap.f_10_01,
     };
 
+    private static Paint rangePaint;
+    private void drawRange(Canvas canvas) {
+        if (rangePaint == null) {
+            rangePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            rangePaint.setStyle(Paint.Style.STROKE);
+            rangePaint.setStrokeWidth(0.1f);
+            rangePaint.setPathEffect(new DashPathEffect(new float[]{0.1f, 0.2f}, 0));
+            rangePaint.setColor(0x7F7F0000);
+        }
+        canvas.drawCircle(x, y, range, rangePaint);
+    }
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -41,6 +56,7 @@ public class Cannon extends Sprite {
         canvas.rotate(angle, x, y);
         canvas.drawBitmap(barrelBitmap, null, barrelRect, null);
         canvas.restore();
+        drawRange(canvas);
     }
 
     @Override
