@@ -98,6 +98,9 @@ public class Fly extends SheetSprite implements IRecyclable {
         this.distance = 0;
         dx = dy = 0;
         srcRects = rects_array[type.ordinal()];
+
+        pm.getPosTan(0, pos, tan);
+        moveTo(pos[0], pos[1]);
     }
 
     private float[] pos = new float[2];
