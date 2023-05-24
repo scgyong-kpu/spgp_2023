@@ -11,6 +11,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.SheetSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
+import kr.ac.tukorea.ge.spgp2023.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
@@ -20,7 +21,8 @@ public class Fly extends SheetSprite implements IRecyclable {
     private float speed, distance;
     private float angle;
     private float dx, dy;
-
+    private float health, maxHealth;
+    private static Gauge gauge;
 
     private static Random random = new Random();
     private static Path path;
@@ -60,7 +62,17 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     public enum Type {
         boss, red, blue, cyan, dragon, COUNT, RANDOM;
+        float getMaxHealth() {
+            return HEALTHS[ordinal()];
+        }
+        static float[] HEALTHS = { 100, 50, 40, 30, 10 };
     }
+
+    public boolean decreaseHealth(float power) {
+        health -= power;
+        return health <= 0;
+    }
+
     public static Fly get(Type type, float speed, float size) {
         Fly fly = (Fly) RecycleBin.get(Fly.class);
         if (fly == null) {
@@ -97,6 +109,7 @@ public class Fly extends SheetSprite implements IRecyclable {
         this.width = this.height = size;
         this.distance = 0;
         dx = dy = 0;
+        health = maxHealth = type.getMaxHealth() * (0.9f + random.nextFloat() * 0.2f);
         srcRects = rects_array[type.ordinal()];
 
         pm.getPosTan(0, pos, tan);
@@ -131,6 +144,11 @@ public class Fly extends SheetSprite implements IRecyclable {
         canvas.rotate(angle, x, y);
         super.draw(canvas);
         canvas.restore();
+        float size = width * 2 / 3;
+        if (gauge == null) {
+            gauge = new Gauge(0.2f, R.color.flyHealthFg, R.color.flyHealthBg);
+        }
+        gauge.draw(canvas, x - size / 2, y + size / 2, size, health / maxHealth);
     }
 
     @Override

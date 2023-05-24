@@ -31,7 +31,7 @@ public class Cannon extends Sprite {
 
     private void setLevel(int level) {
         this.level = level;
-        this.power = level * 2;
+        this.power = (float) (10 * Math.pow(1.2, level - 1));
         this.interval = 5.5f - level / 2.0f;
         this.range = 2 + level * 2;
         float barrelSize = 0.5f + level * 0.1f;

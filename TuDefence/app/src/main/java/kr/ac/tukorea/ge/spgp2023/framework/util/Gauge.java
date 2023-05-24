@@ -29,4 +29,11 @@ public class Gauge {
             canvas.drawLine(0, 0, value, 0.0f, fgPaint);
         }
     }
+    public void draw(Canvas canvas, float x, float y, float scale, float value) {
+        canvas.save();
+        canvas.translate(x, y);
+        canvas.scale(scale, scale);
+        draw(canvas, value);
+        canvas.restore();
+    }
 }

@@ -51,7 +51,7 @@ public class Shell extends Sprite implements IRecyclable {
         double speed = 10.0 + level;
         dx = (float) (speed * Math.cos(radian));
         dy = (float) (speed * Math.sin(radian));
-        this.power = level;
+        this.power = cannon.power;
         radius = 0.2f + level * 0.02f;
         setSize(2 * radius, 2 * radius);
     }
@@ -84,20 +84,24 @@ public class Shell extends Sprite implements IRecyclable {
         float dy = y - target.getY();
         double dist = Math.sqrt(dx * dx + dy * dy);
         float flyRadius = target.getWidth() / 2;
-        if (dist < radius + flyRadius) {
-            BaseScene scene = BaseScene.getTopScene();
-            scene.remove(MainScene.Layer.shell, this);
-            scene.remove(MainScene.Layer.enemy, target);
-            for (IGameObject o: scene.getObjectsAt(MainScene.Layer.shell)) {
-                Shell s = (Shell)o;
-                if (s.target == target) {
-                    s.target = null;
-                }
-            }
-            this.target = null;
+        if (dist >= radius + flyRadius) {
+            return false;
+        }
+        BaseScene scene = BaseScene.getTopScene();
+        scene.remove(MainScene.Layer.shell, this);
+        boolean dead = target.decreaseHealth(power);
+        if (!dead) {
             return true;
         }
-        return false;
+        this.target = null;
+        scene.remove(MainScene.Layer.enemy, target);
+        for (IGameObject o: scene.getObjectsAt(MainScene.Layer.shell)) {
+            Shell s = (Shell)o;
+            if (s.target == target) {
+                s.target = null;
+            }
+        }
+        return true;
     }
 
     @Override
