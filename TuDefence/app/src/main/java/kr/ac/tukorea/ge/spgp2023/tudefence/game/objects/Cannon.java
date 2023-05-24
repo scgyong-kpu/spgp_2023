@@ -22,18 +22,24 @@ public class Cannon extends Sprite {
     float angle = -90;
     private float time;
     private Bitmap barrelBitmap;
-    private RectF barrelRect;
+    private RectF barrelRect = new RectF();
     public Cannon(int level, int x, int y) {
-        super(BITMAP_IDS[level - 1], x, y, 2, 2);
+        super(0, x, y, 2, 2);
+        barrelBitmap = BitmapPool.get(R.mipmap.tank_barrel);
+        setLevel(level);
+    }
+
+    private void setLevel(int level) {
         this.level = level;
         this.power = level * 2;
         this.interval = 5.5f - level / 2.0f;
         this.range = 2 + level * 2;
-        barrelBitmap = BitmapPool.get(R.mipmap.tank_barrel);
-        barrelRect = new RectF(dstRect);
         float barrelSize = 0.5f + level * 0.1f;
+        barrelRect.set(dstRect);
         barrelRect.inset(-barrelSize, -barrelSize);
+        bitmap = BitmapPool.get(BITMAP_IDS[level - 1]);
     }
+
     private static int[] BITMAP_IDS = {
             R.mipmap.f_01_01,R.mipmap.f_02_01,R.mipmap.f_03_01,R.mipmap.f_04_01,R.mipmap.f_05_01,
             R.mipmap.f_06_01,R.mipmap.f_07_01,R.mipmap.f_08_01,R.mipmap.f_09_01,R.mipmap.f_10_01,
@@ -100,8 +106,6 @@ public class Cannon extends Sprite {
     public void upgrade() {
         if (level == BITMAP_IDS.length) return;
 
-        level += 1;
-        bitmap = BitmapPool.get(BITMAP_IDS[level - 1]);
-        this.range = 2 + level * 2;
+        setLevel(level + 1);
     }
 }
