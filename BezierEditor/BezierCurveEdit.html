@@ -168,7 +168,8 @@ function init() {
     lockSelect = document.getElementById("lock");
     lockSelect.checked = false;
     lockSelect.onclick = doLock;
-    cubicPoints = [
+    cubicPoints = 
+    [
       {"x":60,"y":168},{"x":162,"y":158},{"x":220,"y":87},
       {"x":220,"y":220}
     ]
@@ -229,7 +230,7 @@ function printJava() {
     return Math.round((v-100)*scale*10000)/10000 + 'f'
   }
   const pts = cubicPoints.map((p)=>{ return { x:conv(p.x), y:conv(p.y)}; });
-  let str = "Path path = new Path();\n";
+  let str = "path = new Path();\n";
   str += `path.moveTo(${pts[0].x}, ${pts[0].y});\n`;
   for (let i = 1; i < cubicPoints.length; i += 3) {
     str += `path.cubicTo(${pts[i].x}, ${pts[i].y}, ${pts[i+1].x}, ${pts[i+1].y}, ${pts[i+2].x}, ${pts[i+2].y});\n`;
@@ -256,6 +257,45 @@ function onRemoveCurve() {
   cubicDraw();
   showCount()
   printJava()
+}
+function parsePoints(line) {
+  let scale = Number(document.getElementById('width').value)
+  if (scale && mapImg && mapImg.width > 0) {
+    scale = mapImg.width / scale
+  } else {
+    scale = 0
+  }
+
+  let pts = []
+  let numbers = line.split(',').map(s=>Number(s.replace('f','')))
+  while (numbers.length >= 2) {
+    let x = numbers.shift()
+    let y = numbers.shift()
+    if (scale > 0) {
+      x *= scale
+      y *= scale
+    }
+    x += 100
+    y += 100
+    pts.push(new Point2D(x, y))
+  }
+  return pts
+}
+function loadFromText() {
+  try{
+  const regex = /(moveTo\(|cubicTo\()([-f,\.\d\s]+)\)/
+  const text = document.getElementById("out").value
+  let points = []
+  for (const line of text.split('\n')) {
+    const m = line.match(regex)
+    if (!m) continue;
+    points = points.concat(parsePoints(m[2]))
+  }
+  if (!points.length) return;
+  cubicPoints = points;
+  cubicDraw()
+  showCount()
+  } catch (e) { console.error(e)}
 }
 </script>
 </head>
@@ -291,7 +331,10 @@ Please use a newer version or a different browser.</p>
     </div>
     <canvas width="1000" height="650" id="cubic" style="background-color: white; border: thin solid black"></canvas>
     <br />
-    <textarea id="out" cols="80" rows="10"></textarea>
+    <div style="display:flex; flex-direction: row;">
+      <textarea id="out" cols="80" rows="10"></textarea>
+      <button onclick="loadFromText();return false;">Load from output</button>
+    </div>
   </form>
 
 
