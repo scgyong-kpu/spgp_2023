@@ -11,4 +11,8 @@ public class TiledLayer {
     public TiledLayer(TiledMap map) {
         this.map = map;
     }
+
+    public int tileAt(int x, int y) {
+        return data[y * width + x];
+    }
 }

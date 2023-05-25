@@ -1,8 +1,6 @@
-package kr.ac.tukorea.ge.spgp2023.tudefence.game.scene;
+package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
@@ -13,18 +11,24 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.SheetSprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.RecycleBin;
-import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
+import kr.ac.tukorea.ge.spgp2023.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
+import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Fly extends SheetSprite implements IRecyclable {
 
     private Type type;
     private float speed, distance;
+    private float angle;
+    private float dx, dy;
+    private float health, maxHealth;
+    private static Gauge gauge;
 
+    private static Random random = new Random();
     private static Path path;
     private static PathMeasure pm;
     private static final float length;
-    private static Paint paint;
+//    private static Paint paint;
 
     static {
         path = new Path();
@@ -35,33 +39,40 @@ public class Fly extends SheetSprite implements IRecyclable {
         path.cubicTo(9.472f, 0.48f, 11.776f, 3.392f, 11.84f, 6.496f);
         path.cubicTo(11.904f, 9.6f, 9.888f, 9.248f, 9.92f, 12.512f);
         path.cubicTo(9.952f, 15.776f, 14.4f, 16.928f, 16.096f, 16.928f);
-        path.cubicTo(17.792f, 16.928f, 22.08f, 14.752f, 22.112f, 12.224f);
-        path.cubicTo(22.144f, 9.696f, 19.936f, 8.832f, 19.936f, 6.048f);
-        path.cubicTo(19.936f, 3.264f, 23.488f, 0.864f, 25.76f, 0.864f);
-        path.cubicTo(28.032f, 0.864f, 31.232f, 4.064f, 31.392f, 6.336f);
-        path.cubicTo(31.552f, 8.608f, 28.064f, 11.392f, 28.192f, 13.408f);
-        path.cubicTo(28.32f, 15.424f, 32f, 18.208f, 32.32f, 17.568f);
+        path.cubicTo(17.792f, 16.928f, 22.176f, 15.168f, 22.208f, 12.64f);
+        path.cubicTo(22.24f, 10.112f, 19.936f, 9.408f, 19.936f, 6.624f);
+        path.cubicTo(19.936f, 3.84f, 22.368f, 0.832f, 25.76f, 0.864f);
+        path.cubicTo(29.152f, 0.896f, 31.2f, 4.192f, 31.104f, 6.752f);
+        path.cubicTo(31.008f, 9.312f, 28.16f, 10.784f, 28.192f, 13.408f);
+        path.cubicTo(28.224f, 16.032f, 31.552f, 17.824f, 33.6f, 17.664f);
+
 
         pm = new PathMeasure(path, false);
         length = pm.getLength();
 
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(0.1f);
-        paint.setColor(Color.MAGENTA);
+//        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(0.1f);
+//        paint.setColor(Color.MAGENTA);
     }
 
-    public static void drawPath(Canvas canvas) {
-        canvas.drawPath(path, paint);
-    }
+//    public static void drawPath(Canvas canvas) {
+//        canvas.drawPath(path, paint);
+//    }
 
     public enum Type {
-        boss, red, blue, cyan, dragon, COUNT;
-
-        public static Type random(Random rand) {
-            return Type.values()[rand.nextInt(COUNT.ordinal())];
+        boss, red, blue, cyan, dragon, COUNT, RANDOM;
+        float getMaxHealth() {
+            return HEALTHS[ordinal()];
         }
+        static float[] HEALTHS = { 100, 50, 40, 30, 10 };
     }
+
+    public boolean decreaseHealth(float power) {
+        health -= power;
+        return health <= 0;
+    }
+
     public static Fly get(Type type, float speed, float size) {
         Fly fly = (Fly) RecycleBin.get(Fly.class);
         if (fly == null) {
@@ -90,11 +101,19 @@ public class Fly extends SheetSprite implements IRecyclable {
 
     private Rect[][] rects_array;
     private void init(Type type, float speed, float size) {
+        if (type == Type.RANDOM) {
+            type = Type.values()[random.nextInt(Type.COUNT.ordinal())];
+        }
         this.type = type;
         this.speed = speed;
         this.width = this.height = size;
         this.distance = 0;
+        dx = dy = 0;
+        health = maxHealth = type.getMaxHealth() * (0.9f + random.nextFloat() * 0.2f);
         srcRects = rects_array[type.ordinal()];
+
+        pm.getPosTan(0, pos, tan);
+        moveTo(pos[0], pos[1]);
     }
 
     private float[] pos = new float[2];
@@ -103,11 +122,33 @@ public class Fly extends SheetSprite implements IRecyclable {
     public void update() {
         super.update();
         distance += speed * BaseScene.frameTime;
+        float maxDiff = width / 5;
+        dx += (2 * maxDiff * random.nextFloat() - maxDiff) * BaseScene.frameTime;
+        if (dx < -maxDiff) dx = -maxDiff;
+        else if (dx > maxDiff) dx = maxDiff;
+        dy += (2 * maxDiff * random.nextFloat() - maxDiff) * BaseScene.frameTime;
+        if (dy < -maxDiff) dy = -maxDiff;
+        else if (dy > maxDiff) dy = maxDiff;
+
         pm.getPosTan(distance, pos, tan);
-        moveTo(pos[0], pos[1]);
+        moveTo(pos[0] + dx, pos[1] + dy);
+        angle = (float)(Math.atan2(tan[1], tan[0]) * 180 / Math.PI) ;
         if (distance > length) {
             BaseScene.getTopScene().remove(MainScene.Layer.enemy, this);
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.save();
+        canvas.rotate(angle, x, y);
+        super.draw(canvas);
+        canvas.restore();
+        float size = width * 2 / 3;
+        if (gauge == null) {
+            gauge = new Gauge(0.2f, R.color.flyHealthFg, R.color.flyHealthBg);
+        }
+        gauge.draw(canvas, x - size / 2, y + size / 2, size, health / maxHealth);
     }
 
     @Override

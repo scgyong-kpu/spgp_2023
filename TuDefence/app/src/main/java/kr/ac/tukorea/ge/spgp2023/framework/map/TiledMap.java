@@ -17,6 +17,10 @@ public class TiledMap {
     public float scale = 1.0f;
     public boolean wraps;
 
+    public TiledLayer getLayerAt(int index) {
+        return layers.get(index);
+    }
+
     public void draw(Canvas canvas, float x, float y) {
         draw(canvas, x, y, 0, 0);
     }
