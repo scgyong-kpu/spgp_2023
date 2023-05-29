@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
@@ -38,6 +39,9 @@ public class InstallationMenu extends Sprite {
         float top = y - MENU_ITEM_SIZE / 2;
         this.items = items;
         dstRect.set(left, top, left + items.length * MENU_ITEM_SIZE, top + MENU_ITEM_SIZE);
+        if (dstRect.right >= Metrics.game_width) {
+            dstRect.offset(-(dstRect.width() + MENU_ITEM_SIZE), 0);
+        }
 
         ValueAnimator animator = ValueAnimator
                 .ofInt(0, 192)
