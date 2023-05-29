@@ -63,7 +63,7 @@ public class Cannon extends Sprite {
     };
 
     private static Paint rangePaint;
-    private void drawRange(Canvas canvas) {
+    public void drawRange(Canvas canvas) {
         if (rangePaint == null) {
             rangePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             rangePaint.setStyle(Paint.Style.STROKE);
@@ -80,7 +80,7 @@ public class Cannon extends Sprite {
         canvas.rotate(angle, x, y);
         canvas.drawBitmap(barrelBitmap, null, barrelRect, null);
         canvas.restore();
-        drawRange(canvas);
+        //drawRange(canvas);
     }
 
     @Override

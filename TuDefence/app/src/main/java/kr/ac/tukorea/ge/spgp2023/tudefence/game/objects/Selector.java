@@ -47,6 +47,7 @@ public class Selector extends Sprite implements InstallationMenu.Listener {
             }
             return true;
         }
+        this.cannon = null;
         moveTo(gx, gy);
         if (intersectsIfInstalledAt(gx, gy)) {
             return true;
@@ -81,6 +82,9 @@ public class Selector extends Sprite implements InstallationMenu.Listener {
                     candidateX - 1, candidateY - 1,
                     candidateX + 1, candidateY + 1,
                     candPaint);
+        }
+        if (cannon != null) {
+            cannon.drawRange(canvas);
         }
         menu.draw(canvas);
     }
