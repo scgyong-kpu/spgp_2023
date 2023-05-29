@@ -1,6 +1,5 @@
 # Defence Game
 
-* Based on `MapGame`
 * Tile Map edit
 * Path bezier edit
   * HTML5 / Javascript
@@ -19,8 +18,7 @@
   * Placing & upgrade
 * Collision: `Shell` vs `Fly`
   * Distance collision
-* Unit: `Metrics.height / map.height`
-* `Selector` and `TowerMenu`
+* `Selector` and `InstallationMenu`
   * Works only on Tile 10
   * Right Corner check
   * Alpha (Opacity) animation
