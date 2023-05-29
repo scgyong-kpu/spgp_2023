@@ -32,13 +32,16 @@ public class Selector extends Sprite {
     }
 
     public boolean onTouch(int action, float gx, float gy) {
+        if (menu.handleTouch(action, gx, gy)) {
+            return false;
+        }
         Cannon cannon = findCannonAt(gx, gy);
         if (cannon != null) {
             candidateX = candidateY = -1;
             float cx = cannon.getX(), cy = cannon.getY();
             if (action == MotionEvent.ACTION_UP) {
                 //cannon.upgrade();
-                menu.setMenu(cx, cy, R.mipmap.upgrade, R.mipmap.uninstall);
+                menu.setMenu(cannon, cx, cy, R.mipmap.upgrade, R.mipmap.uninstall);
             } else {
                 moveTo(cannon.getX(), cannon.getY());
             }
@@ -53,6 +56,10 @@ public class Selector extends Sprite {
         boolean canInstall = bg.canInstallAt(x, y);
         if (!canInstall) {
             candidateX = candidateY = -1;
+            if (action == MotionEvent.ACTION_UP) {
+                moveTo(-1, -1);
+                menu.hide();
+            }
             return true;
         }
         if (action != MotionEvent.ACTION_UP) {
@@ -61,7 +68,7 @@ public class Selector extends Sprite {
             return true;
         }
         moveTo(x, y);
-        menu.setMenu(x, y, R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01);
+        menu.setMenu(null, x, y, R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01);
         candidateX = candidateY = -1;
         return true;
     }
