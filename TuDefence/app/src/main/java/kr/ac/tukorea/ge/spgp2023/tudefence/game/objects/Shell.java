@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.transition.Scene;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -117,9 +118,11 @@ public class Shell extends Sprite implements IRecyclable {
     }
 
     private void explode() {
+        float explosion_radius = 2;
+        Explosion ex = Explosion.get(getX(), getY(), explosion_radius);
         MainScene scene = (MainScene) BaseScene.getTopScene();
+        scene.add(MainScene.Layer.explosion, ex);
         ArrayList<IGameObject> flies = scene.getObjectsAt(MainScene.Layer.enemy);
-        double explosion_radius = 5;
         for (int i = flies.size() - 1; i >= 0; i--) {
             Fly fly = (Fly) flies.get(i);
             float dx = x - fly.getX();

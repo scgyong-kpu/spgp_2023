@@ -17,7 +17,7 @@ public class MainScene extends BaseScene {
     public Score score;
 
     public enum Layer {
-        bg, enemy, shell, cannon, score, selection, controller, COUNT
+        bg, enemy, shell, explosion, cannon, score, selection, controller, COUNT
     }
 
     public MainScene() {
