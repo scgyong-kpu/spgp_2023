@@ -28,7 +28,6 @@ public class MainScene extends BaseScene {
         initLayers(Layer.COUNT);
         TiledBackground tiledBg = new TiledBackground("map", "desert.tmj");
         add(Layer.bg, tiledBg);
-        add(Layer.cannon, new Cannon(1, 16, 3));
         selector = new Selector(tiledBg);
         add(Layer.selection, selector);
         add(Layer.controller, new FlyGen());
