@@ -11,22 +11,26 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class InstallationMenu extends Sprite {
+    public interface Listener {
+        public void onMenu(int menuId);
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    private Listener listener;
     public static final int MENU_ITEM_SIZE = 2;
     public static final int[] BLANK_INT_ARRAY = {};
     private int[] items;
     private RectF itemRect = new RectF();
-    private Cannon cannon;
-    private int installX, installY;
-
-    public InstallationMenu() {
+    public InstallationMenu(Listener listener) {
+        this.listener = listener;
         bitmap = BitmapPool.get(R.mipmap.menu_bg);
         items = BLANK_INT_ARRAY;
     }
 
-    public void setMenu(Cannon cannon, float x, float y, int... items) {
-        this.cannon = cannon;
-        this.installX = (int)x;
-        this.installY = (int)y;
+    public void setMenu(float x, float y, int... items) {
         float left = x + MENU_ITEM_SIZE / 2;
         float top = y - MENU_ITEM_SIZE / 2;
         this.items = items;
@@ -67,20 +71,7 @@ public class InstallationMenu extends Sprite {
             itemRect.offset(MENU_ITEM_SIZE, 0);
         }
         hide();
-        int cannonLevel = 0;
-        switch (foundItem) {
-            case R.mipmap.f_01_01: install(1); break;
-            case R.mipmap.f_02_01: install(2); break;
-            case R.mipmap.f_03_01: install(3); break;
-            case R.mipmap.upgrade: cannon.upgrade(); break;
-            case R.mipmap.uninstall: cannon.uninstall(); break;
-        }
+        listener.onMenu(foundItem);
         return true;
-    }
-
-    private void install(int cannonLevel) {
-        Cannon cannon = new Cannon(cannonLevel, installX, installY);
-        BaseScene scene = BaseScene.getTopScene();
-        scene.add(MainScene.Layer.cannon, cannon);
     }
 }

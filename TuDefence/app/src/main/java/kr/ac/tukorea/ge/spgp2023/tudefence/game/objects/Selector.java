@@ -13,19 +13,19 @@ import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.tudefence.R;
 import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
-public class Selector extends Sprite {
+public class Selector extends Sprite implements InstallationMenu.Listener {
     private static final String TAG = Selector.class.getSimpleName();
     private final TiledBackground bg;
     private final Paint candPaint;
     private float candidateX, candidateY;
     private InstallationMenu menu;
+    private Cannon cannon;
 
     public Selector(TiledBackground tiledBg) {
         super(R.mipmap.selection, -1, -1, 2, 2);
         this.bg = tiledBg;
 
-        menu = new InstallationMenu();
-
+        menu = new InstallationMenu(this);
         candPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         candPaint.setColor(0x7FBF3F3F);
         candPaint.setStyle(Paint.Style.FILL);
@@ -41,7 +41,8 @@ public class Selector extends Sprite {
             float cx = cannon.getX(), cy = cannon.getY();
             if (action == MotionEvent.ACTION_UP) {
                 //cannon.upgrade();
-                menu.setMenu(cannon, cx, cy, R.mipmap.upgrade, R.mipmap.uninstall);
+                this.cannon = cannon;
+                menu.setMenu(cx, cy, R.mipmap.upgrade, R.mipmap.uninstall);
             } else {
                 moveTo(cannon.getX(), cannon.getY());
             }
@@ -68,7 +69,7 @@ public class Selector extends Sprite {
             return true;
         }
         moveTo(x, y);
-        menu.setMenu(null, x, y, R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01);
+        menu.setMenu(x, y, R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01);
         candidateX = candidateY = -1;
         return true;
     }
@@ -109,5 +110,22 @@ public class Selector extends Sprite {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onMenu(int menuId) {
+        switch (menuId) {
+            case R.mipmap.f_01_01: install(1); break;
+            case R.mipmap.f_02_01: install(2); break;
+            case R.mipmap.f_03_01: install(3); break;
+            case R.mipmap.upgrade: cannon.upgrade(); break;
+            case R.mipmap.uninstall: cannon.uninstall(); break;
+        }
+        moveTo(-1, -1);
+    }
+    private void install(int cannonLevel) {
+        Cannon cannon = new Cannon(cannonLevel, (int)x, (int)y);
+        BaseScene scene = BaseScene.getTopScene();
+        scene.add(MainScene.Layer.cannon, cannon);
     }
 }
