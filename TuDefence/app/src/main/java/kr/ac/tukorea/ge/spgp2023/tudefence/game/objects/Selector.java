@@ -18,10 +18,13 @@ public class Selector extends Sprite {
     private final TiledBackground bg;
     private final Paint candPaint;
     private float candidateX, candidateY;
+    private InstallationMenu menu;
 
     public Selector(TiledBackground tiledBg) {
         super(R.mipmap.selection, -1, -1, 2, 2);
         this.bg = tiledBg;
+
+        menu = new InstallationMenu();
 
         candPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         candPaint.setColor(0x7FBF3F3F);
@@ -32,8 +35,10 @@ public class Selector extends Sprite {
         Cannon cannon = findCannonAt(gx, gy);
         if (cannon != null) {
             candidateX = candidateY = -1;
+            float cx = cannon.getX(), cy = cannon.getY();
             if (action == MotionEvent.ACTION_UP) {
-                cannon.upgrade();
+                //cannon.upgrade();
+                menu.setMenu(cx, cy, R.mipmap.upgrade, R.mipmap.uninstall);
             } else {
                 moveTo(cannon.getX(), cannon.getY());
             }
@@ -46,21 +51,18 @@ public class Selector extends Sprite {
         int x = Math.round(gx);
         int y = Math.round(gy);
         boolean canInstall = bg.canInstallAt(x, y);
-        if (canInstall) {
-            if (action != MotionEvent.ACTION_UP) {
-                candidateX = x;
-                candidateY = y;
-                return true;
-            }
-            candidateX = candidateY = -1;
-        } else {
+        if (!canInstall) {
             candidateX = candidateY = -1;
             return true;
         }
-        cannon = new Cannon(1, x, y);
-        BaseScene scene = BaseScene.getTopScene();
-        scene.add(MainScene.Layer.cannon, cannon);
+        if (action != MotionEvent.ACTION_UP) {
+            candidateX = x;
+            candidateY = y;
+            return true;
+        }
         moveTo(x, y);
+        menu.setMenu(x, y, R.mipmap.f_01_01, R.mipmap.f_02_01, R.mipmap.f_03_01);
+        candidateX = candidateY = -1;
         return true;
     }
 
@@ -73,6 +75,7 @@ public class Selector extends Sprite {
                     candidateX + 1, candidateY + 1,
                     candPaint);
         }
+        menu.draw(canvas);
     }
 
     private RectF instRect = new RectF();
