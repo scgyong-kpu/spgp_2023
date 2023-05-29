@@ -113,12 +113,12 @@ public class Fly extends SheetSprite implements IRecyclable {
     private void init(Type type, float speed, float size) {
         if (type == Type.RANDOM) {
             int value = random.nextInt(Type.POSSIBILITY_SUM);
-            Log.d(TAG, "value=" + value);
+            //Log.d(TAG, "value=" + value);
             for (int i = 0; i < Type.POSSIBILITIES.length; i++) {
                 value -= Type.POSSIBILITIES[i];
                 if (value < 0) {
                     type = Type.values()[i];
-                    Log.d("Fly", "type=" + type + " i=" + i);
+                    //Log.d("Fly", "type=" + type + " i=" + i);
                     break;
                 }
             }
