@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.PathDashPathEffect;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
@@ -30,12 +29,23 @@ public class Cannon extends Sprite {
     }
 
     private static int[] COSTS = {
-            10, 40, 80, 160, 300, 600, 1200, 2500, 5000, 10000
+            10, 30, 70, 150, 300, 700, 1500, 3000, 7000, 15000, 100000000
     };
-    public static int getCost(int level) {
+    public static int getInstallCost(int level) {
         return COSTS[level - 1];
     }
-
+    public static int getUpgradeCost(int level) {
+        return Math.round((COSTS[level] - COSTS[level - 1]) * 1.1f);
+    }
+    public int getUpgradeCost() {
+        return getUpgradeCost(level);
+    }
+    public static int getSellPrice(int level) {
+        return COSTS[level - 1] / 2;
+    }
+    public int getSellPrice() {
+        return getSellPrice(level);
+    }
     private void setLevel(int level) {
         this.level = level;
         this.power = (float) (10 * Math.pow(1.2, level - 1));

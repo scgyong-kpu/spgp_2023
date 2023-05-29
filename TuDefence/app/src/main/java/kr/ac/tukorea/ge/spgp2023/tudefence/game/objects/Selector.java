@@ -3,11 +3,9 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
-import kr.ac.tukorea.ge.spgp2023.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.TiledBackground;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -119,15 +117,17 @@ public class Selector extends Sprite implements InstallationMenu.Listener {
             case R.mipmap.f_01_01: install(1); break;
             case R.mipmap.f_02_01: install(2); break;
             case R.mipmap.f_03_01: install(3); break;
-            case R.mipmap.upgrade: cannon.upgrade(); break;
-            case R.mipmap.uninstall: cannon.uninstall(); break;
+            case R.mipmap.upgrade: upgrade(); break;
+            case R.mipmap.uninstall:
+                uninstall();
+                break;
         }
         moveTo(-1, -1);
     }
 
     private void install(int cannonLevel) {
         MainScene scene = (MainScene) BaseScene.getTopScene();
-        int cost = Cannon.getCost(cannonLevel);
+        int cost = Cannon.getInstallCost(cannonLevel);
         int score = scene.score.getScore();
         if (cost > score) {
             return;
@@ -135,5 +135,22 @@ public class Selector extends Sprite implements InstallationMenu.Listener {
         scene.score.add(-cost);
         Cannon cannon = new Cannon(cannonLevel, (int)x, (int)y);
         scene.add(MainScene.Layer.cannon, cannon);
+    }
+
+    private void upgrade() {
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        int cost = cannon.getUpgradeCost();
+        if (cost > scene.score.getScore()) {
+            return;
+        }
+        scene.score.add(-cost);
+        cannon.upgrade();
+    }
+
+    private void uninstall() {
+        int price = cannon.getSellPrice();
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        scene.score.add(price);
+        cannon.uninstall();
     }
 }
