@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2023.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.TiledBackground;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
@@ -123,9 +124,16 @@ public class Selector extends Sprite implements InstallationMenu.Listener {
         }
         moveTo(-1, -1);
     }
+
     private void install(int cannonLevel) {
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        int cost = Cannon.getCost(cannonLevel);
+        int score = scene.score.getScore();
+        if (cost > score) {
+            return;
+        }
+        scene.score.add(-cost);
         Cannon cannon = new Cannon(cannonLevel, (int)x, (int)y);
-        BaseScene scene = BaseScene.getTopScene();
         scene.add(MainScene.Layer.cannon, cannon);
     }
 }

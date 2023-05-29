@@ -83,6 +83,10 @@ public class Fly extends SheetSprite implements IRecyclable {
         return health <= 0;
     }
 
+    public int score() {
+        return Math.round(maxHealth / 10) * 10;
+    }
+
     public static Fly get(Type type, float speed, float size) {
         Fly fly = (Fly) RecycleBin.get(Fly.class);
         if (fly == null) {

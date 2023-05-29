@@ -87,13 +87,14 @@ public class Shell extends Sprite implements IRecyclable {
         if (dist >= radius + flyRadius) {
             return false;
         }
-        BaseScene scene = BaseScene.getTopScene();
+        MainScene scene = (MainScene) BaseScene.getTopScene();
         scene.remove(MainScene.Layer.shell, this);
         boolean dead = target.decreaseHealth(power);
         if (!dead) {
             return true;
         }
         this.target = null;
+        scene.score.add(target.score());
         scene.remove(MainScene.Layer.enemy, target);
         for (IGameObject o: scene.getObjectsAt(MainScene.Layer.shell)) {
             Shell s = (Shell)o;

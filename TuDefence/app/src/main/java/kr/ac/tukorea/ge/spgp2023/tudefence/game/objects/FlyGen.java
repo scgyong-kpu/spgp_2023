@@ -18,7 +18,7 @@ public class FlyGen implements IGameObject {
     private float interval = GEN_INTERVAL;
     private float waveTime;
     private float waveInteral = WAVE_INTERVAL;
-    private float speed = 2.0f;
+    private float speed = 1.0f;
     private int wave = 0;
     private boolean normalPhase = true;
 

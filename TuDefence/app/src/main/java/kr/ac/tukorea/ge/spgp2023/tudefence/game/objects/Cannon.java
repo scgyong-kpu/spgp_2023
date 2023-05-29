@@ -29,6 +29,13 @@ public class Cannon extends Sprite {
         setLevel(level);
     }
 
+    private static int[] COSTS = {
+            10, 40, 80, 160, 300, 600, 1200, 2500, 5000, 10000
+    };
+    public static int getCost(int level) {
+        return COSTS[level - 1];
+    }
+
     private void setLevel(int level) {
         this.level = level;
         this.power = (float) (10 * Math.pow(1.2, level - 1));
