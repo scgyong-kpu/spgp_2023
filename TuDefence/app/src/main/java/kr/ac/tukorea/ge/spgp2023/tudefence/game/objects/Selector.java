@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.tudefence.game.objects;
 
 import android.graphics.RectF;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
@@ -19,23 +20,29 @@ public class Selector extends Sprite {
         this.bg = tiledBg;
     }
 
-    public void onTouch(float gx, float gy) {
+    public boolean onTouch(int action, float gx, float gy) {
         Cannon cannon = findCannonAt(gx, gy);
         if (cannon != null) {
-            cannon.upgrade();
-            return;
+            if (action == MotionEvent.ACTION_UP) {
+                cannon.upgrade();
+            } else {
+                moveTo(cannon.getX(), cannon.getY());
+            }
+            return true;
         }
+        moveTo(gx, gy);
         if (intersectsIfInstalledAt(gx, gy)) {
-            return;
+            return true;
         }
         int x = Math.round(gx);
         int y = Math.round(gy);
         boolean canInstall = bg.canInstallAt(x, y);
-        if (!canInstall) return;
-        Log.d(TAG, "Touch Event: " + x + "," + y + " Install=" + canInstall);
+        if (!canInstall || action != MotionEvent.ACTION_UP) return true;
         cannon = new Cannon(1, x, y);
         BaseScene scene = BaseScene.getTopScene();
         scene.add(MainScene.Layer.cannon, cannon);
+        moveTo(x, y);
+        return true;
     }
 
     private RectF instRect = new RectF();

@@ -43,10 +43,9 @@ public class MainScene extends BaseScene {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() != MotionEvent.ACTION_DOWN) return false;
+        int action = event.getAction();
         float gx = Metrics.toGameX(event.getX());
         float gy = Metrics.toGameY(event.getY());
-        selector.onTouch(gx, gy);
-        return true;
+        return selector.onTouch(action, gx, gy);
     }
 }
