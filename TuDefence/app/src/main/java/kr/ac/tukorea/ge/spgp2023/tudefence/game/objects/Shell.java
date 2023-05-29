@@ -21,6 +21,7 @@ public class Shell extends Sprite implements IRecyclable {
     private float dx, dy, radius;
     private Fly target;
     private float power;
+    private boolean splash;
 
     private Shell() {
         super(R.mipmap.shells, 0, 0, 0.5f, 0.5f);
@@ -53,6 +54,7 @@ public class Shell extends Sprite implements IRecyclable {
         dy = (float) (speed * Math.sin(radian));
         this.power = cannon.power;
         radius = 0.2f + level * 0.02f;
+        splash = level >= 4;
         setSize(2 * radius, 2 * radius);
     }
 
@@ -89,10 +91,20 @@ public class Shell extends Sprite implements IRecyclable {
         }
         MainScene scene = (MainScene) BaseScene.getTopScene();
         scene.remove(MainScene.Layer.shell, this);
-        boolean dead = target.decreaseHealth(power);
-        if (!dead) {
+        if (splash) {
+            explode();
             return true;
         }
+        hit(target, power);
+        return true;
+    }
+
+    private void hit(Fly target, float power) {
+        boolean dead = target.decreaseHealth(power);
+        if (!dead) {
+            return;
+        }
+        MainScene scene = (MainScene) BaseScene.getTopScene();
         this.target = null;
         scene.score.add(target.score());
         scene.remove(MainScene.Layer.enemy, target);
@@ -102,7 +114,21 @@ public class Shell extends Sprite implements IRecyclable {
                 s.target = null;
             }
         }
-        return true;
+    }
+
+    private void explode() {
+        MainScene scene = (MainScene) BaseScene.getTopScene();
+        ArrayList<IGameObject> flies = scene.getObjectsAt(MainScene.Layer.enemy);
+        double explosion_radius = 5;
+        for (int i = flies.size() - 1; i >= 0; i--) {
+            Fly fly = (Fly) flies.get(i);
+            float dx = x - fly.getX();
+            float dy = y - fly.getY();
+            double dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < explosion_radius) {
+                hit(fly, power);
+            }
+        }
     }
 
     @Override
