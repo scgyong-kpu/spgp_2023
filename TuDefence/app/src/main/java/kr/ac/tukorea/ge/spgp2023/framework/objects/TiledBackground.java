@@ -53,6 +53,7 @@ public class TiledBackground implements IGameObject {
 
     public boolean canInstallAt(int x, int y) {
         if (x < 1 || y < 1) return false;
+        if (x >= map.width || y >= map.height) return false;
         int tile;
         tile = map.getLayerAt(0).tileAt(x, y);
         if (tile != TILE_INDEX_BRICK) return false;

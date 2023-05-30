@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import kr.ac.tukorea.ge.spgp2023.tudefence.game.scene.MainScene;
 
 public class Fly extends SheetSprite implements IRecyclable {
 
+    public static final String TAG = Fly.class.getSimpleName();
     private Type type;
     private float speed, distance;
     private float angle;
@@ -65,12 +67,24 @@ public class Fly extends SheetSprite implements IRecyclable {
         float getMaxHealth() {
             return HEALTHS[ordinal()];
         }
-        static float[] HEALTHS = { 100, 50, 40, 30, 10 };
+        static float[] HEALTHS = { 150, 50, 30, 20, 10 };
+        static int[] POSSIBILITIES = { 0, 10, 20, 30, 40 };
+        static int POSSIBILITY_SUM;
+        static {
+            POSSIBILITY_SUM = 0;
+            for (int p : POSSIBILITIES) {
+                POSSIBILITY_SUM += p;
+            }
+        }
     }
 
     public boolean decreaseHealth(float power) {
         health -= power;
         return health <= 0;
+    }
+
+    public int score() {
+        return Math.round(maxHealth / 10) * 10;
     }
 
     public static Fly get(Type type, float speed, float size) {
@@ -102,7 +116,16 @@ public class Fly extends SheetSprite implements IRecyclable {
     private Rect[][] rects_array;
     private void init(Type type, float speed, float size) {
         if (type == Type.RANDOM) {
-            type = Type.values()[random.nextInt(Type.COUNT.ordinal())];
+            int value = random.nextInt(Type.POSSIBILITY_SUM);
+            //Log.d(TAG, "value=" + value);
+            for (int i = 0; i < Type.POSSIBILITIES.length; i++) {
+                value -= Type.POSSIBILITIES[i];
+                if (value < 0) {
+                    type = Type.values()[i];
+                    //Log.d("Fly", "type=" + type + " i=" + i);
+                    break;
+                }
+            }
         }
         this.type = type;
         this.speed = speed;
