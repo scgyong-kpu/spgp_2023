@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class JsonHelper {
     private static final String TAG = JsonHelper.class.getSimpleName();
@@ -21,6 +22,10 @@ public class JsonHelper {
                 String value = reader.nextString();
                 Log.d(TAG, "String " + name + ": " + value + " - " + object);
                 field.set(object, value);
+            } else if (type == int[].class) {
+                int[] value = readIntArray(reader);
+                Log.d(TAG, "int[] " + name + ": [" + value.length + "] - " + object);
+                field.set(object, value);
             } else {
                 Log.e(TAG, "Not handling " + name + ". type: " + type + " - " + object);
                 return false;
@@ -32,5 +37,21 @@ public class JsonHelper {
         } catch (IllegalAccessException e) {
             return false;
         }
+    }
+    private static int[] readIntArray(JsonReader reader) throws IOException {
+        ArrayList<Integer> integers = new ArrayList<>();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            int value = reader.nextInt();
+            integers.add(value);
+        }
+        reader.endArray();
+
+        int[] ints = new int[integers.size()];
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] = integers.get(i);
+        }
+
+        return ints;
     }
 }
