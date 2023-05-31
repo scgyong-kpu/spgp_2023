@@ -1,8 +1,10 @@
-package kr.ac.tukorea.ge.spgp2023.taptu;
+package kr.ac.tukorea.ge.spgp2023.taptu.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import kr.ac.tukorea.ge.spgp2023.taptu.R;
 
 public class MainActivity extends AppCompatActivity {
 
