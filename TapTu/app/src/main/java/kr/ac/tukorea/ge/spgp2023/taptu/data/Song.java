@@ -9,8 +9,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import kr.ac.tukorea.ge.spgp2023.taptu.json.JsonHelper;
+
 public class Song {
     private static final String TAG = Song.class.getSimpleName();
+
+    //////////////////////////////////////////////////
+    /// from songs.json
+    public String title, artist, album, cover;
+    //////////////////////////////////////////////////
 
     public static ArrayList<Song> loadSongs(Context context, String filename) {
         ArrayList<Song> songs = new ArrayList<>();
@@ -39,8 +46,7 @@ public class Song {
             jr.beginObject();
             while (jr.hasNext()) {
                 String name = jr.nextName();
-                Log.d(TAG, "key: " + name);
-                jr.skipValue();
+                JsonHelper.readProperty(song, name, jr);
             }
             jr.endObject();
         } catch (IOException e) {
