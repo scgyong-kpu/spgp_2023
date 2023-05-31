@@ -22,6 +22,18 @@ public class JsonHelper {
                 String value = reader.nextString();
                 Log.d(TAG, "String " + name + ": " + value + " - " + object);
                 field.set(object, value);
+            } else if (type == boolean.class) {
+                boolean value = reader.nextBoolean();
+                Log.d(TAG, "boolean " + name + ": " + value + " - " + object);
+                field.set(object, value);
+            } else if (type == double.class) {
+                double value = reader.nextDouble();
+                Log.d(TAG, "double " + name + ": " + value + " - " + object);
+                field.set(object, value);
+            } else if (type == long.class) {
+                long value = reader.nextLong();
+                Log.d(TAG, "long " + name + ": " + value + " - " + object);
+                field.set(object, value);
             } else if (type == int[].class) {
                 int[] value = readIntArray(reader);
                 Log.d(TAG, "int[] " + name + ": [" + value.length + "] - " + object);
