@@ -3,6 +3,7 @@ package kr.ac.tukorea.ge.spgp2023.taptu.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -22,5 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         songs = Song.loadSongs(this, "songs.json");
+    }
+
+    public void onBtnStart(View view) {
     }
 }
