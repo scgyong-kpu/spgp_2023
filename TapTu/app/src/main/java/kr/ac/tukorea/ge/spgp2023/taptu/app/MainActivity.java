@@ -3,6 +3,7 @@ package kr.ac.tukorea.ge.spgp2023.taptu.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,6 +18,7 @@ import kr.ac.tukorea.ge.spgp2023.taptu.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
     private ArrayList<Song> songs;
 
@@ -34,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private BaseAdapter listAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
+            Log.d(TAG, "getCount() is called");
             return 100;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            Log.d(TAG, "getView(" + i + ") is called");
             TextView tv = new TextView(MainActivity.this);
             tv.setText("Text #" + i);
             return tv;
