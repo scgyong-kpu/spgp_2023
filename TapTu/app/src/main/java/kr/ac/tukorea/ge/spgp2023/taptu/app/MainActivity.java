@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import kr.ac.tukorea.ge.spgp2023.taptu.R;
 import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
 import kr.ac.tukorea.ge.spgp2023.taptu.databinding.ActivityMainBinding;
+import kr.ac.tukorea.ge.spgp2023.taptu.databinding.SongItemBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,14 +45,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "getView(" + i + ") is called. view=" + view);
-            TextView tv = (TextView)view;
-            if (tv == null) {
-                tv = new TextView(MainActivity.this);
-                tv.setHeight(200);
-                tv.setGravity(Gravity.CENTER_VERTICAL);
-            }
-            tv.setText("Text #" + i);
-            return tv;
+            SongItemBinding binding = SongItemBinding.inflate(getLayoutInflater());
+            binding.title.setText("Song #" + i);
+            return binding.getRoot();
         }
 
         @Override
