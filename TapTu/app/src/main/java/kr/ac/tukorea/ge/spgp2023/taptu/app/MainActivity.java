@@ -2,6 +2,8 @@ package kr.ac.tukorea.ge.spgp2023.taptu.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import kr.ac.tukorea.ge.spgp2023.taptu.R;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             binding.title.setText(song.title);
             binding.artist.setText(song.artist);
             binding.album.setText(song.album);
+            binding.thumbnail.setImageBitmap(loadAssetBitmap(song.cover));
             return binding.getRoot();
         }
 
@@ -64,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
+
+    private Bitmap loadAssetBitmap(String filename) {
+        try {
+            return BitmapFactory.decodeStream(getAssets().open(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public void onBtnStart(View view) {
     }
