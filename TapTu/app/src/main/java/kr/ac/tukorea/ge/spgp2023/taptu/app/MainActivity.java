@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -33,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private BaseAdapter listAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return 0;
+            return 100;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            return null;
+            TextView tv = new TextView(MainActivity.this);
+            tv.setText("Text #" + i);
+            return tv;
         }
 
         @Override
