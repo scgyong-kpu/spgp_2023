@@ -44,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "getView(" + i + ") is called. view=" + view);
-            TextView tv = new TextView(MainActivity.this);
-            tv.setHeight(200);
-            tv.setGravity(Gravity.CENTER_VERTICAL);
+            TextView tv = (TextView)view;
+            if (tv == null) {
+                tv = new TextView(MainActivity.this);
+                tv.setHeight(200);
+                tv.setGravity(Gravity.CENTER_VERTICAL);
+            }
             tv.setText("Text #" + i);
             return tv;
         }
