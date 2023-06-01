@@ -3,6 +3,7 @@ package com.example.taptu.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.taptu.R;
 import com.example.taptu.data.Song;
@@ -17,5 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ArrayList<Song> songs = Song.loadSongs(this, "songs.json");
+    }
+
+    public void onBtnStart(View view) {
     }
 }
