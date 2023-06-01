@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "getView(" + i + ") is called");
             TextView tv = new TextView(MainActivity.this);
+            tv.setHeight(200);
+            tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setText("Text #" + i);
             return tv;
         }
