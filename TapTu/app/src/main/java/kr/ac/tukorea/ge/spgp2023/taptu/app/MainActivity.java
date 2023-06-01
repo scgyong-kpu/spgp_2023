@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             Song song = songs.get(i);
             binding.title.setText(song.title);
             binding.artist.setText(song.artist);
+            binding.album.setText(song.album);
             return binding.getRoot();
         }
 
