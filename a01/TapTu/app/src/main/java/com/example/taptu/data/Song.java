@@ -2,9 +2,12 @@ package com.example.taptu.data;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.JsonReader;
 import android.util.Log;
 
+import com.example.taptu.app.MainActivity;
 import com.example.taptu.json.JsonHelper;
 
 import java.io.IOException;
@@ -53,6 +56,15 @@ public class Song {
             }
         }
         jr.endObject();
+        return song;
+    }
+
+    public Bitmap getThumbnail(Context context) {
+        try {
+            return BitmapFactory.decodeStream(context.getAssets().open(cover));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
