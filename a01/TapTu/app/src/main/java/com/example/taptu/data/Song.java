@@ -16,6 +16,11 @@ public class Song {
             InputStream is = assets.open(filename);
             InputStreamReader isr = new InputStreamReader(is);
             JsonReader jr = new JsonReader(isr);
+            jr.beginArray();
+            while (jr.hasNext()) {
+                // read a song object
+            }
+            jr.endArray();
             jr.close();
         } catch (Exception e) {
             e.printStackTrace();
