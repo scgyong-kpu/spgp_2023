@@ -3,6 +3,7 @@ package com.example.taptu.data;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.JsonReader;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Song {
+    private static final String TAG = Song.class.getSimpleName();
+
     public static ArrayList<Song> loadSongs(Context context, String filename) {
         AssetManager assets = context.getAssets();
         ArrayList<Song> songs = new ArrayList<>();
@@ -21,6 +24,8 @@ public class Song {
             while (jr.hasNext()) {
                 // read a song object
                 Song song = loadSong(jr);
+                songs.add(song);
+                Log.d(TAG, "Songs count = " + songs.size());
             }
             jr.endArray();
             jr.close();
@@ -35,6 +40,7 @@ public class Song {
         jr.beginObject();
         while (jr.hasNext()) {
             String name = jr.nextName();
+            Log.d(TAG, "key(" + name + ")");
             jr.skipValue();
         }
         jr.endObject();
