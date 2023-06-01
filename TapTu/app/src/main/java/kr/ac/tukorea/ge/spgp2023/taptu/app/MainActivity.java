@@ -39,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             Log.d(TAG, "getCount() is called");
-            return 100;
+            return songs.size();
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "getView(" + i + ") is called. view=" + view);
             SongItemBinding binding = SongItemBinding.inflate(getLayoutInflater());
-            binding.title.setText("Song #" + i);
+            Song song = songs.get(i);
+            binding.title.setText(song.title);
+            binding.artist.setText(song.artist);
             return binding.getRoot();
         }
 
