@@ -1,6 +1,8 @@
 package kr.ac.tukorea.ge.spgp2023.taptu.data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -54,5 +56,14 @@ public class Song {
         }
 
         return song;
+    }
+
+    public Bitmap getThumbnail(Context context) {
+        try {
+            return BitmapFactory.decodeStream(context.getAssets().open(cover));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

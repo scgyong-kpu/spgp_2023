@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             binding.title.setText(song.title);
             binding.artist.setText(song.artist);
             binding.album.setText(song.album);
-            binding.thumbnail.setImageBitmap(loadAssetBitmap(song.cover));
+            binding.thumbnail.setImageBitmap(song.getThumbnail(MainActivity.this));
             return view;
         }
 
