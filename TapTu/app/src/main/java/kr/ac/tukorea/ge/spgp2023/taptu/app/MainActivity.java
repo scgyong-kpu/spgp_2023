@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         songs = Song.loadSongs(this, "songs.json");
 
         binding.listView.setAdapter(listAdapter);
+        binding.listView.setOnItemClickListener(onItemClick);
     }
 
     private BaseAdapter listAdapter = new BaseAdapter() {
@@ -74,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
 
+    };
+
+    private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            view.setSelected(true);
+            Song song = songs.get(i);
+            Log.d(TAG, "Selected: " + song.title);
+        }
     };
 
     private Bitmap loadAssetBitmap(String filename) {
