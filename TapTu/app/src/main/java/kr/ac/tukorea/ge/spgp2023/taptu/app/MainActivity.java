@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             view.setSelected(true);
             Song song = songs.get(i);
             Log.d(TAG, "Selected: " + song.title);
+            song.playDemo();
         }
     };
 

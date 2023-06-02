@@ -1,12 +1,16 @@
 package kr.ac.tukorea.ge.spgp2023.taptu.data;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.util.JsonReader;
 import android.util.Log;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,11 +27,12 @@ public class Song {
     //////////////////////////////////////////////////
 
     protected static ArrayList<Song> songs;
-    protected static AssetManager assets;
+    private static Context context;
     public static ArrayList<Song> loadSongs(Context context, String filename) {
         ArrayList<Song> songs = new ArrayList<>();
         try {
-            assets = context.getAssets();
+            Song.context = context;
+            AssetManager assets = context.getAssets();
             InputStream is = assets.open(filename);
             JsonReader jr = new JsonReader(new InputStreamReader(is));
             jr.beginArray();
@@ -65,10 +70,27 @@ public class Song {
 
     public Bitmap getThumbnail() {
         try {
-            return BitmapFactory.decodeStream(assets.open(cover));
+            return BitmapFactory.decodeStream(context.getAssets().open(cover));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void playDemo() {
+        try {
+            AssetFileDescriptor afd = context.getAssets().openFd(music);
+            FileDescriptor fd = afd.getFileDescriptor();
+            Log.d(TAG, "music=" + music + " afd=" + afd + " fd=" + fd);
+            MediaPlayer mp = new MediaPlayer();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                mp.setDataSource(afd);
+//            }
+            mp.setDataSource(fd, afd.getStartOffset(), afd.getLength());
+            mp.prepare();
+            mp.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
