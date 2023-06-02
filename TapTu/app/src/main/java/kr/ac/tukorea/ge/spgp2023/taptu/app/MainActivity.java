@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
     private ArrayList<Song> songs;
+    private int selectedIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             view.setSelected(true);
+            if (selectedIndex >= 0) {
+                songs.get(selectedIndex).stop();
+            }
+            selectedIndex = i;
             Song song = songs.get(i);
             Log.d(TAG, "Selected: " + song.title);
             song.playDemo();
@@ -96,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-
+    
     public void onBtnStart(View view) {
     }
 }

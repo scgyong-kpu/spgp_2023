@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -24,10 +25,14 @@ public class Song {
     //////////////////////////////////////////////////
     /// from songs.json
     public String title, artist, album, cover, music;
+    public int demoStart, demoEnd;
     //////////////////////////////////////////////////
 
     protected static ArrayList<Song> songs;
+    protected static Handler handler = new Handler();
     private static Context context;
+    private MediaPlayer mediaPlayer;
+
     public static ArrayList<Song> loadSongs(Context context, String filename) {
         ArrayList<Song> songs = new ArrayList<>();
         try {
@@ -78,19 +83,37 @@ public class Song {
     }
 
     public void playDemo() {
+        stop();
         try {
             AssetFileDescriptor afd = context.getAssets().openFd(music);
             FileDescriptor fd = afd.getFileDescriptor();
             Log.d(TAG, "music=" + music + " afd=" + afd + " fd=" + fd);
-            MediaPlayer mp = new MediaPlayer();
+            mediaPlayer = new MediaPlayer();
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //                mp.setDataSource(afd);
 //            }
-            mp.setDataSource(fd, afd.getStartOffset(), afd.getLength());
-            mp.prepare();
-            mp.start();
+            MediaPlayer mp = mediaPlayer;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mp.stop();
+                    if (mp == mediaPlayer) {
+                        mediaPlayer = null;
+                    }
+                }
+            }, demoEnd - demoStart);
+            mediaPlayer.setDataSource(fd, afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepare();
+            mediaPlayer.seekTo(demoStart);
+            mediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void stop() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
         }
     }
 }
