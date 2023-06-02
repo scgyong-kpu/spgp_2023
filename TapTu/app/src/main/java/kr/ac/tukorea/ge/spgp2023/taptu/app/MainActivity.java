@@ -101,7 +101,15 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-    
+
+    @Override
+    protected void onPause() {
+        if (selectedIndex >= 0) {
+            songs.get(selectedIndex).stop();
+        }
+        super.onPause();
+    }
+
     public void onBtnStart(View view) {
     }
 }
