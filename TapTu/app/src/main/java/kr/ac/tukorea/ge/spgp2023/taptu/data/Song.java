@@ -1,6 +1,7 @@
 package kr.ac.tukorea.ge.spgp2023.taptu.data;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.JsonReader;
@@ -21,10 +22,13 @@ public class Song {
     public String title, artist, album, cover;
     //////////////////////////////////////////////////
 
+    protected static ArrayList<Song> songs;
+    protected static AssetManager assets;
     public static ArrayList<Song> loadSongs(Context context, String filename) {
         ArrayList<Song> songs = new ArrayList<>();
         try {
-            InputStream is = context.getAssets().open(filename);
+            assets = context.getAssets();
+            InputStream is = assets.open(filename);
             JsonReader jr = new JsonReader(new InputStreamReader(is));
             jr.beginArray();
             while (jr.hasNext()) {
@@ -39,6 +43,7 @@ public class Song {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Song.songs = songs;
         return songs;
     }
 
@@ -58,9 +63,9 @@ public class Song {
         return song;
     }
 
-    public Bitmap getThumbnail(Context context) {
+    public Bitmap getThumbnail() {
         try {
-            return BitmapFactory.decodeStream(context.getAssets().open(cover));
+            return BitmapFactory.decodeStream(assets.open(cover));
         } catch (IOException e) {
             e.printStackTrace();
         }
