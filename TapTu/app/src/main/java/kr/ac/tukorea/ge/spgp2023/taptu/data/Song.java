@@ -19,7 +19,7 @@ public class Song {
 
     //////////////////////////////////////////////////
     /// from songs.json
-    public String title, artist, album, cover;
+    public String title, artist, album, cover, music;
     //////////////////////////////////////////////////
 
     protected static ArrayList<Song> songs;
