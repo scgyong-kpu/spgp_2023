@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2023.framework.activity.BaseGameActivity;
+import kr.ac.tukorea.ge.spgp2023.taptu.game.PlayScene;
 
 public class GameActivity extends BaseGameActivity {
 
@@ -18,5 +19,6 @@ public class GameActivity extends BaseGameActivity {
         Bundle extras = getIntent().getExtras();
         int index = extras.getInt(SONG_INDEX);
         Log.d(TAG, "Selected Song Index = " + index);
+        new PlayScene().pushScene();
     }
 }
