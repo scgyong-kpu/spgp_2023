@@ -24,7 +24,7 @@ public class Song {
 
     //////////////////////////////////////////////////
     /// from songs.json
-    public String title, artist, album, cover, music;
+    public String title, artist, album, cover, music, noteFile;
     public int demoStart, demoEnd;
     //////////////////////////////////////////////////
 
