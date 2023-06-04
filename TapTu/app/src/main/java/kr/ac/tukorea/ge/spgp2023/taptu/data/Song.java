@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.JsonReader;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,51 @@ public class Song {
     public int demoStart, demoEnd;
     //////////////////////////////////////////////////
 
+    class Note {
+        int lane;
+        int msec;
+        Note(String line) {
+            String[] comps = line.split("\\s+");
+
+            lane = Integer.parseInt(comps[1]);
+            msec = Integer.parseInt(comps[2]);
+        }
+    }
+    private ArrayList<Note> notes = new ArrayList<>();
+    private float length;
+
+    public boolean loadNotes(AssetManager assets) {
+        try {
+            InputStream is = assets.open(noteFile);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
+            String title = this.title;
+            int msec = 0;
+            while (true) {
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                if (line.startsWith("T ")) {
+                    title = line.substring(2).trim();
+                } else if (line.startsWith("N")) {
+                    Note note = new Note(line);
+                    notes.add(note);
+                    if (msec < note.msec) {
+                        msec = note.msec;
+                    }
+                }
+            }
+            is.close();
+            length = msec / 1000.0f;
+            Log.d(TAG, "Title from nodeFile: " + title);
+            Log.d(TAG, "Notes loaded: " + notes.size());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     protected static ArrayList<Song> songs;
     protected static Handler handler = new Handler();
     private static Context context;

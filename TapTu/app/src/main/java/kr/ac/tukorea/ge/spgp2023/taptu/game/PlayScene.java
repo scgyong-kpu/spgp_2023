@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.taptu.game;
 
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
+import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.taptu.R;
 import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
@@ -11,6 +12,7 @@ public class PlayScene extends BaseScene {
 
     public PlayScene(int index) {
         song = Song.get(index);
+        song.loadNotes(GameView.view.getContext().getAssets());
     }
 
     public enum Layer {
