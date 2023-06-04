@@ -19,6 +19,6 @@ public class GameActivity extends BaseGameActivity {
         Bundle extras = getIntent().getExtras();
         int index = extras.getInt(SONG_INDEX);
         Log.d(TAG, "Selected Song Index = " + index);
-        new PlayScene().pushScene();
+        new PlayScene(index).pushScene();
     }
 }

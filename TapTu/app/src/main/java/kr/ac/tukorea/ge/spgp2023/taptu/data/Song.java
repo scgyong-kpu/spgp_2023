@@ -73,6 +73,10 @@ public class Song {
         return song;
     }
 
+    public static Song get(int index) {
+        return songs.get(index);
+    }
+
     public Bitmap getThumbnail() {
         try {
             return BitmapFactory.decodeStream(context.getAssets().open(cover));
@@ -114,6 +118,20 @@ public class Song {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer = null;
+        }
+    }
+
+    public void play() {
+        stop();
+        try {
+            AssetFileDescriptor afd = context.getAssets().openFd(music);
+            FileDescriptor fd = afd.getFileDescriptor();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDataSource(fd, afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
