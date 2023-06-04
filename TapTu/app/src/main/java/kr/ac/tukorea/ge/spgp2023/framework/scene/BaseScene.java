@@ -14,7 +14,7 @@ import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2023.framework.interfaces.ITouchable;
 import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
-import kr.ac.tukorea.ge.spgp2023.tudefence.BuildConfig;
+import kr.ac.tukorea.ge.spgp2023.taptu.BuildConfig;
 
 public class BaseScene {
     private static ArrayList<BaseScene> stack = new ArrayList<>();

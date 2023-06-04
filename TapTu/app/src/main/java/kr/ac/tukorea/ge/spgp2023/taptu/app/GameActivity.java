@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class GameActivity extends AppCompatActivity {
+import kr.ac.tukorea.ge.spgp2023.framework.activity.BaseGameActivity;
+
+public class GameActivity extends BaseGameActivity {
 
     public static final String SONG_INDEX = "songIndex";
     private static final String TAG = GameActivity.class.getSimpleName();
