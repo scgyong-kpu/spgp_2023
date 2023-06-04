@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             Song song = songs.get(i);
             Log.d(TAG, "Selected: " + song.title);
             song.playDemo();
+
+            binding.startButton.setEnabled(true);
         }
     };
 
@@ -111,5 +113,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnStart(View view) {
+        if (selectedIndex < 0) return;
     }
 }
