@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.spgp2023.taptu.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -114,5 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnStart(View view) {
         if (selectedIndex < 0) return;
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(GameActivity.SONG_INDEX, selectedIndex);
+        startActivity(intent);
     }
 }
