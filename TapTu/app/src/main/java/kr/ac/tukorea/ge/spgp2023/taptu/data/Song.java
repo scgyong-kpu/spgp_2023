@@ -63,7 +63,9 @@ public class Song {
             jr.beginObject();
             while (jr.hasNext()) {
                 String name = jr.nextName();
-                JsonHelper.readProperty(song, name, jr);
+                if (!JsonHelper.readProperty(song, name, jr)) {
+                    jr.skipValue();
+                }
             }
             jr.endObject();
         } catch (IOException e) {
