@@ -29,7 +29,7 @@ public class Song {
     public int demoStart, demoEnd;
     //////////////////////////////////////////////////
 
-    class Note {
+    public class Note {
         int lane;
         int msec;
         Note(String line) {
