@@ -29,8 +29,8 @@ public class NoteSprite extends Sprite implements IRecyclable {
     private void init(Song.Note note) {
         float x = (0.5f - 2 * NOTE_WIDTH) * Metrics.game_width;
         x += NOTE_WIDTH * Metrics.game_width * note.lane;
-        moveTo(x, -note.msec / 1000.0f); // y coordinate 1.0 = 1.0sec
         scene = (PlayScene)BaseScene.getTopScene();
+        moveTo(x, -scene.getSpeed() * note.msec / 1000.0f);
     }
 
     private NoteSprite() {
