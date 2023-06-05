@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="song_title_text_color">#001B9E</color>
+    <color name="song_artist_text_color">#490804</color>
+    <color name="song_album_text_color">#01520B</color>
 </resources>
