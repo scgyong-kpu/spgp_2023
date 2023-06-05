@@ -18,6 +18,11 @@ public class PlayScene extends BaseScene {
         speed = 2.0f;
     }
 
+    public float getNoteYCoord(Song.Note note) {
+        float y = NoteSprite.LINE_Y * Metrics.game_height;
+        return y;
+    }
+
     public enum Layer {
         bg, note, COUNT
     }
