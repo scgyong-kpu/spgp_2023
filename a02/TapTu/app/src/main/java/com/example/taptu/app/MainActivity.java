@@ -14,11 +14,15 @@ import android.widget.TextView;
 import com.example.taptu.R;
 import com.example.taptu.data.Song;
 import com.example.taptu.databinding.ActivityMainBinding;
+import com.example.taptu.databinding.SongItemBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
+    private ArrayList<Song> songs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Song.loadSongs(this);
+        songs = Song.loadSongs(this);
 
         binding.listView.setAdapter(listAdapter);
     }
@@ -35,22 +39,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             Log.d(TAG, "getCount() is called");
-            return 100;
+            return songs.size();
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "- getView(" + i + ") is called. view=" + view);
-            TextView tv;
-            if (view == null) {
-                tv = new TextView(MainActivity.this);
-                tv.setHeight(200);
-                tv.setGravity(Gravity.CENTER_VERTICAL);
-            } else {
-                tv = (TextView) view;
-            }
-            tv.setText("TextView #" + i);
-            return tv;
+            SongItemBinding binding = SongItemBinding.inflate(getLayoutInflater());
+            Song song = songs.get(i);
+            binding.title.setText(song.title);
+            binding.artist.setText(song.artist);
+            binding.album.setText(song.album);
+            return binding.getRoot();
         }
 
         @Override
