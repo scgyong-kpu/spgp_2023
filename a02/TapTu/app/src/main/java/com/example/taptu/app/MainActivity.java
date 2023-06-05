@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.taptu.R;
+import com.example.taptu.data.Song;
 import com.example.taptu.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,5 +18,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Song.loadSongs(this);
     }
 }
