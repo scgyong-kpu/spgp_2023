@@ -6,7 +6,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Handler;
 import android.util.JsonReader;
 import android.util.Log;
@@ -30,8 +29,8 @@ public class Song {
     //////////////////////////////////////////////////
 
     public class Note {
-        int lane;
-        int msec;
+        public int lane;
+        public int msec;
         Note(String line) {
             String[] comps = line.split("\\s+");
 
@@ -39,7 +38,7 @@ public class Song {
             msec = Integer.parseInt(comps[2]);
         }
     }
-    private ArrayList<Note> notes = new ArrayList<>();
+    public ArrayList<Note> notes = new ArrayList<>();
     private float length;
 
     public boolean loadNotes(AssetManager assets) {
@@ -181,5 +180,10 @@ public class Song {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getCurrentTime() {
+        if (mediaPlayer == null) return 0;
+        return mediaPlayer.getCurrentPosition();
     }
 }

@@ -9,6 +9,7 @@ import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
 
 public class PlayScene extends BaseScene {
     private final Song song;
+    private int timeMsec;
 
     public PlayScene(int index) {
         song = Song.get(index);
@@ -16,7 +17,7 @@ public class PlayScene extends BaseScene {
     }
 
     public enum Layer {
-        bg, COUNT
+        bg, note, COUNT
     }
 
     @Override
@@ -24,11 +25,25 @@ public class PlayScene extends BaseScene {
         initLayers(Layer.COUNT);
         float w = Metrics.game_width, h = Metrics.game_height;
         add(Layer.bg, new Sprite(R.mipmap.bg, w/2, h/2, w, h));
+        for (Song.Note note: song.notes) {
+            // temporary
+            add(Layer.note, NoteSprite.get(note));
+        }
         song.play();
     }
 
     @Override
     protected void onEnd() {
         song.stop();
+    }
+
+    @Override
+    public void update(long nanos) {
+        timeMsec = song.getCurrentTime();
+        super.update(nanos);
+    }
+
+    public int getCurrentTime() {
+        return timeMsec;
     }
 }
