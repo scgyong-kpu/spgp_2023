@@ -1,0 +1,163 @@
+[
+  {
+    "title": "I AM",
+    "artist": "IVE(아이브)",
+    "album": "I've IVE",
+    "cover": "album/c01.jpg",
+    "music": "m4a/m01.m4a",
+    "demoStart": 51000, "demoEnd": 66000,
+    "noteFile": "note/stage_01.txt"
+  },{
+    "title": "퀸카 (Queencard)",
+    "artist": "(여자)아이들",
+    "album": "I feel",
+    "cover": "album/c02.jpg",
+    "music": "m4a/m02.m4a",
+    "demoStart": 50000, "demoEnd": 66000,
+    "noteFile": "note/stage_02.txt"
+  },{
+    "title": "Spicy",
+    "artist": "aespa",
+    "album": "MY WORLD - The 3rd Mini Album",
+    "cover": "album/c03.jpg",
+    "music": "m4a/m03.m4a",
+    "demoStart": 52000, "demoEnd": 66000,
+    "noteFile": "note/stage_03.txt"
+  },{
+    "title": "Kitsch",
+    "artist": "IVE(아이브)",
+    "album": "I've IVE",
+    "cover": "album/c04.jpg",
+    "music": "m4a/m04.m4a",
+    "demoStart": 53000, "demoEnd": 66000,
+    "noteFile": "note/stage_04.txt"
+  },{
+    "title": "UNFORGIVEN (feat. Nile Rodgers)",
+    "artist": "LE SSERAFIM (르세라핌)",
+    "album": "UNFORGIVEN",
+    "cover": "album/c05.jpg",
+    "music": "m4a/m05.m4a",
+    "demoStart": 54000, "demoEnd": 66000,
+    "noteFile": "note/stage_05.txt"
+  },{
+    "title": "꽃",
+    "artist": "지수 (JISOO)",
+    "album": "ME",
+    "cover": "album/c06.jpg",
+    "music": "m4a/m06.m4a",
+    "demoStart": 55000, "demoEnd": 66000,
+    "noteFile": "note/stage_06.txt"
+  },{
+    "title": "Cupid",
+    "artist": "FIFTY FIFTY",
+    "album": "The Beginning: Cupid",
+    "cover": "album/c07.jpg",
+    "music": "m4a/m07.m4a",
+    "demoStart": 56000, "demoEnd": 66000,
+    "noteFile": "note/stage_07.txt"
+  },{
+    "title": "Ditto",
+    "artist": "NewJeans",
+    "album": "NewJeans 'OMG'",
+    "cover": "album/c08.jpg",
+    "music": "m4a/m08.m4a",
+    "demoStart": 57000, "demoEnd": 66000,
+    "noteFile": "note/stage_08.txt"
+  },{
+    "title": "Hype boy",
+    "artist": "NewJeans",
+    "album": "NewJeans 1st EP 'New Jeans'",
+    "cover": "album/c09.jpg",
+    "music": "m4a/m09.m4a",
+    "demoStart": 58000, "demoEnd": 66000,
+    "noteFile": "note/stage_09.txt"
+  },{
+    "title": "Teddy Bear",
+    "artist": "STAYC(스테이씨)",
+    "album": "Teddy Bear",
+    "cover": "album/c10.jpg",
+    "music": "m4a/m10.m4a",
+    "demoStart": 59000, "demoEnd": 66000,
+    "noteFile": "note/stage_10.txt"
+  },{
+    "title": "사건의 지평선",
+    "artist": "윤하",
+    "album": "YOUNHA 6th Album Repackage 'END THEORY : Final Edition'",
+    "cover": "album/c11.jpg",
+    "music": "m4a/m11.m4a",
+    "demoStart": 61000, "demoEnd": 66000,
+    "noteFile": "note/stage_11.txt"
+  },{
+    "title": "After LIKE",
+    "artist": "IVE(아이브)",
+    "album": "After LIKE",
+    "cover": "album/c12.jpg",
+    "music": "m4a/m12.m4a",
+    "demoStart": 62000, "demoEnd": 66000,
+    "noteFile": "note/stage_12.txt"
+  },{
+    "title": "손오공",
+  "artist": "세븐틴 (SEVENTEEN)",
+  "album": "SEVENTEEN 10th Mini Album 'FML'",
+  "cover": "album/c13.jpg",
+  "music": "m4a/m13.m4a",
+  "demoStart": 63000, "demoEnd": 66000,
+  "noteFile": "note/stage_13.txt"
+},{
+  "title": "OMG",
+  "artist": "NewJeans",
+  "album": "NewJeans 'OMG'",
+  "cover": "album/c14.jpg",
+  "music": "m4a/m14.m4a",
+  "demoStart": 64000, "demoEnd": 66000,
+  "noteFile": "note/stage_14.txt"
+},{
+  "title": "LOVE DIVE",
+  "artist": "IVE(아이브)",
+  "album": "LOVE DIVE",
+  "cover": "album/c15.jpg",
+  "music": "m4a/m15.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_15.txt"
+},{
+  "title": "파이팅 해야지 (Feat. 이영지)",
+  "artist": "부석순(SEVENTEEN)",
+  "album": "부석순 1st Single Album 'SECOND WIND'",
+  "cover": "album/c16.jpg",
+  "music": "m4a/m16.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_16.txt"
+},{
+  "title": "KNOCK",
+  "artist": "이채연",
+  "album": "Over The Moon",
+  "cover": "album/c17.jpg",
+  "music": "m4a/m17.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_17.txt"
+},{
+  "title": "I Don't Think That I Like Her",
+  "artist": "Charlie Puth",
+  "album": "CHARLIE",
+  "cover": "album/c18.jpg",
+  "music": "m4a/m18.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_18.txt"
+},{
+  "title": "이브, 프시케 그리고 푸른 수염의 아내",
+  "artist": "LE SSERAFIM (르세라핌)",
+  "album": "UNFORGIVEN",
+  "cover": "album/c19.jpg",
+  "music": "m4a/m19.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_19.txt"
+},{
+  "title": "건물 사이에 피어난 장미 (Rose Blossom)",
+  "artist": "H1-KEY(하이키)",
+  "album": "H1-KEY 1st Mini Album [Rose Blossom]",
+  "cover": "album/c20.jpg",
+  "music": "m4a/m20.m4a",
+  "demoStart": 51000, "demoEnd": 66000,
+  "noteFile": "note/stage_20.txt"
+}
+]
