@@ -10,10 +10,12 @@ import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
 public class PlayScene extends BaseScene {
     private final Song song;
     private int timeMsec;
+    private float speed;
 
     public PlayScene(int index) {
         song = Song.get(index);
         song.loadNotes(GameView.view.getContext().getAssets());
+        speed = 2.0f;
     }
 
     public enum Layer {
@@ -45,5 +47,8 @@ public class PlayScene extends BaseScene {
 
     public int getCurrentTime() {
         return timeMsec;
+    }
+    public float getSpeed() {
+        return speed;
     }
 }
