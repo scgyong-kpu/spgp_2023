@@ -42,6 +42,7 @@ public class Song {
     private float length;
 
     public boolean loadNotes(AssetManager assets) {
+        notes.clear();
         try {
             InputStream is = assets.open(noteFile);
             InputStreamReader isr = new InputStreamReader(is);
