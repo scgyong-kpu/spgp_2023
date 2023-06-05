@@ -8,7 +8,7 @@ import kr.ac.tukorea.ge.spgp2023.taptu.R;
 import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
 
 public class PlayScene extends BaseScene {
-    private final Song song;
+    final Song song;
     private int timeMsec;
     private float speed;
 
@@ -19,7 +19,7 @@ public class PlayScene extends BaseScene {
     }
 
     public enum Layer {
-        bg, note, COUNT
+        bg, note, controller, COUNT
     }
 
     @Override
@@ -27,10 +27,7 @@ public class PlayScene extends BaseScene {
         initLayers(Layer.COUNT);
         float w = Metrics.game_width, h = Metrics.game_height;
         add(Layer.bg, new Sprite(R.mipmap.bg, w/2, h/2, w, h));
-        for (Song.Note note: song.notes) {
-            // temporary
-            add(Layer.note, NoteSprite.get(note));
-        }
+        add(Layer.controller, new NoteGen(this));
         song.play();
     }
 
