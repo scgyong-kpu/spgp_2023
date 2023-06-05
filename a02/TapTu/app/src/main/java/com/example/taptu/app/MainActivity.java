@@ -3,10 +3,12 @@ package com.example.taptu.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.example.taptu.R;
 import com.example.taptu.data.Song;
@@ -14,6 +16,7 @@ import com.example.taptu.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
 
     @Override
@@ -30,12 +33,16 @@ public class MainActivity extends AppCompatActivity {
     private ListAdapter listAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return 0;
+            Log.d(TAG, "getCount() is called");
+            return 100;
         }
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            return null;
+            Log.d(TAG, "- getView(" + i + ") is called");
+            TextView tv = new TextView(MainActivity.this);
+            tv.setText("TextView #" + i);
+            return tv;
         }
 
         @Override
