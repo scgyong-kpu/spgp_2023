@@ -1,9 +1,12 @@
 package com.example.taptu.data;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.JsonReader;
 import android.util.Log;
 
+import com.example.taptu.app.MainActivity;
 import com.example.taptu.json.JsonHelper;
 
 import java.io.IOException;
@@ -46,5 +49,15 @@ public class Song {
             e.printStackTrace();
         }
         return songs;
+    }
+
+    public Bitmap getBitmap(Context context) {
+        try {
+            InputStream is = context.getAssets().open(cover);
+            return BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

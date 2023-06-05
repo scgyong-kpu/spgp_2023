@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             binding.title.setText(song.title);
             binding.artist.setText(song.artist);
             binding.album.setText(song.album);
+            binding.thumbnail.setImageBitmap(song.getBitmap(MainActivity.this));
             return view;
         }
 
