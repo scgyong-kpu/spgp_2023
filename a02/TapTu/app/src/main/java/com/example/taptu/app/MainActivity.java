@@ -45,12 +45,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             Log.d(TAG, "- getView(" + i + ") is called. view=" + view);
-            SongItemBinding binding = SongItemBinding.inflate(getLayoutInflater());
+            SongItemBinding binding;
+            if (view == null) {
+                binding = SongItemBinding.inflate(getLayoutInflater());
+                view = binding.getRoot();
+                view.setTag(binding);
+            } else {
+                binding = (SongItemBinding) view.getTag();
+            }
             Song song = songs.get(i);
             binding.title.setText(song.title);
             binding.artist.setText(song.artist);
             binding.album.setText(song.album);
-            return binding.getRoot();
+            return view;
         }
 
         @Override
