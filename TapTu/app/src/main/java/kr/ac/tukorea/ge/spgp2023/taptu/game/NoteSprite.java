@@ -46,13 +46,18 @@ public class NoteSprite extends Sprite implements IRecyclable {
     public void update() {
         super.update();
 
-        float timeDiff = note.msec - scene.getCurrentTime();
-        y = Metrics.game_height * LINE_Y - timeDiff * scene.getSpeed() / 1000.0f;
+        int msecDiff = note.msec - scene.getCurrentTime();
+        y = Metrics.game_height * LINE_Y - msecDiff * scene.getSpeed() / 1000.0f;
         fixDstRect();
         if (dstRect.top > Metrics.game_height) {
             scene.remove(PlayScene.Layer.note, this);
             return;
         }
+    }
+
+    public static boolean shouldAppear(float speed, int msecDiff) {
+        //return msecDiff / 1000.0f < Metrics.game_height / speed;
+        return msecDiff < 16000;
     }
 
     @Override
