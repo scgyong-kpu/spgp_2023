@@ -3,6 +3,7 @@ package com.example.taptu.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.taptu.R;
 import com.example.taptu.data.Song;
@@ -20,5 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Song.loadSongs(this);
+    }
+
+    public void onBtnStart(View view) {
     }
 }
