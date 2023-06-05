@@ -57,7 +57,7 @@ public class NoteSprite extends Sprite implements IRecyclable {
 
     public static boolean shouldAppear(float speed, int msecDiff) {
         //return msecDiff / 1000.0f < Metrics.game_height / speed;
-        return msecDiff < 16000;
+        return msecDiff < 6000;
     }
 
     @Override
