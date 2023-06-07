@@ -16,7 +16,7 @@ public class NoteSprite extends Sprite implements IRecyclable {
     static final float NOTE_RATIO = 1.0f / 3.0f;
     public static final float LINE_Y = 7.0f / 8.0f;
     private PlayScene scene;
-    private Song.Note note;
+    Song.Note note;
 
 
     public static NoteSprite get(Song.Note note) {

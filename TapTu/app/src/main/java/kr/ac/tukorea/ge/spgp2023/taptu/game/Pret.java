@@ -9,10 +9,15 @@ import kr.ac.tukorea.ge.spgp2023.framework.view.Metrics;
 import kr.ac.tukorea.ge.spgp2023.taptu.R;
 
 public class Pret extends Sprite {
+    public interface Listener {
+        public void onPret(int lane, boolean pressed);
+    }
+    private Listener listener;
     private boolean captures, shows;
     private int lane;
-    public Pret(int index) {
+    public Pret(int index, Listener listener) {
         this.lane = index;
+        this.listener = listener;
         bitmap = BitmapPool.get(R.mipmap.trans_50p);
         float width = NoteSprite.NOTE_WIDTH * Metrics.game_width;
         float center = Metrics.game_width / 2;
@@ -26,12 +31,12 @@ public class Pret extends Sprite {
             if (!in) return false;
             captures = true;
             shows = true;
-//            listener.onPret(lane, true);
+            listener.onPret(lane, true);
         } else if (action == MotionEvent.ACTION_UP) {
             shows = false;
             if (!captures) return false;
             captures = false;
-//            listener.onPret(lane, false);
+            listener.onPret(lane, false);
             return true;
         } else {
             if (!captures) return false;
