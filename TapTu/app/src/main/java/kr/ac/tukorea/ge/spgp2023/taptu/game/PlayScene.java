@@ -43,13 +43,25 @@ public class PlayScene extends BaseScene implements Pret.Listener {
 
     @Override
     public void onPret(int lane, boolean pressed) {
-        Log.d(TAG, "onPret: lane=" + lane + " pressed=" + pressed);
+//        Log.d(TAG, "onPret: lane=" + lane + " pressed=" + pressed);
         if (!pressed) return;
         NoteSprite ns = findNearestNote(lane);
         if (ns == null) return;
         int diff = ns.note.msec - timeMsec;
-        Log.d(TAG, " onPret diff=" + diff);
+//        Log.d(TAG, " onPret diff=" + diff);
         if (diff < 0) diff = -diff;
+        Call.Type type = Call.Type.miss;
+        if (diff < 100) {
+            type = Call.Type.perfect;
+        } else if (diff < 200) {
+            type = Call.Type.great;
+        } else if (diff < 300) {
+            type = Call.Type.good;
+        } else if (diff < 500) {
+            type = Call.Type.bad;
+        }
+        Log.d(TAG, "Call: [" + type + "] " + diff);
+        remove(Layer.note, ns);
     }
 
     private NoteSprite findNearestNote(int lane) {
