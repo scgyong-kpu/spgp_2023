@@ -15,20 +15,21 @@ public class NoteSprite extends Sprite implements IRecyclable {
     static final float NOTE_WIDTH = 1.0f / 7.0f;
     static final float NOTE_RATIO = 1.0f / 3.0f;
     public static final float LINE_Y = 7.0f / 8.0f;
-    private PlayScene scene;
+    protected PlayScene scene;
     Song.Note note;
 
 
     public static NoteSprite get(Song.Note note) {
-        NoteSprite ns = (NoteSprite) RecycleBin.get(NoteSprite.class);
-        if (ns == null) {
-            ns = new NoteSprite();
-        }
-        ns.init(note);
-        return ns;
+        return CircleNoteSprite.getCircleNoteSprite(note);
+//        NoteSprite ns = (NoteSprite) RecycleBin.get(NoteSprite.class);
+//        if (ns == null) {
+//            ns = new NoteSprite();
+//        }
+//        ns.init(note);
+//        return ns;
     }
 
-    private void init(Song.Note note) {
+    protected void init(Song.Note note) {
         this.note = note;
         float x = (0.5f - 2 * NOTE_WIDTH) * Metrics.game_width;
         x += NOTE_WIDTH * Metrics.game_width * note.lane;
@@ -36,7 +37,7 @@ public class NoteSprite extends Sprite implements IRecyclable {
         moveTo(x, -scene.getSpeed() * note.msec / 1000.0f);
     }
 
-    private NoteSprite() {
+    protected NoteSprite() {
         bitmap = BitmapPool.get(R.mipmap.note_1);
         width = NOTE_WIDTH * Metrics.game_width;
         height = width * NOTE_RATIO;
@@ -51,6 +52,7 @@ public class NoteSprite extends Sprite implements IRecyclable {
         fixDstRect();
         if (dstRect.top > Metrics.game_height) {
             scene.remove(PlayScene.Layer.note, this);
+            scene.call.set(Call.Type.miss);
             return;
         }
     }

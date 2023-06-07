@@ -18,7 +18,7 @@ public class PlayScene extends BaseScene implements Pret.Listener {
     final Song song;
     private int timeMsec;
     private float speed;
-    private Call call;
+    Call call;
 
     public PlayScene(int index) {
         song = Song.get(index);
