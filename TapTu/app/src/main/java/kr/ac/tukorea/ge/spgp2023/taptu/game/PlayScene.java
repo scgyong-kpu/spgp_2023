@@ -18,6 +18,7 @@ public class PlayScene extends BaseScene implements Pret.Listener {
     final Song song;
     private int timeMsec;
     private float speed;
+    private Call call;
 
     public PlayScene(int index) {
         song = Song.get(index);
@@ -26,7 +27,7 @@ public class PlayScene extends BaseScene implements Pret.Listener {
     }
 
     public enum Layer {
-        bg, pret, note, controller, COUNT
+        bg, pret, note, call, controller, COUNT
     }
 
     @Override
@@ -38,6 +39,7 @@ public class PlayScene extends BaseScene implements Pret.Listener {
             add(Layer.pret, new Pret(i, this));
         }
         add(Layer.controller, new NoteGen(this));
+        add(Layer.call, call = new Call());
         song.play();
     }
 
@@ -60,6 +62,7 @@ public class PlayScene extends BaseScene implements Pret.Listener {
         } else if (diff < 500) {
             type = Call.Type.bad;
         }
+        call.set(type);
         Log.d(TAG, "Call: [" + type + "] " + diff);
         remove(Layer.note, ns);
     }
