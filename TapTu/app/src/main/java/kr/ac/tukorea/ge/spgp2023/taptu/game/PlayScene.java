@@ -19,7 +19,7 @@ public class PlayScene extends BaseScene {
     }
 
     public enum Layer {
-        bg, note, controller, COUNT
+        bg, pret, note, controller, COUNT
     }
 
     @Override
@@ -27,6 +27,9 @@ public class PlayScene extends BaseScene {
         initLayers(Layer.COUNT);
         float w = Metrics.game_width, h = Metrics.game_height;
         add(Layer.bg, new Sprite(R.mipmap.bg, w/2, h/2, w, h));
+        for (int i = 0; i < 5; i++) {
+            add(Layer.pret, new Pret(i));
+        }
         add(Layer.controller, new NoteGen(this));
         song.play();
     }

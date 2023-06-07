@@ -12,8 +12,8 @@ import kr.ac.tukorea.ge.spgp2023.taptu.R;
 import kr.ac.tukorea.ge.spgp2023.taptu.data.Song;
 
 public class NoteSprite extends Sprite implements IRecyclable {
-    private static final float NOTE_WIDTH = 1.0f / 7.0f;
-    private static final float NOTE_RATIO = 1.0f / 3.0f;
+    static final float NOTE_WIDTH = 1.0f / 7.0f;
+    static final float NOTE_RATIO = 1.0f / 3.0f;
     public static final float LINE_Y = 7.0f / 8.0f;
     private PlayScene scene;
     private Song.Note note;
