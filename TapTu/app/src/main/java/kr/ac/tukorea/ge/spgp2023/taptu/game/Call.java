@@ -16,6 +16,7 @@ public class Call extends Sprite {
         super(R.mipmap.calls,
                 Metrics.game_width/2, Metrics.game_height/3,
                 Metrics.game_width/3, Metrics.game_height/15);
+        originalY = dstRect.top;
         srcHeight = bitmap.getHeight() / 5;
         srcRect.set(0, 0, bitmap.getWidth(), srcHeight);
         set(Type.none);
@@ -24,17 +25,25 @@ public class Call extends Sprite {
         int index = type.ordinal();
         if (type == Type.none) {
             index = -1;
+        } else {
+            setOn = System.currentTimeMillis();
         }
         srcRect.offsetTo(0, index * srcHeight);
-        //Log.d("Call", "type=" + type + " index=" + index + " rect=" + srcRect);
-        //setOn = System.currentTimeMillis();
     }
 
     private Rect srcRect = new Rect();
     private int srcHeight;
+    private long setOn;
+    private float originalY;
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+        int elapsed = (int) (System.currentTimeMillis() - setOn);
+        if (elapsed < 1000) {
+            if (elapsed > 500) elapsed = 500;
+            float y = originalY - elapsed * dstRect.height() / 1000.0f;
+            dstRect.offsetTo(dstRect.left, y);
+            canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+        }
     }
 }
