@@ -1,5 +1,10 @@
 package kr.ac.tukorea.ge.spgp2023.taptu.game;
 
+import android.view.MotionEvent;
+
+import java.util.ArrayList;
+
+import kr.ac.tukorea.ge.spgp2023.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2023.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2023.framework.scene.BaseScene;
 import kr.ac.tukorea.ge.spgp2023.framework.view.GameView;
@@ -43,6 +48,20 @@ public class PlayScene extends BaseScene {
     public void update(long nanos) {
         timeMsec = song.getCurrentTime();
         super.update(nanos);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float gx = Metrics.toGameX(event.getX());
+        float gy = Metrics.toGameY(event.getY());
+        ArrayList<IGameObject> prets = getObjectsAt(Layer.pret);
+        for (IGameObject gobj: prets) {
+            Pret pret = (Pret) gobj;
+            if (pret.onTouchEvent(event.getAction(), gx, gy)) {
+                return true;
+            }
+        }
+        return super.onTouchEvent(event);
     }
 
     public int getCurrentTime() {
